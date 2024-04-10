@@ -2,7 +2,7 @@ import { Navbar, Container, Button } from 'react-bootstrap';
 
 function TopNavbar() {
     return (
-        <Navbar className="bg-body-tertiary h-24">
+        <Navbar className="bg-body-tertiary h-24 w-100">
           <Container>
             <Navbar.Brand className='font-extrabold'>Atma Kitchen</Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">

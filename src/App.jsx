@@ -23,7 +23,7 @@ function App() {
     <>
       <TopNavbar/>
 
-      <Row>
+      <Row className='w-100'>
         <Col>
           <PicCarousel Images={images} />
         </Col>
