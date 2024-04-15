@@ -3,6 +3,8 @@ import { Row, Col } from 'react-bootstrap'
 import TopNavbar from './LoginPage/TopNavbar.jsx';
 import PicCarousel from './LoginPage/PicCarousel.jsx';
 import FormLogin from './LoginPage/FormLogin.jsx';
+import AdminView from './AdminView/AdminMainView.jsx';
+import SideBar from './Component/SidebarComponent/SideBarComponentAdmin.jsx'
 
 //import gambar
 import img1 from './assets/ImgCarousel/ImgCarousel(1).jpg'
@@ -17,11 +19,10 @@ const images = [img1, img2, img3, img4, img5, img6, img7];
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <TopNavbar/>
+      {/* <TopNavbar/>
 
       <Row className='w-100'>
         <Col>
@@ -30,7 +31,10 @@ function App() {
         <Col className='mx-20'>
           <FormLogin />
         </Col>
-      </Row>
+      </Row> */}
+
+      {/* <SideBar/> */}
+      <AdminView />
     </>
   )
 }
