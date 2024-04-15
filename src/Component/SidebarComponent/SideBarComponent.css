@@ -42,6 +42,13 @@
 
 }
 
+.text-topNavar{
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
 .logo-line {
     border-top: 1px solid rgba(237, 238, 242, 1);
     width: 100%;
