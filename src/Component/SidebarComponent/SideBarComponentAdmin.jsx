@@ -19,14 +19,18 @@ function SideBarComponent() {
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: '#fff', color: '#000' }}>
-                    <div style={{ display: 'flex' }}>
-                        <Button 
-                            type="text"
-                            onClick={() => setCollapsed(!collapsed)}
-                            icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined />}
-                            style={{marginTop: 16}}
-                        />
-                        <div className="text-topNavar">Home</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Button 
+                                type="text"
+                                onClick={() => setCollapsed(!collapsed)}
+                                icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined />}
+                                style={{marginTop: 16}}
+                            />
+                            <div className="text-topNavar">Home</div>
+                            <div className="text-topNavar">Contact</div>
+                        </div>
+                        {collapsed && <Button type="primary" danger style={{marginTop: 16, marginRight: 8}}>LogOut</Button>}
                     </div>
                 </Header>
             </Layout>

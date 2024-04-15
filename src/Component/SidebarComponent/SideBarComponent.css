@@ -43,6 +43,7 @@
 }
 
 .text-topNavar{
+    margin-left: 10px;
     color: rgba(0, 0, 0, 0.8);
     font-size: 1rem;
     font-family: 'Roboto';
