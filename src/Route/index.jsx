@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import LoginView from "../LoginPage/LoginView";
-import HomecookView from "../AdminView/ProductView/HomecookView";
-import AdminLayout from "../AdminView/AdminLayout";
+import LoginView from "../Pages/LoginPage/LoginView";
+import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
+import AdminLayout from "../Pages/AdminView/AdminLayout";
 
 const router = createBrowserRouter([
     {
