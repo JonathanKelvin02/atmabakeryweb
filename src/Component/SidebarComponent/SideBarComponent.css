@@ -1,0 +1,57 @@
+.sidebar{
+    color: #FFF;
+}
+
+.logo{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    color: #fff;
+    padding: 10px;
+}
+
+.logo-icon{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.6);
+}
+
+.logo-text {
+    margin-left: 8px;
+    color: black;
+    font-size: 2rem;
+    font-family: 'Roboto';
+    font-weight: 800;
+}
+
+.logo-textApa{
+    margin-left: 10px;
+    color: rgba(138, 146, 166, 0.8);
+    font-size: 1.4rem;
+    font-family: 'Roboto';
+    font-weight: 400;
+
+}
+
+.logo-line {
+    border-top: 1px solid rgba(237, 238, 242, 1);
+    width: 100%;
+}
+
+.menu-bar {
+    height: 88vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-size: 1rem;
+    position: relative;
+}

@@ -4,6 +4,7 @@ import TopNavbar from './LoginPage/TopNavbar.jsx';
 import PicCarousel from './LoginPage/PicCarousel.jsx';
 import FormLogin from './LoginPage/FormLogin.jsx';
 import AdminView from './AdminView/AdminMainView.jsx';
+import SideBar from './Component/SidebarComponent/SideBarComponentAdmin.jsx'
 
 //import gambar
 import img1 from './assets/ImgCarousel/ImgCarousel(1).jpg'
@@ -32,6 +33,7 @@ function App() {
         </Col>
       </Row> */}
 
+      {/* <SideBar/> */}
       <AdminView />
     </>
   )
