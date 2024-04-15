@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { Button, Dropdown, Offcanvas } from 'react-bootstrap';
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { MdOutlineFastfood } from "react-icons/md";
@@ -7,6 +8,7 @@ import { TbReport } from "react-icons/tb";
 
 function SideBarAdmin() {
     const [show, setShow] = useState(false);
+    const navigate = useNavigate();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -26,7 +28,7 @@ function SideBarAdmin() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu className='w-full space-y-3'>
-                            <Dropdown.Item href="#/action-1">Homecook</Dropdown.Item>
+                            <Dropdown.Item onClick={() => navigate('/admin/homecook')}>Homecook</Dropdown.Item>
                             <Dropdown.Item href="#/action-2">Hampers</Dropdown.Item>
                             <Dropdown.Item href="#/action-3">Titipan</Dropdown.Item>
                         </Dropdown.Menu>
