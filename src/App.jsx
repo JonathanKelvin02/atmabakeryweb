@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import TopNavbar from './LoginPage/TopNavbar.jsx';
-import PicCarousel from './LoginPage/PicCarousel.jsx';
-import FormLogin from './LoginPage/FormLogin.jsx';
-import AdminView from './AdminView/AdminMainView.jsx';
+import TopNavbar from './Pages/LoginPage/TopNavbar.jsx';
+import PicCarousel from './Pages/LoginPage/PicCarousel.jsx';
+import FormLogin from './Pages/LoginPage/FormLogin.jsx';
+import AdminView from './Pages/AdminView/AdminMainView.jsx';
 import SideBar from './Component/SidebarComponent/SideBarComponentAdmin.jsx'
+
+import MOView from './Pages/MOView/MOMainView.jsx'
 
 //import gambar
 import img1 from './assets/ImgCarousel/ImgCarousel(1).jpg'
@@ -34,7 +36,8 @@ function App() {
       </Row> */}
 
       {/* <SideBar/> */}
-      <AdminView />
+      {/* <AdminView /> */}
+      <MOView />
     </>
   )
 }
