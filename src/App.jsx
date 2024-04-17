@@ -24,16 +24,17 @@ function App() {
 
   return (
     <>
-      {/* <TopNavbar/>
-
-      <Row className='w-100'>
-        <Col>
-          <PicCarousel Images={images} />
-        </Col>
-        <Col className='mx-20'>
-          <FormLogin />
-        </Col>
-      </Row> */}
+      {/* <div style={{overflow:'hidden'}}>
+        <TopNavbar/>
+        <Row className='w-100'>
+          <Col>
+            <PicCarousel Images={images} />
+          </Col>
+          <Col className='mx-20'>
+            <FormLogin />
+          </Col>
+        </Row>
+      </div> */}
 
       {/* <SideBar/> */}
       {/* <AdminView /> */}

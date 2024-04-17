@@ -2,10 +2,10 @@ import { Container, Form, Button } from 'react-bootstrap';
 
 function FormLogin() {
     return (
-        <div className="flex justify-center items-center h-screen">
-            <Container className='p-10 bg-gray-100 rounded-xl'>
+        <div className="d-flex justify-content-center align-items-center h-75 m-5">
+            <Container className='p-5 shadow-sm' style={{borderRadius:'10px'}}>
                 <div className='text-center'>
-                    <h1 className='font-extrabold mt-3'>Log In</h1>
+                    <h1 className='mt-3'>Log In</h1>
                     <label>Welcome Back</label>
                 </div>
                 <Form>
@@ -17,17 +17,21 @@ function FormLogin() {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" />
                         <Form.Text muted>
-                            Don't have an account? <a href="/register">Register</a>
-                            <div className='float-end'>
+                            <div className="d-flex justify-content-between">
+                                <span>Don't have an account? <a href="/register">Register</a></span>
                                 <a href='/forget-password'>Forget Password</a>
                             </div>
                         </Form.Text>
                     </Form.Group>
                 </Form>
                 <div className='d-grid'>
-                    <Button className='bg-yellow-950 border-2 border-l-yellow-950' type="submit">
-                        Submit
-                    </Button>
+                    <Button 
+                    type="submit"
+                    style={{
+                        backgroundColor: '#8e6f8e', 
+                        borderColor: '#8e6f8e', 
+                        color: 'white'
+                    }}>Submit</Button>
                 </div>
             </Container>
         </div>

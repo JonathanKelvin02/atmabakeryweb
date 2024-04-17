@@ -6,7 +6,12 @@ function PicCarousel({ Images }) {
             {Images.map((image, index) => (
                 <Carousel.Item key={index}>
                     <img
-                        className="d-block w-100 h-screen"
+                        className="d-block"
+                        style={{
+                            width: '100%',
+                            height: '92.6vh',
+                            objectFit: 'cover'
+                        }}
                         src={image}
                     />
                 </Carousel.Item>

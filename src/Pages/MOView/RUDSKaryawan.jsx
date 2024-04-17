@@ -8,20 +8,20 @@ function RUDSKaryawan() {
 
     return (
         <>
-            <InputGroup className='mt-6 ms-2' style={{ width: '30%' }}>
+            <InputGroup className='m-3 w-25'>
                 <Form.Control
                     placeholder="Search"
                     aria-label="Search"
                     aria-describedby="basic-addon2"
                 />
-                <Button id="button-addon2" style={{ backgroundColor: '#422006' }}>
+                <Button id="button-addon2" style={{ backgroundColor: '#8e6f8e', borderColor:'#8e6f8e' }}>
                     <FontAwesomeIcon icon={faSearch} />
                 </Button>
             </InputGroup>
 
-            <Button  href='' className='mt-6 ms-2' style={{ backgroundColor: '#422006', width: '15%' }}>Tambah Karyawan</Button>
+            <Button  href='' className='ms-3' style={{ backgroundColor: '#8e6f8e', width: '15%', borderColor:'#8e6f8e' }}>Tambah Karyawan</Button>
 
-            <Table className='mt-6 ml-2' striped hover style={{ width: '98.5%' }}>
+            <Table className='mt-3 ms-3' striped hover style={{width:'97.5%'}}>
                 <thead className='text-center'>
                     <tr>
                         <th>Nama Karyawan</th>
@@ -54,8 +54,8 @@ function RUDSKaryawan() {
                         </td>
                         <td>---</td>
                         <td>---</td>
-                        <td className='flex justify-center space-x-2'>
-                            <Button variant='success' size='sm'>Edit</Button>
+                        <td className='d-flex justify-content-center'>
+                            <Button variant='success' size='sm' className='me-2'>Edit</Button>
                             <Button variant='danger' size='sm'>Delete</Button>
                         </td>
                     </tr>
