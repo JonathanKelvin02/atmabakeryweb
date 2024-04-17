@@ -7,17 +7,31 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 import './Product.css';
 
 //Import API
-import { GetAllRecipe } from "../../../api/apiProduk";
+import { GetAllHampers, GetAllRecipe } from "../../../api/apiProduk";
 
-const HomecookView = () => {
+const HampersView = () => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [resep, setResep] = useState([]);
     
     const fetchProducts = () => {
         setIsLoading(true);
-        GetAllRecipe().then((response) => {
+        GetAllHampers().then((response) => {
             setProducts(response);
             setIsLoading(false);
+            console.log(products);
+        }).catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+        })
+    }
+
+    const getAllRecipe = async () => {
+        setIsLoading(true);
+        await GetAllRecipe().then((response) => {
+            setResep(response);
+            setIsLoading(false);
+            console.log(resep);
         }).catch((err) => {
             console.log(err);
             setIsLoading(false);
@@ -26,6 +40,7 @@ const HomecookView = () => {
 
     useEffect(() => {
         fetchProducts();
+        getAllRecipe();
     }, [])
 
     return(
@@ -61,26 +76,43 @@ const HomecookView = () => {
                         <h6 className="mt-2 mb-0">Loading...</h6>
                     </div>
                 ) : (
-                    products?.length > 0 ? (
+                    products?.length > 0 && resep?.length > 0 ? (
                         <table>
                             <thead>
                                 <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
                                     <th>Product Name</th>
                                     <th>Price</th>
                                     <th>Limit/Day</th>
-                                    <th>Ready Stock</th>
-                                    <th style={{ width: '24%'}}>Action</th>
+                                    <th>Product List</th>
+                                    <th>Quantity</th>
+                                    <th style={{ width: '20%'}}>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {products?.map((homecook, index) => (
-                                    <tr key={homecook.id} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                        <td>{homecook.tblproduk.Nama_Produk}</td>
-                                        <td>Rp.{homecook.tblproduk.Harga}</td>
-                                        <td>{homecook.tblproduk.Stok}</td>
-                                        <td>{homecook.tblproduk.StokReady}</td>
+                                {products?.map((hampers, index) => (
+                                    <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                        <td>{hampers.tblproduk.Nama_Produk}</td>
+                                        <td>Rp.{hampers.tblproduk.Harga}</td>
+                                        <td>{hampers.tblproduk.Stok}</td>
                                         <td>
-                                            <button className="edit-action">Recipe</button>
+                                            <ul className="m-0 p-0">
+                                                {/* loading here */}
+                                                {hampers.resep.map((myresep, index) => (
+                                                    <li key={index}>{resep.find(recipe => recipe.ID_Produk === myresep.ID_Produk)?.tblproduk.Nama_Produk}</li>
+                                                ))}
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul className="m-0 p-0">
+                                                {/* loading here */}
+                                                {hampers.resep.map((myresep, index) => (
+                                                    <li key={index}>
+                                                        {myresep.pivot.Kuantitas}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </td>
+                                        <td>
                                             <button className="edit-action">Edit</button>
                                             <button className="delete-action">Delete</button>
                                         </td>
@@ -100,4 +132,4 @@ const HomecookView = () => {
     );
 };
 
-export default HomecookView;
+export default HampersView;

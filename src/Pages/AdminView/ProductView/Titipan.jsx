@@ -7,15 +7,15 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 import './Product.css';
 
 //Import API
-import { GetAllRecipe } from "../../../api/apiProduk";
+import { GetAllTitipan } from "../../../api/apiProduk";
 
-const HomecookView = () => {
+const TitipanView = () => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     
     const fetchProducts = () => {
         setIsLoading(true);
-        GetAllRecipe().then((response) => {
+        GetAllTitipan().then((response) => {
             setProducts(response);
             setIsLoading(false);
         }).catch((err) => {
@@ -67,7 +67,7 @@ const HomecookView = () => {
                                 <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
                                     <th>Product Name</th>
                                     <th>Price</th>
-                                    <th>Limit/Day</th>
+                                    <th>Penitip</th>
                                     <th>Ready Stock</th>
                                     <th style={{ width: '24%'}}>Action</th>
                                 </tr>
@@ -77,10 +77,9 @@ const HomecookView = () => {
                                     <tr key={homecook.id} style={{ borderBottom: '1px solid #EDEEF2' }}>
                                         <td>{homecook.tblproduk.Nama_Produk}</td>
                                         <td>Rp.{homecook.tblproduk.Harga}</td>
-                                        <td>{homecook.tblproduk.Stok}</td>
+                                        <td>{homecook.penitip}</td>
                                         <td>{homecook.tblproduk.StokReady}</td>
                                         <td>
-                                            <button className="edit-action">Recipe</button>
                                             <button className="edit-action">Edit</button>
                                             <button className="delete-action">Delete</button>
                                         </td>
@@ -100,4 +99,4 @@ const HomecookView = () => {
     );
 };
 
-export default HomecookView;
+export default TitipanView;

@@ -11,16 +11,20 @@ import {
     faFile 
 } from '@fortawesome/free-solid-svg-icons';
 
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
+
 const MenuList = () => {
+    const navigate = useNavigate();
+    
     return(
         <Menu theme='light' mode='inline' className='menu-bar'>
             <Menu.Item key="dashboard" icon={<DashboardOutlined />}>
                 Dashboard
             </Menu.Item>
             <Menu.SubMenu key="product" icon={<BarsOutlined />} title="Product">
-                <Menu.Item key="homecook">Homecook</Menu.Item>
-                <Menu.Item key="hampers">Hampers</Menu.Item>
-                <Menu.Item key="titipanh">Titipan</Menu.Item>
+                <Menu.Item key="homecook" onClick={() => navigate('/admin/homecook')} >Homecook</Menu.Item>
+                <Menu.Item key="hampers" onClick={() => navigate('/admin/hampers')}>Hampers</Menu.Item>
+                <Menu.Item key="titipanh" onClick={() => navigate('/admin/titipan')}>Titipan</Menu.Item>
             </Menu.SubMenu>
             <Menu.Item key="user" icon={<FontAwesomeIcon icon={faUsers} />}>
                 Users

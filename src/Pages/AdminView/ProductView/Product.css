@@ -1,0 +1,86 @@
+.top-container {
+    border-bottom: 1px solid #EDEEF2;
+    background-color: white;
+    margin: 32px;
+    margin-bottom: 0;
+    padding: 16px;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    border-radius: 8px 8px 0 0;
+    width: fit-content;
+    height: fit-content;
+}
+
+.big-container {
+    margin: 32px;
+    margin-top: 0;
+    background-color: white;
+    padding: 16px;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    border-radius: 0 0 8px 8px;
+    width: fit-content;
+    height: fit-content;
+    max-height: 540px;
+}
+
+.search {
+    border: 1px solid #8E6F60;
+    border-radius: 50px 0 0 50px;
+    padding: 8px;
+    padding-left: 16px;
+    background-color: rgba(142, 111, 96, 0.1);
+}
+
+.search-button {
+    border: 1px solid #8E6F60;
+    border-radius: 0 50px 50px 0;
+    padding: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #8E6F60;
+}
+
+.add-product {
+    display: inline-flex;
+    align-items: center;
+    background-color: #8E6F60;
+    border-radius: 8px;
+    color: white;
+    padding: 8px;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+tr, th, td{
+    padding: 8px;
+}
+
+.edit-action {
+    border: 2px solid #8E6F60;
+    border-radius: 8px;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: #8E6F60;
+    font-weight: bold;
+    margin: 2px;
+    width: 64px;
+}
+
+.delete-action {
+    border: 2px solid #8E6F60;
+    background-color: #8E6F60;
+    border-radius: 8px;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: white;
+    font-weight: bold;
+    margin: 2px;
+    width: 64px;
+}
