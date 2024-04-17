@@ -1,19 +1,55 @@
-import { Navbar, Container, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Navbar, Container } from 'react-bootstrap';
 
 function TopNavbar() {
+    const [loginClicked, setLoginClicked] = useState(true);
+    const [registerClicked, setRegisterClicked] = useState(false);
+
+    const handleLoginClick = (e) => {
+        e.preventDefault();
+        setLoginClicked(true);
+        setRegisterClicked(false);
+    };
+
+    const handleRegisterClick = (e) => {
+        e.preventDefault();
+        setRegisterClicked(true);
+        setLoginClicked(false);
+    };
+
     return (
-        <Navbar className="bg-body-tertiary h-24 w-100">
-          <Container>
-            <Navbar.Brand className='font-extrabold'>Atma Kitchen</Navbar.Brand>
-            <Navbar.Collapse className="justify-content-end">
-                <div className='flex space-x-4'>
-                    <a href="/login" className="bg-orange-950 border-2 border-yellow-950 text-white px-4 py-2 rounded font-bold" style={{textDecoration: 'none'}}>Login</a>
-                    <a href="/register" className="bg-gray-100 border-2 border-yellow-950 text-yellow-950 px-4 py-2 rounded font-bold" style={{textDecoration: 'none'}}>Register</a>
-                </div>
-            </Navbar.Collapse>
-          </Container>
+        <Navbar className="bg-body-tertiary w-100">
+            <Container>
+                <Navbar.Brand><b>Atma Kitchen</b></Navbar.Brand>
+                <Navbar.Collapse className="justify-content-end">
+                    <div className='flex'>
+                        <a href="/login" onClick={handleLoginClick} className={'me-2'}
+                            style={{
+                                backgroundColor: loginClicked ? '#8e6f8e' : 'white',
+                                padding: '10px 20px',
+                                color: loginClicked ? 'white' : '#8e6f8e',
+                                textDecoration: 'none',
+                                borderRadius: '8px',
+                                borderWidth: '2px',
+                                borderStyle: 'solid',
+                                borderColor: loginClicked ? 'white' : '#8e6f8e'
+                            }}>Login</a>
+                        <a href="/register" onClick={handleRegisterClick}
+                            style={{
+                                backgroundColor: registerClicked ? '#8e6f8e' : 'white',
+                                padding: '10px 20px',
+                                color: registerClicked ? 'white' : '#8e6f8e',
+                                textDecoration: 'none',
+                                borderRadius: '8px',
+                                borderWidth: '2px',
+                                borderStyle: 'solid',
+                                borderColor: registerClicked ? 'white' : '#8e6f8e'
+                            }}>Register</a>
+                    </div>
+                </Navbar.Collapse>
+            </Container>
         </Navbar>
-      );
+    );
 }
 
 export default TopNavbar;
