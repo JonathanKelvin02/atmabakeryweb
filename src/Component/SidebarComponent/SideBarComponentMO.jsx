@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Layout, Button, theme } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+
 import './SideBarComponent.css'
-import './Logo'
+
+
 import Logo from './Logo';
 import MenuList from './MenuList';
+import RUDSKaryawan from '../../Pages/MOView/RUDSKaryawan.jsx';
 
 import { 
     faUsers, 
@@ -72,6 +75,7 @@ function SideBarComponent() {
                         <div className="text-topNavar">Home</div>
                     </div>
                 </Header>
+                <RUDSKaryawan />
             </Layout>
         </Layout>
     );
