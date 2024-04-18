@@ -1,10 +1,12 @@
-// import { useState } from 'react'
-// import { Row, Col } from 'react-bootstrap'
-// import TopNavbar from './LoginPage/TopNavbar.jsx';
-// import PicCarousel from './LoginPage/PicCarousel.jsx';
-// import FormLogin from './LoginPage/FormLogin.jsx';
-// import AdminView from './AdminView/AdminMainView.jsx';
-// import SideBar from './Component/SidebarComponent/SideBarComponentAdmin.jsx'
+import { useState } from 'react'
+import { Row, Col } from 'react-bootstrap'
+import TopNavbar from './Pages/LoginPage/TopNavbar.jsx';
+import PicCarousel from './Pages/LoginPage/PicCarousel.jsx';
+import FormLogin from './Pages/LoginPage/FormLogin.jsx';
+import AdminView from './Pages/AdminView/AdminMainView.jsx';
+import SideBar from './Component/SidebarComponent/SideBarComponentAdmin.jsx'
+
+import MOView from './Pages/MOView/MOMainView.jsx'
 
 // //import gambar
 // import img1 from './assets/ImgCarousel/ImgCarousel(1).jpg'
@@ -22,19 +24,21 @@ function App() {
 
   return (
     <>
-      {/* <TopNavbar/>
-
-      <Row className='w-100'>
-        <Col>
-          <PicCarousel Images={images} />
-        </Col>
-        <Col className='mx-20'>
-          <FormLogin />
-        </Col>
-      </Row> */}
+      {/* <div style={{overflow:'hidden'}}>
+        <TopNavbar/>
+        <Row className='w-100'>
+          <Col>
+            <PicCarousel Images={images} />
+          </Col>
+          <Col className='mx-20'>
+            <FormLogin />
+          </Col>
+        </Row>
+      </div> */}
 
       {/* <SideBar/> */}
       {/* <AdminView /> */}
+      {/* <MOView /> */}
     </>
   )
 }

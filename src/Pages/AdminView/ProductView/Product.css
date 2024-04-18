@@ -64,8 +64,6 @@ tr, th, td{
     border: 2px solid #8E6F60;
     border-radius: 8px;
     padding: 2px;
-    padding-left: 4px;
-    padding-right: 4px;
     color: #8E6F60;
     font-weight: bold;
     margin: 2px;
@@ -77,8 +75,6 @@ tr, th, td{
     background-color: #8E6F60;
     border-radius: 8px;
     padding: 2px;
-    padding-left: 4px;
-    padding-right: 4px;
     color: white;
     font-weight: bold;
     margin: 2px;

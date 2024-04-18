@@ -3,9 +3,10 @@ import { ToastContainer } from "react-toastify";
 
 import LoginView from "../Pages/LoginPage/LoginView";
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
-import AdminLayout from "../Pages/AdminView/AdminLayout";
+import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
     {
@@ -23,21 +24,68 @@ const router = createBrowserRouter([
     {
         path: "/admin",
         element: (
-            // Ntar di protect otentikasi sama role
-            <AdminLayout />
+            <ProtectedRoutes roles={'Admin'}>
+                <SideBarAdmin />
+            </ProtectedRoutes>
         ),
         children: [
             {
-                path: "/admin/homecook",
+                path: "/admin",
+                // element: <Dashboard Admin />
+            },
+            {
+                path: "/admin/Homecook",
                 element: <HomecookView />
             },
             {
-                path: "/admin/hampers",
+                path: "/admin/Hampers",
                 element: <HampersView />
             },
             {
-                path: "/admin/titipan",
+                path: "/admin/Titipan",
                 element: <TitipanView />
+            }
+        ]
+    },
+    {
+        path: "/MO",
+        element: (
+            <ProtectedRoutes roles={'MO'}>
+                {/* Sidebar MO */}
+            </ProtectedRoutes>
+        ),
+        children: [
+            {
+                path: "/MO",
+                // element: <Dashboard MO />
+            }
+        ]
+    },
+    {
+        path: "/owner",
+        element: (
+            <ProtectedRoutes roles={'Owner'}>
+                {/* Sidebar Owner */}
+            </ProtectedRoutes>
+        ),
+        children: [
+            {
+                path: "/owner",
+                // element: <Dashboard Owner />
+            }
+        ]
+    },
+    {
+        path: "/customer",
+        element: (
+            <ProtectedRoutes roles={'Customer'}>
+                {/* Sidebar Customer */}
+            </ProtectedRoutes>
+        ),
+        children: [
+            {
+                path: "/customer",
+                // element: <Dashboard Customer />
             }
         ]
     }

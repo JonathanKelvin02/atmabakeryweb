@@ -1,41 +1,43 @@
 import { useState } from 'react';
 import { Layout, Button, theme } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+
 import './SideBarComponent.css'
-import './Logo'
+
+
 import Logo from './Logo';
 import MenuList from './MenuList';
-
-import { Outlet } from 'react-router-dom';
+import RUDSKaryawan from '../../Pages/MOView/RUDSKaryawan.jsx';
 
 import { 
     faUsers, 
-    faFile 
+    faFile,
+    faBagShopping 
 } from '@fortawesome/free-solid-svg-icons';
 
 const menu = [
     {
-        nama : 'Product',
-        pil1 : 'Homecook',
-        pil2 : 'Hampers',
-        pil3 : 'Titipan',
-        path : '/admin'
-    },
-    {
-        nama : 'User',
-        pil1 : null,
-        pil2 : null,
-        pil3 : null,
-        icon : faUsers,
-        path : '/admin'
-    },
-    {
         nama : 'Karyawan',
+        pil1 : 'Tambah Karyawan',
+        pil2 : 'Presensi Karyawan',
+        pil3 : 'List Karyawan',
+        path : '/MO' 
+    },
+    {
+        nama : 'Products',
+        pil1 : 'Pengeluaran',
+        pil2 : 'Bahan Baku',
+        pil3 : 'Titipan',
+        icon : faUsers,
+        path : '/MO'
+    },
+    {
+        nama : 'Pemesanan',
         pil1 : null,
         pil2 : null,
         pil3 : null,
-        icon : faUsers,
-        path : '/admin'
+        icon : faBagShopping,
+        path : '/MO'
     },
     {
         nama : 'Penitip',
@@ -43,7 +45,7 @@ const menu = [
         pil2 : null,
         pil3 : null,
         icon : faUsers,
-        path : '/admin'
+        path : '/MO'
     },
     {
         nama : 'Laporan',
@@ -51,13 +53,13 @@ const menu = [
         pil2 : null,
         pil3 : null,
         icon : faFile,
-        path : '/admin'
+        path : '/MO'
     }
 ]
 
 const { Header, Sider } = Layout;
 
-function SideBarComponent({children}) {
+function SideBarComponent() {
     const [collapsed, setCollapsed] = useState(false);
 
     return(
@@ -78,7 +80,7 @@ function SideBarComponent({children}) {
                         <div className="text-topNavar">Home</div>
                     </div>
                 </Header>
-                {children ? children : <Outlet />}
+                <RUDSKaryawan />
             </Layout>
         </Layout>
     );
