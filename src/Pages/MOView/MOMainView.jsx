@@ -1,4 +1,5 @@
 import TopNavbar from "./TopNavbarMO.jsx";
+import './Badge.css';
 
 function MOMainView() {
     return (

@@ -13,6 +13,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 //MO
 import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
+import TambahKaryawan from "../Pages/MOView/TambahKaryawan";
 
 const router = createBrowserRouter([
     {
@@ -67,7 +68,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/MO/Tambah Karyawan",
-                element: <RUDSKaryawan />
+                element: <RUDSKaryawan />,
+            },
+            {
+                path: "/MO/Tambah Karyawan/Tambah",
+                element: <TambahKaryawan />,
             }
         ]
     },

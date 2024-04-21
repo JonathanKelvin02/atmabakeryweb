@@ -4,7 +4,6 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
 import './SideBarComponent.css'
 
-
 import Logo from './Logo';
 import MenuList from './MenuList';
 import RUDSKaryawan from '../../Pages/MOView/RUDSKaryawan.jsx';

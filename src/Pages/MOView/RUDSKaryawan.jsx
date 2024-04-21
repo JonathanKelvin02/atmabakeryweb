@@ -3,11 +3,14 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faSearch } from '@fortawesome/free-solid-svg-icons';
 
-//Impor CSS
-// import './Badge.css';
+//Import CSS
+import './Badge.css';
 
 //Import API
-import { GetAllKaryawan } from '../../api/apiKaryawan';
+import { DeleteKaryawan, GetAllKaryawan } from '../../api/apiKaryawan';
+
+//Import Page
+import TambahKaryawan from './TambahKaryawan';
 
 const RUDSKaryawan = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +21,16 @@ const RUDSKaryawan = () => {
         setIsLoading(true);
         GetAllKaryawan().then((response) => {
             setKaryawan(response);
+            setIsLoading(false);
+        }).catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+        })
+    }
+
+    const deleteKaryawan = (id) => {
+        setIsLoading(true);
+        DeleteKaryawan(id).then((response) => {
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -53,9 +66,7 @@ const RUDSKaryawan = () => {
                         <FontAwesomeIcon icon={faSearch} />
                     </Button>
                 </InputGroup>
-
-                <Button  href='' className='ms-3' style={{ backgroundColor: '#8e6f8e', width: '15%', borderColor:'#8e6f8e' }}>Tambah Karyawan</Button>
-                
+                <TambahKaryawan />
                 {isLoading ? (
                     <div className='text-center'>
                         <Spinner animation="border" variant="dark" size="lg" role="status" aria-hidden="true" />
