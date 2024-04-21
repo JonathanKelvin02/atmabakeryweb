@@ -2,11 +2,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import LoginView from "../Pages/LoginPage/LoginView";
+
+//Admin
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
 import ProtectedRoutes from "./ProtectedRoutes";
+
+//MO
+import MOMainView from "../Pages/MOView/MOMainView";
+import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
 
 const router = createBrowserRouter([
     {
@@ -51,13 +57,17 @@ const router = createBrowserRouter([
         path: "/MO",
         element: (
             <ProtectedRoutes roles={'MO'}>
-                {/* Sidebar MO */}
+                <MOMainView />
             </ProtectedRoutes>
         ),
         children: [
             {
                 path: "/MO",
                 // element: <Dashboard MO />
+            },
+            {
+                path: "/MO/Tambah Karyawan",
+                element: <RUDSKaryawan />
             }
         ]
     },

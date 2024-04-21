@@ -14,6 +14,7 @@ import {
     faFile,
     faBagShopping 
 } from '@fortawesome/free-solid-svg-icons';
+import { Outlet } from 'react-router-dom';
 
 const menu = [
     {
@@ -59,7 +60,7 @@ const menu = [
 
 const { Header, Sider } = Layout;
 
-function SideBarComponent() {
+function SideBarComponent({children}) {
     const [collapsed, setCollapsed] = useState(false);
 
     return(
@@ -80,7 +81,7 @@ function SideBarComponent() {
                         <div className="text-topNavar">Home</div>
                     </div>
                 </Header>
-                <RUDSKaryawan />
+                {children ? children : <Outlet />}
             </Layout>
         </Layout>
     );
