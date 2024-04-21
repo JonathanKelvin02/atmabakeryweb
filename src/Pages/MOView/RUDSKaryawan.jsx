@@ -11,6 +11,7 @@ import { DeleteKaryawan, GetAllKaryawan } from '../../api/apiKaryawan';
 
 //Import Page
 import TambahKaryawan from './TambahKaryawan';
+import { toast } from 'react-toastify';
 
 const RUDSKaryawan = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -32,6 +33,8 @@ const RUDSKaryawan = () => {
         setIsLoading(true);
         DeleteKaryawan(id).then((response) => {
             setIsLoading(false);
+            toast.success("Karyawan Berhasil Dihapus");
+            fetchKaryawan();
         }).catch((err) => {
             console.log(err);
             setIsLoading(false);
@@ -122,7 +125,7 @@ const RUDSKaryawan = () => {
                                         <td>{karyawan.Bonus}</td>
                                         <td className='d-flex justify-content-center'>
                                             <Button variant='success' size='sm' className='me-2'>Edit</Button>
-                                            <Button variant='danger' size='sm'>Delete</Button>
+                                            <Button variant='danger' size='sm' onClick={() => deleteKaryawan(karyawan.ID_Pegawai)}>Delete</Button>
                                         </td>
                                     </tr>
                                 ))}
