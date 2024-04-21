@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import LoginView from "../Pages/LoginPage/LoginView";
-import forgotView from "../Pages/ForgotPage/ForgotView";
+import ForgotView from "../Pages/ForgotPage/ForgotView";
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import AdminLayout from "../Pages/AdminView/AdminLayout";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/forgot-password",
-                element: <LoginView />
+                element: <ForgotView />
             }
         ]
     },

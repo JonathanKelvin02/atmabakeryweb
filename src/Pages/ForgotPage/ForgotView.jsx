@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import TopNavbar from '../LoginPage/TopNavbar.jsx';
 import PicCarousel from '../LoginPage/PicCarousel.jsx';
-import FormLogin from '../LoginPage/FormLogin.jsx';
+import FormLogin from '../ForgotPage/FormForgot.jsx';
 
 //import gambar
 import img1 from '../../assets/ImgCarousel/ImgCarousel(1).jpg'
@@ -18,18 +18,18 @@ const images = [img1, img2, img3, img4, img5, img6, img7];
 function ForgotView() {
 
   return (
-      <>
-        <TopNavbar/>
+    <>
+      <TopNavbar/>
 
-        <Row className='w-100'>
-          <Col className='d-none d-md-block'>
-            <PicCarousel Images={images} />
-          </Col>
-          <Col className='mx-20'>
-            <FormLogin />
-          </Col>
-        </Row>
-      </>
+      <Row>
+        <Col className='d-none d-md-block'>
+          <PicCarousel Images={images} />
+        </Col>
+        <Col>
+          <FormLogin />
+        </Col>
+      </Row>
+    </>
   )
 }
 

@@ -4,21 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { Login } from "../../api/apiAuth";
+import { SendEmailForLink } from "../../api/apiCustomer";
+
+import "../LoginPage/Login.css";
 
 function FormForgot() {
     const navigate = useNavigate();
     const [isDisabled, setIsDisabled] = useState(true);
 
     const [data, setData] = useState(
-        {email: "",
-        password: ""}
+        {email: ""}
     );
     const [loading, setLoading] = useState(false);
 
     const handleChange = (event) => {
         const newData = { ...data, [event.target.name]: event.target.value};
         setData(newData);
-        if (newData.email.trim().length > 0 && newData.password.length > 0) {
+        if (newData.email.trim().length > 0) {
             setIsDisabled(false);
         } else {
             setIsDisabled(true);
@@ -28,16 +30,11 @@ function FormForgot() {
     const login = (event) => {
         console.log("proses login");
         event.preventDefault();
-        // console.log(data.email);
-        // console.log(data.password);
         setLoading(true);
-        Login(data)
+
+        SendEmailForLink(data)
             .then((res) => {
-                navigate("/admin");
-                sessionStorage.setItem("token", res.access_token);
-                sessionStorage.setItem("user", JSON.stringify(res.user));
-                sessionStorage.setItem("role", res.roles);
-                toast.success(res.message);
+                navigate("/");
             })
             .catch((err) => {
                 console.log(err);
@@ -46,39 +43,37 @@ function FormForgot() {
             });
     };
 
+    const forgotPassword = () => {
+        navigate('/forgot-password');
+    };
+
     return (
-        <div className="flex justify-center items-center h-screen">
-            <Container className='p-10 bg-gray-100 rounded-xl'>
-                <div className='text-center'>
-                    <h1 className='font-extrabold mt-3'>Log In</h1>
-                    <label>Welcome Back</label>
-                </div>
-                <Form onSubmit={login}>
-                    <Form.Group className="mb-3" controlId="formGroupEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name='email' placeholder="Enter email" onChange={handleChange}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formGroupPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name='password' placeholder="Password" onChange={handleChange}/>
-                        <Form.Text muted>
-                            Don't have an account? <a href="/register">Register</a>
-                            <div className='float-end'>
-                                <a href='/forget-password'>Forget Password</a>
-                            </div>
-                        </Form.Text>
-                    </Form.Group>
-                    <div className='d-grid'>
-                        <Button className='bg-yellow-950 border-2 border-l-yellow-950' type="submit" disabled={isDisabled || loading}>
-                            {loading ? (
-                                <Spinner animation='border' variant='dark' size='sm' />
-                            ) : (
-                                <span>Login</span>
-                            )}
-                        </Button>
+        <div className="d-flex h-100">
+            <div style={{ width: '80%', height: '70%' }} className="m-auto">
+                <Container style={{ padding: '30px' }} className='p-10 bg-white shadow-2xl rounded-xl'>
+                    <div className='text-center'>
+                        <h1 className='mt-3 open-sans-bold'>Reset Your Password</h1>
                     </div>
-                </Form>
-            </Container>
+                    <label className='roboto gantiColorWelcome mt-3' style={{ fontSize: '20px', color: '#676B80 !important' }}>Enter your email and we'll send you a link to reset your password. Please check it</label>
+                    <Form onSubmit={login} className='roboto mt-3'>
+                        <Form.Group className="mb-3" controlId="formGroupEmail">
+                            {/* <Form.Label>Email address</Form.Label> */}
+                            <div className='roboto-bold' style={{ marginLeft: '1%' }}>Email</div>
+                            <Form.Control style={{ borderColor: '#3C4242' }} type="email" name='email' placeholder="Enter email" onChange={handleChange}/>
+                        </Form.Group>
+
+                        <div className='d-grid'>
+                            <Button className='border-2' style={{ backgroundColor: '#008000', borderColor: '#008000' }} type="submit" disabled={isDisabled || loading}>
+                                {loading ? (
+                                    <Spinner animation='border' variant='dark' size='sm' />
+                                ) : (
+                                    <span>Sign In</span>
+                                )}
+                            </Button>
+                        </div>
+                    </Form>
+                </Container>
+            </div>
         </div>
     )
 }
