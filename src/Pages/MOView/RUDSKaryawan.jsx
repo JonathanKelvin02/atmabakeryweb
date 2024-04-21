@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 //Impor CSS
-import './badge.css'
+// import './Badge.css';
 
 //Import API
 import { GetAllKaryawan } from '../../api/apiKaryawan';
@@ -25,8 +25,18 @@ const RUDSKaryawan = () => {
         })
     }
 
+    const importingCSS = async () => {
+        try {
+            const module = await import('./Badge.css');
+            console.log('CSS file imported:', module);
+        } catch (error) {
+            console.error('Error importing CSS file:', error);
+        }
+    }
+
     useEffect(() => {
         fetchKaryawan();
+        importingCSS();
     }
     , [])
 
@@ -68,7 +78,7 @@ const RUDSKaryawan = () => {
                             </thead>
                             <tbody className='text-center align-middle'>
                                 {karyawan?.map((karyawan, index) => (
-                                    <tr key={karyawan.id}>
+                                    <tr key={karyawan.ID_Pegawai}>
                                         <td>{karyawan.Nama_Pegawai}</td>
                                         <td>
                                             <Badge 
@@ -101,30 +111,6 @@ const RUDSKaryawan = () => {
                                         </td>
                                     </tr>
                                 ))}
-                                {/* <tr>
-                                    <td>Margaret</td>
-                                    <td><Badge pill className="px-3 py-2">Owner</Badge></td>
-                                    <td>---</td>
-                                    <td className='underline'>margaret@gmail.com</td>
-                                    <td>
-                                        <InputGroup size='sm'>
-                                            <Form.Control disabled
-                                                type={showPassword ? "text" : "password"}
-                                                value="Owner1"
-                                                style={{ backgroundColor: 'transparent', border: 'none' }}
-                                            />
-                                            <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} style={{ backgroundColor: 'transparent', border: 'none' }}>
-                                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                                            </Button>
-                                        </InputGroup>
-                                    </td>
-                                    <td>---</td>
-                                    <td>---</td>
-                                    <td className='d-flex justify-content-center'>
-                                        <Button variant='success' size='sm' className='me-2'>Edit</Button>
-                                        <Button variant='danger' size='sm'>Delete</Button>
-                                    </td>
-                                </tr> */}
                             </tbody>
                         </Table>
                     ) : (
