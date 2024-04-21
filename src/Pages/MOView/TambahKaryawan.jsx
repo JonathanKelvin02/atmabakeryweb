@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 
 //Import API
 import { GetAllJabatan} from "../../api/apiJabatan";
-import { PostKaryawan } from "../../api/apiKaryawan";
+import { PostKaryawan, GetAllKaryawan } from "../../api/apiKaryawan";
 
-const TambahKaryawan = ({ onClose }) => {
+const TambahKaryawan = ({ onSuccess }) => {
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -18,12 +18,11 @@ const TambahKaryawan = ({ onClose }) => {
         email: "",
         password: "",
         Nomor_Telepon:"",
-        Gaji: "",
-        Bonus: "",
     });
 
     const handleClose = () => {
         setShow(false);
+        onSuccess();
         onClose();
     }
 
@@ -51,9 +50,8 @@ const TambahKaryawan = ({ onClose }) => {
         setIsLoading(true);
         PostKaryawan(data).then((response) => {
             setIsLoading(false);
-            
             toast.success("Karyawan Berhasil Ditambahkan");
-            handleClose();
+            handleClose();  
         }).catch((err) => {
             console.log(err);
             setIsLoading(false);

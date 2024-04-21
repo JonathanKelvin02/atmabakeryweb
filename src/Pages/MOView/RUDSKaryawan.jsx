@@ -51,7 +51,11 @@ const RUDSKaryawan = () => {
         fetchKaryawan();
         importingCSS();
     }
-    , [])
+    , []);
+
+    const handleRefresh = () => {
+        fetchKaryawan();
+    };
 
     return (
         <>
@@ -66,7 +70,7 @@ const RUDSKaryawan = () => {
                         <FontAwesomeIcon icon={faSearch} />
                     </Button>
                 </InputGroup>
-                <TambahKaryawan />
+                <TambahKaryawan onSuccess={handleRefresh} />
                 {isLoading ? (
                     <div className='text-center'>
                         <Spinner animation="border" variant="dark" size="lg" role="status" aria-hidden="true" />
