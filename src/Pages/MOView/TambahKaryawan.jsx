@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 //Import API
 import { GetAllJabatan} from "../../api/apiJabatan";
-import { PostKaryawan, GetAllKaryawan } from "../../api/apiKaryawan";
+import { PostKaryawan } from "../../api/apiKaryawan";
 
 const TambahKaryawan = ({ onSuccess }) => {
     const [show, setShow] = useState(false);
@@ -23,7 +23,6 @@ const TambahKaryawan = ({ onSuccess }) => {
     const handleClose = () => {
         setShow(false);
         onSuccess();
-        onClose();
     }
 
     const handleShow = () => {
