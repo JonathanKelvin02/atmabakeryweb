@@ -1,57 +1,64 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import ProtectedRoutes from "./ProtectedRoutes";
+import LoginView from "../Pages/LoginPage/LoginView";
+import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
+import AdminLayout from "../Pages/AdminView/AdminLayout";
+import HampersView from "../Pages/AdminView/ProductView/Hampers";
+import TitipanView from "../Pages/AdminView/ProductView/Titipan";
 
 const router = createBrowserRouter([
     {
         path: "*",
-        element: <div>Routes Not Found!</div>,
+        element: <div>Routes Not Found!</div>
     },
     {
         children: [
             {
                 path: "/",
-                // element: <LoginPage />,
-            },
-            {
-                path: "/register",
-                // element: <RegisterPage />,
-            },
-        ],
+                element: <LoginView />
+            }
+        ]
     },
     {
-        path: "/user",
+        path: "/admin",
         element: (
-            <ProtectedRoutes>
-                {/* <UserLayout /> */}
-            </ProtectedRoutes>
+            // Ntar di protect otentikasi sama role
+            <AdminLayout />
         ),
         children: [
             {
-                path: "/user",
-                // element: <DashboardPage />,
+                path: "/admin/homecook",
+                element: <HomecookView />
             },
             {
-                path: "/user/content",
-                // element: <ContentPage />,
+                path: "/admin/hampers",
+                element: <HampersView />
             },
             {
-                path: "/user/content/review",
-                // element: <ReviewPage />,
-            },
-            {
-                path: "/user/profile",
-                // element: <MyProfilePage />,
-            },
-        ],
-    },
+                path: "/admin/titipan",
+                element: <TitipanView />
+            }
+        ]
+    }
 ]);
 
 const AppRouter = () => {
     return (
         <>
-            <RouterProvider router={router} />
+            <ToastContainer 
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
+            <RouterProvider router={router}/>
         </>
     );
 };
