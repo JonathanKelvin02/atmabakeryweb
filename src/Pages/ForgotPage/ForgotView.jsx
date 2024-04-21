@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import TopNavbar from './TopNavbar.jsx';
-import PicCarousel from './PicCarousel.jsx';
-import FormLogin from './FormLogin.jsx';
+import TopNavbar from '../LoginPage/TopNavbar.jsx';
+import PicCarousel from '../LoginPage/PicCarousel.jsx';
+import FormLogin from '../LoginPage/FormLogin.jsx';
 
 //import gambar
 import img1 from '../../assets/ImgCarousel/ImgCarousel(1).jpg'
@@ -15,23 +15,22 @@ import img7 from '../../assets/ImgCarousel/ImgCarousel(7).jpg'
 
 const images = [img1, img2, img3, img4, img5, img6, img7];
 
-
-function LoginView() {
+function ForgotView() {
 
   return (
-    <>
-      <TopNavbar/>
+      <>
+        <TopNavbar/>
 
-      <Row>
-        <Col className='d-none d-md-block'>
-          <PicCarousel Images={images} />
-        </Col>
-        <Col>
-          <FormLogin />
-        </Col>
-      </Row>
-    </>
+        <Row className='w-100'>
+          <Col className='d-none d-md-block'>
+            <PicCarousel Images={images} />
+          </Col>
+          <Col className='mx-20'>
+            <FormLogin />
+          </Col>
+        </Row>
+      </>
   )
 }
 
-export default LoginView;
+export default ForgotView;

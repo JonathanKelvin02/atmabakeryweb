@@ -1,0 +1,28 @@
+/* Stardard Font */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');/* Bold Version */
+
+.open-sans {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.open-sans-bold {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+.roboto-bold {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.gantiColorWelcome {
+    color: #676B80 !important;
+}

@@ -32,7 +32,11 @@ function SideBarComponent() {
                         </div>
                         {collapsed && <Button type="primary" danger style={{marginTop: 16, marginRight: 8}}>LogOut</Button>}
                     </div>
+
+                    Di sini narohnya
                 </Header>
+
+                OR SINI
             </Layout>
         </Layout>
     );
