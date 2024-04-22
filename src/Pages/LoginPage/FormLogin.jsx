@@ -32,10 +32,19 @@ function FormLogin() {
         setLoading(true);
         Login(data)
             .then((res) => {
-                navigate("/admin");
                 sessionStorage.setItem("token", res.access_token);
                 sessionStorage.setItem("user", JSON.stringify(res.user));
-                sessionStorage.setItem("role", res.roles);
+                sessionStorage.setItem("role", res.role);
+                if (sessionStorage.getItem("role") === "Admin") {
+                    navigate("/admin");
+                } else if (sessionStorage.getItem("role") === "MO") {
+                    navigate("/MO");
+                } else if (sessionStorage.getItem("role") === "Owner") {
+                    navigate("/owner");
+                } else {
+                    navigate("/customer");
+                }
+                
                 toast.success(res.message);
             })
             .catch((err) => {

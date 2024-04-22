@@ -6,16 +6,65 @@ import './Logo'
 import Logo from './Logo';
 import MenuList from './MenuList';
 
+import { Outlet } from 'react-router-dom';
+
+import { 
+    faUsers, 
+    faFile 
+} from '@fortawesome/free-solid-svg-icons';
+
+const menu = [
+    {
+        nama : 'Product',
+        pil1 : 'Homecook',
+        pil2 : 'Hampers',
+        pil3 : 'Titipan',
+        path : '/admin'
+    },
+    {
+        nama : 'User',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faUsers,
+        path : '/admin'
+    },
+    {
+        nama : 'Karyawan',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faUsers,
+        path : '/admin'
+    },
+    {
+        nama : 'Penitip',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faUsers,
+        path : '/admin'
+    },
+    {
+        nama : 'Laporan',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faFile,
+        path : '/admin'
+    }
+]
+
 const { Header, Sider } = Layout;
 
-function SideBarComponent() {
+function SideBarComponent({children}) {
     const [collapsed, setCollapsed] = useState(false);
 
     return(
         <Layout>
             <Sider theme='light' collapsed={collapsed} collapsible trigger={null} className='sidebar'>
                 <Logo collapsed={collapsed} />
-                <MenuList />
+                <MenuList subMenu={menu} />
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: '#fff', color: '#000' }}>
@@ -35,8 +84,7 @@ function SideBarComponent() {
 
                     Di sini narohnya
                 </Header>
-
-                OR SINI
+                {children ? children : <Outlet />}
             </Layout>
         </Layout>
     );

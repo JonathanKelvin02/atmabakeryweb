@@ -41,7 +41,7 @@ const TitipanView = () => {
                         </InputGroup>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                        <button className="add-product" type="button">
+                        <button className="add-product border-0" type="button">
                             <FaPlus className="mr-1" /> <b>Add Product</b>
                         </button>
                     </Col>

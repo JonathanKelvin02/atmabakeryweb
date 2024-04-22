@@ -1,17 +1,21 @@
 import { useNavigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const ProtectedRoutes = ({ children }) => {
+const ProtectedRoutes = ({ children, roles }) => {
     const navigate = useNavigate();
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(" ");
+    const [role, setRole] = useState("");
 
     useEffect(() => {
-        const tokenDariSS = sessionStorage.getItem("token");
-        setToken(tokenDariSS);
+        const tokenLogin = sessionStorage.getItem("token");
+        const roleLogin = sessionStorage.getItem("role");
+        setToken(tokenLogin);
+        setRole(roleLogin);
 
-        if (!tokenDariSS) {
+        if (!tokenLogin || roleLogin !== roles) {
             navigate("/");
         }
+
     }, [navigate]);
 
     return token && (children ? children : <Outlet />)

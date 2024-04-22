@@ -56,7 +56,7 @@ const HampersView = () => {
                         </InputGroup>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                        <button className="add-product" type="button">
+                        <button className="add-product border-0" type="button">
                             <FaPlus className="mr-1" /> <b>Add Product</b>
                         </button>
                     </Col>
@@ -95,7 +95,7 @@ const HampersView = () => {
                                         <td>Rp.{hampers.tblproduk.Harga}</td>
                                         <td>{hampers.tblproduk.Stok}</td>
                                         <td>
-                                            <ul className="m-0 p-0">
+                                            <ul className="m-0 p-0" style={{listStyleType: 'none'}}>
                                                 {/* loading here */}
                                                 {hampers.resep.map((myresep, index) => (
                                                     <li key={index}>{resep.find(recipe => recipe.ID_Produk === myresep.ID_Produk)?.tblproduk.Nama_Produk}</li>
@@ -103,7 +103,7 @@ const HampersView = () => {
                                             </ul>
                                         </td>
                                         <td>
-                                            <ul className="m-0 p-0">
+                                            <ul className="m-0 p-0" style={{listStyleType: 'none'}}>
                                                 {/* loading here */}
                                                 {hampers.resep.map((myresep, index) => (
                                                     <li key={index}>
