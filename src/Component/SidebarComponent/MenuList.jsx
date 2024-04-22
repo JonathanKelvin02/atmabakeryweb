@@ -8,7 +8,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faUsers, 
-    faFile 
+    faFile,
+    faListUl
 } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, useLocation, Navigate } from "react-router-dom";

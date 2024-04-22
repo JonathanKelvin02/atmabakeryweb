@@ -58,6 +58,14 @@ function FormForgot() {
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                     <div className='roboto-bold' style={{ marginLeft: '1%' }}>Email</div>
                     <Form.Control style={{ borderColor: '#3C4242' }} type="email" name='email' placeholder="Enter email" onChange={handleChange}/>
+                    <Form.Text className='form-text mt-3'>
+                        <div>
+                            Suddenly remember your password? <a href="/LoginView">Login</a>
+                        </div>
+                        <div>
+                            Got to Dashboard without Login <a href="/ForgotEmailView" >Forget Password</a>
+                        </div>
+                    </Form.Text>
                 </Form.Group>
                 <div className='d-grid'>
                     <Button className='border-2' style={{ backgroundColor: '#008000', borderColor: '#008000' }} type="submit" disabled={isDisabled || loading}>

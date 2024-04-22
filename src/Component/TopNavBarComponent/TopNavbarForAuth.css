@@ -1,0 +1,12 @@
+.navbar-brand-bold {
+    font-weight: bold;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.wider-button {
+    padding-left: 26px !important;
+    padding-right: 26px !important;
+}

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar, Container, Button } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
+
+import './TopNavbarForAuth.css';
 
 function TopNavbar({ children }) {
     const [loginClicked, setLoginClicked] = useState(true);
@@ -22,31 +24,13 @@ function TopNavbar({ children }) {
         <>
             <Navbar className="bg-body-tertiary w-100">
                 <Container>
-                    <Navbar.Brand><b>Atma Kitchen</b></Navbar.Brand>
+                    <Navbar.Brand className="navbar-brand-bold">Atma Kitchen</Navbar.Brand>
                     <Navbar.Collapse className="justify-content-end">
-                        <div className='flex'>
-                            <a href="/login" onClick={handleLoginClick} className={'me-2'}
-                                style={{
-                                    backgroundColor: loginClicked ? '#8e6f8e' : 'white',
-                                    padding: '10px 20px',
-                                    color: loginClicked ? 'white' : '#8e6f8e',
-                                    textDecoration: 'none',
-                                    borderRadius: '8px',
-                                    borderWidth: '2px',
-                                    borderStyle: 'solid',
-                                    borderColor: loginClicked ? 'white' : '#8e6f8e'
-                                }}>Login</a>
-                            <a href="/register" onClick={handleRegisterClick}
-                                style={{
-                                    backgroundColor: registerClicked ? '#8e6f8e' : 'white',
-                                    padding: '10px 20px',
-                                    color: registerClicked ? 'white' : '#8e6f8e',
-                                    textDecoration: 'none',
-                                    borderRadius: '8px',
-                                    borderWidth: '2px',
-                                    borderStyle: 'solid',
-                                    borderColor: registerClicked ? 'white' : '#8e6f8e'
-                                }}>Register</a>
+                        <div className='flex-container'>
+                            <Button className="me-2 wider-button" variant="outline-success">Login</Button>
+                            <Button className="wider-button" variant="outline-success">Sign Up</Button>
+                            {/* <a href="/login" onClick={handleLoginClick} className={`me-2 ${loginClicked ? 'login-link-clicked' : 'login-link'}`}>Login</a>
+                            <a href="/register" onClick={handleRegisterClick} className={`${registerClicked ? 'register-link-clicked' : 'register-link'}`}>Register</a> */}
                         </div>
                     </Navbar.Collapse>
                 </Container>

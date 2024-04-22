@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
-import TopNavbar from '../LoginPage/TopNavbar.jsx';
-import PicCarousel from '../LoginPage/PicCarousel.jsx';
+import PicCarousel from '../../Component/PicCarousel.jsx';
 import FormLogin from '../ForgotPage/FormForgot.jsx';
 
 //import gambar

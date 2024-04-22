@@ -55,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/Titipan",
                 element: <TitipanView />
+            },
+            {
+                path: "/admin/BahanBaku",
+                // element: <BahanBakuView />
             }
         ]
     },

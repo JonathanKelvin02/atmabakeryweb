@@ -10,7 +10,8 @@ import { Outlet } from 'react-router-dom';
 
 import { 
     faUsers, 
-    faFile 
+    faFile,
+    faListUl
 } from '@fortawesome/free-solid-svg-icons';
 
 const menu = [
@@ -19,8 +20,17 @@ const menu = [
         pil1 : 'Homecook',
         pil2 : 'Hampers',
         pil3 : 'Titipan',
+        icon : faListUl,
         path : '/admin'
     },
+    {
+        nama : 'Bahan Baku',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faListUl,
+        path : '/bahanBaku'
+    },  
     {
         nama : 'User',
         pil1 : null,
@@ -28,7 +38,7 @@ const menu = [
         pil3 : null,
         icon : faUsers,
         path : '/admin'
-    },
+    },  
     {
         nama : 'Karyawan',
         pil1 : null,
@@ -52,7 +62,7 @@ const menu = [
         pil3 : null,
         icon : faFile,
         path : '/admin'
-    }
+    },
 ]
 
 const { Header, Sider } = Layout;
