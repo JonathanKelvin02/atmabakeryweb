@@ -9,6 +9,9 @@ import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
+
+import BahanBakuView from "../Pages/AdminView/BahanBakuView/BahanBaku";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -58,7 +61,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/admin/BahanBaku",
-                // element: <BahanBakuView />
+                element: <BahanBakuView />
             }
         ]
     },

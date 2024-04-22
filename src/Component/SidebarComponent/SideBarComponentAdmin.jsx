@@ -29,7 +29,7 @@ const menu = [
         pil2 : null,
         pil3 : null,
         icon : faListUl,
-        path : '/bahanBaku'
+        path : '/admin/BahanBaku'
     },  
     {
         nama : 'User',

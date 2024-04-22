@@ -29,8 +29,6 @@ function TopNavbar({ children }) {
                         <div className='flex-container'>
                             <Button className="me-2 wider-button" variant="outline-success">Login</Button>
                             <Button className="wider-button" variant="outline-success">Sign Up</Button>
-                            {/* <a href="/login" onClick={handleLoginClick} className={`me-2 ${loginClicked ? 'login-link-clicked' : 'login-link'}`}>Login</a>
-                            <a href="/register" onClick={handleRegisterClick} className={`${registerClicked ? 'register-link-clicked' : 'register-link'}`}>Register</a> */}
                         </div>
                     </Navbar.Collapse>
                 </Container>
