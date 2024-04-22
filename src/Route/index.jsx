@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import TopNavBar from "../Component/TopNavBarComponent/TopNavbarForAuth";
 import LoginView from "../Pages/LoginPage/LoginView";
 import ForgotView from "../Pages/ForgotPage/ForgotView";
+
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
@@ -15,13 +17,17 @@ const router = createBrowserRouter([
         element: <div>Routes Not Found!</div>
     },
     {
+        path: "/",
+        element:(
+            <TopNavBar />
+        ),
         children: [
             {
-                path: "/",
+                path: "/LoginView",
                 element: <LoginView />
             },
             {
-                path: "/forgot-password",
+                path: "/ForgotEmailView",
                 element: <ForgotView />
             }
         ]

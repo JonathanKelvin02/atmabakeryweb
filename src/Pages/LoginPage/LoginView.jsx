@@ -20,8 +20,6 @@ function LoginView() {
 
   return (
     <>
-      <TopNavbar/>
-
       <Row>
         <Col className='d-none d-md-block'>
           <PicCarousel Images={images} />

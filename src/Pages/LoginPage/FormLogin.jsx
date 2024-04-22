@@ -55,7 +55,7 @@ function FormLogin() {
     };
 
     const forgotPassword = () => {
-        navigate('/forgot-password');
+        navigate('/ForgotEmailView');
     };
 
     return (
@@ -79,7 +79,7 @@ function FormLogin() {
                                     Don't have an account? <a href="/register">Register</a>
                                 </div>
                                 <div>
-                                    <a href="/forgot-password" onClick={forgotPassword}>Forget Password</a>
+                                    <a href="/ForgotEmailView" >Forget Password</a>
                                 </div>
                             </Form.Text>
                         </Form.Group>
