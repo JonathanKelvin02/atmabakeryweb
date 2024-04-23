@@ -13,7 +13,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 //MO
 import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
-import TambahKaryawan from "../Pages/MOView/TambahKaryawan";
+import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 
 const router = createBrowserRouter([
     {
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/MO/Tambah Karyawan/Tambah",
-                element: <TambahKaryawan />,
+                element: <ModalAddKaryawan />,
             }
         ]
     },

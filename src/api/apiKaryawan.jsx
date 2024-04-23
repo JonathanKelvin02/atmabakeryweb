@@ -30,9 +30,10 @@ export const PostKaryawan = async (data) => {
     }
 }
 
-export const PutKaryawan = async (data, id) => {
+export const PutKaryawan = async (data) => {
     try {
-        const response = await useAxios.put(`/pegawai/${id}`, data, {
+        console.log(data);
+        const response = await useAxios.put(`/pegawai/${data.ID_Pegawai}`, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,

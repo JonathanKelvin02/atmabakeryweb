@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { GetAllJabatan} from "../../api/apiJabatan";
 import { PostKaryawan } from "../../api/apiKaryawan";
 
+//Import Component
+
 const TambahKaryawan = ({ onSuccess }) => {
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);

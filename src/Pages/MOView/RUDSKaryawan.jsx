@@ -2,20 +2,21 @@ import { Container, Button, Table, Form, InputGroup, Badge, Alert, Spinner } fro
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 //Import CSS
-import './Badge.css';
+// import './Badge.css'
 
 //Import API
 import { DeleteKaryawan, GetAllKaryawan } from '../../api/apiKaryawan';
 
 //Import Page
-import TambahKaryawan from './TambahKaryawan';
-import { toast } from 'react-toastify';
+import TambahKaryawan from './ModalAddKaryawan';
+import EditKaryawan from './ModalEditKaryawan';
 
 const RUDSKaryawan = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [karyawan, setKaryawan] = useState([]);
+    const [karyawans, setKaryawan] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchKaryawan = () => {
@@ -80,10 +81,11 @@ const RUDSKaryawan = () => {
                         <h6 className='mt-2 mb-0'>Loading...</h6>
                     </div>
                 ) : (
-                    karyawan?.length > 0 ? (
+                    karyawans?.length > 0 ? (
                         <Table className='mt-3 ms-3' striped hover style={{width:'97.5%'}}>
                             <thead className='text-center'>
                                 <tr>
+                                    <th>No</th>
                                     <th>Nama Karyawan</th>
                                     <th>Nama Jabatan</th>
                                     <th>Nomor Rekening</th>
@@ -95,13 +97,18 @@ const RUDSKaryawan = () => {
                                 </tr>
                             </thead>
                             <tbody className='text-center align-middle'>
-                                {karyawan?.map((karyawan, index) => (
+                                {karyawans?.map((karyawan, index) => (
                                     <tr key={karyawan.ID_Pegawai}>
+                                        <td>{index + 1}</td>
                                         <td>{karyawan.Nama_Pegawai}</td>
                                         <td>
                                             <Badge 
                                                 pill 
-                                                className={karyawan.ID_Jabatan === 1 ? "px-3 py-2 custom-badge1" : karyawan.ID_Jabatan === 2 ? "px-3 py-2 custom-badge2" : karyawan.ID_Jabatan === 3 ? "px-3 py-2 custom-badge3" : karyawan.ID_Jabatan === 4 ? "px-3 py-2 custom-badge4" : "px-3 py-2 custom-badge5"} 
+                                                className={
+                                                    karyawan.ID_Jabatan === 1 ? "px-3 py-2 custom-badge1" : 
+                                                    karyawan.ID_Jabatan === 2 ? "px-3 py-2 custom-badge2" : 
+                                                    karyawan.ID_Jabatan === 3 ? "px-3 py-2 custom-badge3" : 
+                                                    karyawan.ID_Jabatan === 4 ? "px-3 py-2 custom-badge4" : "px-3 py-2 custom-badge5"} 
                                                 key={karyawan.ID_Jabatan}
                                             >
                                                 {karyawan.jabatan ? karyawan.jabatan.Nama_Jabatan : 'Unknown'}
@@ -124,7 +131,8 @@ const RUDSKaryawan = () => {
                                         <td>{karyawan.Gaji}</td>
                                         <td>{karyawan.Bonus}</td>
                                         <td className='d-flex justify-content-center'>
-                                            <Button variant='success' size='sm' className='me-2'>Edit</Button>
+                                            {/* <Button variant='success' size='sm' className='me-2'>Edit</Button> */}
+                                            <EditKaryawan dataKaryawan={karyawan} onSuccess={handleRefresh} />
                                             <Button variant='danger' size='sm' onClick={() => deleteKaryawan(karyawan.ID_Pegawai)}>Delete</Button>
                                         </td>
                                     </tr>

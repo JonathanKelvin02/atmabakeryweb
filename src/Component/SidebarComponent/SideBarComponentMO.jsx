@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { Layout, Button, theme } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 
-import './SideBarComponent.css'
+import './SideBarComponent.css';
 
 import Logo from './Logo';
 import MenuList from './MenuList';
-import RUDSKaryawan from '../../Pages/MOView/RUDSKaryawan.jsx';
 
 import { 
     faUsers, 

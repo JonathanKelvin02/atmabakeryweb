@@ -1,10 +1,9 @@
-import TopNavbar from "./TopNavbarMO.jsx";
-import './Badge.css';
+import MONavbar from '../../Component/SidebarComponent/SideBarComponentMO.jsx';
 
 function MOMainView() {
     return (
         <div>
-            <TopNavbar />
+            <MONavbar />
         </div>
     );
 }
