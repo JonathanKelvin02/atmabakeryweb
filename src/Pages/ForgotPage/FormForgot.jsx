@@ -60,7 +60,7 @@ function FormForgot() {
                     <Form.Control style={{ borderColor: '#3C4242' }} type="email" name='email' placeholder="Enter email" onChange={handleChange}/>
                     <Form.Text className='form-text mt-3'>
                         <div>
-                            Suddenly remember your password? <a href="/LoginView">Login</a>
+                            Suddenly remember your password? <a href="/">Login</a>
                         </div>
                         <div>
                             Got to Dashboard without Login <a href="/ForgotEmailView" >Forget Password</a>

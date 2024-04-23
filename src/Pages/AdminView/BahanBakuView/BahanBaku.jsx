@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
-import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert } from "react-bootstrap";
+import React, { useEffect, useState, useRef } from "react";
+import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal } from "react-bootstrap";
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
+import Popup from 'reactjs-popup';
+
+import PopUpShowRelated from '../../../Component/PopUp/PopUpForBahanBaku/PopUpContent.jsx'
 
 // Import Css
 import '../ProductView/Product.css';
 import './BahanBaku.css';
+import '../../../Component/PopUp/PopUpForBahanBaku/PopUp.css'
 
 //Import API
 import { GetBahanBaku } from "../../../api/apiBahanBaku";
@@ -21,6 +25,8 @@ const BahanBakuView = () => {
     const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
     const currentItems = bahan.slice(indexOfFirstItem, indexOfLastItem);
 
+    const inputCari = useRef("");
+
     const fetchBahan = () => {
         setIsLoading(true);
         GetBahanBaku().then((response) => {
@@ -32,6 +38,25 @@ const BahanBakuView = () => {
         })
     }
 
+    const searchToPagination = () => {
+        let posisi = 0;
+        for (let i = 0; i < bahan.length; i++) {
+            if(bahan[i].Nama_Bahan === inputCari.current.value) {
+                // console.log(inputCari.current.value);
+                posisi = i;
+                break;
+            }
+        }
+
+        inputCari.current.value = "";
+        setActivePage(Math.ceil((posisi + 1) / itemsCountPerPage));
+        console.log(Math.ceil((posisi + 1) / itemsCountPerPage));
+    }
+
+    const passing = (bahanBakuPassing) => {
+        console.log(bahanBakuPassing);
+    }
+
     useEffect(() => {
         fetchBahan();
     }, [])
@@ -40,18 +65,18 @@ const BahanBakuView = () => {
         <>
             <Container className="top-container">
                 <Row>
-                    <Col>
-                        <InputGroup style={{display:'flex'}}>
-                            <input className="search" type="search" name="" id="" placeholder="Search..." />
-                            <button type="button" className="search-button">
+                    <Col xs={12} md={8}>
+                        <InputGroup style={{display:'flex', flexDirection: 'row', width: '100%'}}>
+                            <input className="search" type="search" name="" id="" placeholder="Search..." style={{flexGrow: 1}} ref={inputCari}/>
+                            <button type="button" className="search-button" onClick={() => searchToPagination()}>
                                 <FaSearch style={{ color: 'white' }} />
                             </button>
                         </InputGroup>
                     </Col>
-                    <Col className="d-flex justify-content-end">
-                        <Button variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button>
-                    </Col>
-                </Row>
+                <Col xs={12} md={4} className="d-flex justify-content-md-end mt-3 mt-md-0">
+                    <Button variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button>
+                </Col>
+            </Row>
             </Container>
             <Container className="big-container">
                 {isLoading ? (
@@ -87,9 +112,17 @@ const BahanBakuView = () => {
                                             <td>{data.Stok}</td>
                                             <td>{data.Satuan}</td>
                                             <td>
-                                                <Button variant="outline-success">Show Products</Button>
+                                                {/* <Button variant="outline-success">Show Products</Button> */}
+                                                <Popup
+                                                    trigger={<Button variant="outline-success">Show Product</Button>} 
+                                                    position="bottom center"
+                                                    className="popup-content"
+                                                >
+                                                    <PopUpShowRelated data={data}/>
+                                                </Popup>
+
                                             </td>
-                                            <td style={{display: 'flex'}}>
+                                            <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                                 <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success">Edit</Button>
                                                 <Button style={{width:'68px'}} variant="success">Delete</Button>
                                             </td>

@@ -1,0 +1,36 @@
+/* .popup-content {
+  width: 20vw;
+  height: 20vh;
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.popup-arrow {
+  border: 1px solid black;
+} */
+
+.popup-content {
+  margin: auto;
+  background: white;
+  border: 1px solid black;
+  /* width: 50%; */
+  width: 30%;
+  height: 30%;  
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.popup-arrow {
+  color: white;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+[data-popup='tooltip'].popup-overlay {
+  background: transparent;
+}
