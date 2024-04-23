@@ -6,6 +6,7 @@ import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
+import CreateResep from "../Pages/AdminView/ProductView/CreateHomecookView";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/Titipan",
                 element: <TitipanView />
+            },
+            {
+                path: "/admin/create-resep",
+                element: <CreateResep />
             }
         ]
     },

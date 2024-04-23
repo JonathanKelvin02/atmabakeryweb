@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { FaSearch, FaPlus } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 // Import Css
 import './Product.css';
@@ -10,6 +11,7 @@ import './Product.css';
 import { GetAllRecipe } from "../../../api/apiProduk";
 
 const HomecookView = () => {
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     
@@ -41,7 +43,7 @@ const HomecookView = () => {
                         </InputGroup>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                        <button className="add-product border-0" type="button">
+                        <button className="add-product border-0" type="button" onClick={() => navigate('/admin/create-resep')}>
                             <FaPlus className="mr-1" /> <b>Add Product</b>
                         </button>
                     </Col>

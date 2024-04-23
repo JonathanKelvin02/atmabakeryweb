@@ -49,6 +49,34 @@ export const GetAllTitipan = async () => {
     }
 }
 
+export const CreateHomecook = async (data) => {
+    try {
+        const response = await useAxios.post("/produk/resep", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+};
+
+export const UpdateHomecook = async (values) => {
+    try {
+        const response = await useAxios.put(`/resep/${values.ID_Produk}`, values, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 export const GetOneRecipe = async (id) => {
     try {
         const response = await useAxios.get(`/resep/${id}`, {
