@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal } from "react-bootstrap";
+import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert} from "react-bootstrap";
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
@@ -50,12 +50,12 @@ const BahanBakuView = () => {
 
         inputCari.current.value = "";
         setActivePage(Math.ceil((posisi + 1) / itemsCountPerPage));
-        console.log(Math.ceil((posisi + 1) / itemsCountPerPage));
+        // console.log(Math.ceil((posisi + 1) / itemsCountPerPage));
     }
 
-    const passing = (bahanBakuPassing) => {
-        console.log(bahanBakuPassing);
-    }
+    // const passing = (bahanBakuPassing) => {
+    //     console.log(bahanBakuPassing);
+    // }
 
     useEffect(() => {
         fetchBahan();
@@ -120,7 +120,6 @@ const BahanBakuView = () => {
                                                 >
                                                     <PopUpShowRelated data={data}/>
                                                 </Popup>
-
                                             </td>
                                             <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                                 <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success">Edit</Button>
