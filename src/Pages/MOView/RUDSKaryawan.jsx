@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 // import './Badge.css'
 
 //Import API
-import { DeleteKaryawan, GetAllKaryawan } from '../../api/apiKaryawan';
+import { DeleteKaryawan, GetAllKaryawan, SeachKaryawan } from '../../api/apiKaryawan';
 
 //Import Page
 import TambahKaryawan from './ModalAddKaryawan';
@@ -18,6 +18,7 @@ const RUDSKaryawan = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [karyawans, setKaryawan] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const fetchKaryawan = () => {
         setIsLoading(true);
@@ -36,6 +37,18 @@ const RUDSKaryawan = () => {
             setIsLoading(false);
             toast.success("Karyawan Berhasil Dihapus");
             fetchKaryawan();
+        }).catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+        })
+    }
+
+    const searchKaryawan = (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        SeachKaryawan(searchQuery).then((response) => {
+            setKaryawan(response);
+            setIsLoading(false);
         }).catch((err) => {
             console.log(err);
             setIsLoading(false);
@@ -64,16 +77,19 @@ const RUDSKaryawan = () => {
     return (
         <>
             <Container>
-                <InputGroup className='m-3 w-25'>
-                    <Form.Control
-                        placeholder="Search"
-                        aria-label="Search"
-                        aria-describedby="basic-addon2"
-                    />
-                    <Button id="button-addon2" style={{ backgroundColor: '#8e6f8e', borderColor:'#8e6f8e' }}>
-                        <FontAwesomeIcon icon={faSearch} />
-                    </Button>
-                </InputGroup>
+                <Form onSubmit={searchKaryawan}>
+                    <InputGroup className='m-3 w-25'>
+                        <Form.Control
+                            placeholder="Search"
+                            aria-label="Search"
+                            aria-describedby="basic-addon2"
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <Button id="button-addon2" style={{ backgroundColor: '#8e6f8e', borderColor:'#8e6f8e' }} type='submit'>
+                            <FontAwesomeIcon icon={faSearch} />
+                        </Button>
+                    </InputGroup>
+                </Form >
                 <TambahKaryawan onSuccess={handleRefresh} />
                 {isLoading ? (
                     <div className='text-center'>
