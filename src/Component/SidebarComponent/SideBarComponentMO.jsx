@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Layout, Button, theme } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import './SideBarComponent.css';
 
@@ -12,7 +13,6 @@ import {
     faFile,
     faBagShopping 
 } from '@fortawesome/free-solid-svg-icons';
-import { Outlet } from 'react-router-dom';
 
 const menu = [
     {
@@ -60,11 +60,11 @@ const { Header, Sider } = Layout;
 
 function SideBarComponent({children}) {
     const [collapsed, setCollapsed] = useState(false);
-
+    
     return(
         <Layout>
             <Sider theme='light' collapsed={collapsed} collapsible trigger={null} className='sidebar'>
-                <Logo collapsed={collapsed} />
+                <Logo collapsed={collapsed} data={"MO"} />
                 <MenuList subMenu={menu} />
             </Sider>
             <Layout>

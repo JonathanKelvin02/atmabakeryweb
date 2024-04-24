@@ -63,7 +63,7 @@ function SideBarComponent({children}) {
     return(
         <Layout>
             <Sider theme='light' collapsed={collapsed} collapsible trigger={null} className='sidebar'>
-                <Logo collapsed={collapsed} />
+                <Logo collapsed={collapsed} data={"Admin"} />
                 <MenuList subMenu={menu} />
             </Sider>
             <Layout>

@@ -15,6 +15,10 @@ import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
 import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 
+//Owner
+import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
+import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
+
 const router = createBrowserRouter([
     {
         path: "*",
@@ -80,12 +84,13 @@ const router = createBrowserRouter([
         path: "/owner",
         element: (
             <ProtectedRoutes roles={'Owner'}>
-                {/* Sidebar Owner */}
+                <OwnerMainView/>
             </ProtectedRoutes>
         ),
         children: [
             {
-                path: "/owner",
+                path: "/owner/Gaji & Bonus",
+                element: <ViewGajiBonus />,
                 // element: <Dashboard Owner />
             }
         ]
