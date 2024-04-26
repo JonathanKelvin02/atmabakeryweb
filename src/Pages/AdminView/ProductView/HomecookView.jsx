@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert } from "react-bootstrap";
+import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
@@ -8,12 +8,28 @@ import { useNavigate } from "react-router-dom";
 import './Product.css';
 
 //Import API
-import { GetAllRecipe } from "../../../api/apiProduk";
+import { GetAllRecipe, DeleteProduct } from "../../../api/apiProduk";
 
 const HomecookView = () => {
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false); 
+    const [productIdToDelete, setProductIdToDelete] = useState(null);
+
+    const deleteHomecook = (id) => {
+        setIsLoading(true);
+        DeleteProduct(id).then((response) => {
+            setIsLoading(false);
+            toast.success(response.message);
+            fetchProducts();
+            handleCloseModal();
+        }).catch((e) => {
+            console.log(e);
+            setIsLoading(false);
+            toast.dark(e.message);
+        })
+    }
     
     const fetchProducts = () => {
         setIsLoading(true);
@@ -24,6 +40,20 @@ const HomecookView = () => {
             console.log(err);
             setIsLoading(false);
         })
+    }
+
+    const handleEdit = (resep) => {
+        navigate('/admin/edit-resep', { state: {resep} });
+    }
+
+    const handleShowModal = (productId) => {
+        setProductIdToDelete(productId);
+        setShowModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setProductIdToDelete(null);
+        setShowModal(false);
     }
 
     useEffect(() => {
@@ -76,15 +106,15 @@ const HomecookView = () => {
                             </thead>
                             <tbody>
                                 {products?.map((homecook, index) => (
-                                    <tr key={homecook.id} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                    <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
                                         <td>{homecook.tblproduk.Nama_Produk}</td>
                                         <td>Rp.{homecook.tblproduk.Harga}</td>
                                         <td>{homecook.tblproduk.Stok}</td>
                                         <td>{homecook.tblproduk.StokReady}</td>
                                         <td>
                                             <button className="edit-action">Recipe</button>
-                                            <button className="edit-action">Edit</button>
-                                            <button className="delete-action">Delete</button>
+                                            <button className="edit-action" onClick={() => handleEdit(homecook)}>Edit</button>
+                                            <button className="delete-action" onClick={() => handleShowModal(homecook.ID_Produk)}>Delete</button>
                                         </td>
                                     </tr> 
                                 ))}
@@ -98,6 +128,23 @@ const HomecookView = () => {
                     )
                 )}
             </Container>
+            {/* Modal Confirmation Delete */}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Deletion</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to delete this product?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteHomecook(productIdToDelete)}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };

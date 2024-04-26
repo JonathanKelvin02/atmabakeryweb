@@ -7,6 +7,9 @@ import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
 import CreateResep from "../Pages/AdminView/ProductView/CreateHomecookView";
+import EditResep from "../Pages/AdminView/ProductView/EditHomecookView";
+import CreateTitipan from "../Pages/AdminView/ProductView/CreateTitipanView";
+import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -49,6 +52,18 @@ const router = createBrowserRouter([
             {
                 path: "/admin/create-resep",
                 element: <CreateResep />
+            },
+            {
+                path: "/admin/edit-resep",
+                element: <EditResep />
+            },
+            {
+                path: "/admin/create-titipan",
+                element: <CreateTitipan />
+            },
+            {
+                path: "/admin/edit-titipan",
+                element: <EditTitipan />
             }
         ]
     },

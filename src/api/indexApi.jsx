@@ -3,8 +3,8 @@ import axios from "axios";
 export const BASE_URL = "http://127.0.0.1:8000"
 
 // Ambil gambar produk dari API
-export const getThumbnail = (thumbnail) => {
-    return `${BASE_URL}/storage/img/${thumbnail}`;
+export const getGambar = (gambar) => {
+    return `${BASE_URL}/storage/img/${gambar}`;
 }
 
 const useAxios = axios.create({
