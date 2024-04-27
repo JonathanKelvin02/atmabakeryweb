@@ -14,6 +14,7 @@ function FormLogin() {
         {email: "",
         password: ""}
     );
+    
     const [loading, setLoading] = useState(false);
 
     const handleChange = (event) => {
@@ -55,7 +56,7 @@ function FormLogin() {
     };
 
     const forgotPassword = () => {
-        navigate('/ForgotEmailView');
+        navigate('/forgot-password');
     };
 
     return (
@@ -78,9 +79,7 @@ function FormLogin() {
                                 <div>
                                     Don't have an account? <a href="/register">Register</a>
                                 </div>
-                                <div>
-                                    <a href="/ForgotEmailView" >Forget Password</a>
-                                </div>
+                                <div onClick={() => navigate('/forgot-password')} style={{ color: 'blue', textDecoration: 'underline' }}>Forget Password</div>
                             </Form.Text>
                         </Form.Group>
                         <div className='d-grid'>

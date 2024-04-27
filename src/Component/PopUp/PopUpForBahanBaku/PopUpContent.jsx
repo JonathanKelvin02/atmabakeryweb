@@ -9,6 +9,9 @@ const PopupContent = ({ data }) => {
   const [produk, setProduk] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const isMobile = window.innerWidth <= 600;
+  const maxHeight = isMobile ? '16vh' : '20vh';
+
   const fetchProduct = () => {
     setIsLoading(true);
     GetRelatedProduct(data).then((response) => {
@@ -26,30 +29,30 @@ const PopupContent = ({ data }) => {
 
   return (
     <>
-<div className="table-responsive">
-  <table className="table">
-      <thead>
-          <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Unit</th>
-          </tr>
-      </thead>
-  </table>
-  <div style={{ maxHeight: '12em', overflowY: 'auto' }}>
-    <table className="table">
-      <tbody>
-        {produk?.map((data, index) => (
-            <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                <td style={{ textAlign: 'left' }}>{data.Nama_Produk}</td>
-                <td style={{ textAlign: 'center' }}>{data.Kuantitas}</td>
-                <td style={{ textAlign: 'right' }}>{data.Satuan}</td>
-            </tr> 
-        ))}
-      </tbody>
-    </table>
-  </div>                          
-</div>
+      <div className="table-responsive">
+        <table className="table">
+            <thead>
+                <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
+                    <th style={{ textAlign: 'left' }}>Product Name</th>
+                    <th style={{ textAlign: 'center' }}>Quantity</th>
+                    <th style={{ textAlign: 'right' }}>Unit</th>
+                </tr>
+            </thead>
+        </table>
+        <div style={{ maxHeight, overflowY: 'auto' }}>
+          <table className="table">
+            <tbody>
+              {produk?.map((data, index) => (
+                  <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                      <td style={{ textAlign: 'left' }}>{data.Nama_Produk}</td>
+                      <td style={{ textAlign: 'center' }}>{data.Kuantitas}</td>
+                      <td style={{ textAlign: 'right' }}>{data.Satuan}</td>
+                  </tr> 
+              ))}
+            </tbody>
+          </table>
+        </div>                          
+      </div>
     </>
   );
 

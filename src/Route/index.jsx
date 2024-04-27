@@ -3,7 +3,10 @@ import { ToastContainer } from "react-toastify";
 
 import TopNavBar from "../Component/TopNavBarComponent/TopNavbarForAuth";
 import LoginView from "../Pages/LoginPage/LoginView";
-import ForgotView from "../Pages/ForgotPage/ForgotView";
+
+import LoginForm from "../Pages/LoginPage/FormLogin";
+import ForgotForm from "../Pages/ForgotPage/FormForgot";
+import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
 
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
@@ -27,11 +30,21 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <LoginView />
-            },
-            {
-                path: "/ForgotEmailView",
-                element: <ForgotView />
+                element: <LoginView />,
+                children: [
+                    {
+                        path: "/",
+                        element: <LoginForm />
+                    },
+                    {
+                        path: "/forgot-password",
+                        element: <ForgotForm />
+                    },
+                    {
+                        path: "/reset-password",
+                        element: <ResetForm />
+                    }
+                ]
             }
         ]
     },
