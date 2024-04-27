@@ -65,7 +65,7 @@ const TambahKaryawan = ({ onSuccess }) => {
 
     return (
         <>
-            <Button onClick={handleShow} className='ms-3' style={{ backgroundColor: '#8e6f8e', width: '15%', borderColor:'#8e6f8e' }}>
+            <Button onClick={handleShow} className='ms-3' style={{ backgroundColor: '#8e6f8e', borderColor:'#8e6f8e' }}>
                 Tambah Karyawan
             </Button>
 

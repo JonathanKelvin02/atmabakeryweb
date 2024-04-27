@@ -10,7 +10,8 @@ import { Outlet } from 'react-router-dom';
 
 import { 
     faUsers, 
-    faFile 
+    faFile,
+    faReceipt 
 } from '@fortawesome/free-solid-svg-icons';
 
 const menu = [
@@ -19,6 +20,14 @@ const menu = [
         pil1 : 'Homecook',
         pil2 : 'Hampers',
         pil3 : 'Titipan',
+        path : '/admin'
+    },
+    {
+        nama : 'Resep',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faReceipt,
         path : '/admin'
     },
     {

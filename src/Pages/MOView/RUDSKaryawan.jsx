@@ -67,6 +67,7 @@ const RUDSKaryawan = () => {
     useEffect(() => {
         fetchKaryawan();
         importingCSS();
+
     }
     , []);
 
@@ -77,20 +78,26 @@ const RUDSKaryawan = () => {
     return (
         <>
             <Container>
-                <Form onSubmit={searchKaryawan}>
-                    <InputGroup className='m-3 w-25'>
-                        <Form.Control
-                            placeholder="Search"
-                            aria-label="Search"
-                            aria-describedby="basic-addon2"
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                        <Button id="button-addon2" style={{ backgroundColor: '#8e6f8e', borderColor:'#8e6f8e' }} type='submit'>
-                            <FontAwesomeIcon icon={faSearch} />
-                        </Button>
-                    </InputGroup>
-                </Form >
-                <TambahKaryawan onSuccess={handleRefresh} />
+            <div className='d-flex justify-content-between'>
+                <div className='m-3 w-50'> 
+                    <Form onSubmit={searchKaryawan}>
+                        <InputGroup>
+                            <Form.Control
+                                placeholder="Search"
+                                aria-label="Search"
+                                aria-describedby="basic-addon2"
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <Button id="button-addon2" style={{ backgroundColor: '#8e6f8e', borderColor:'#8e6f8e' }} type='submit'>
+                                <FontAwesomeIcon icon={faSearch} />
+                            </Button>
+                        </InputGroup>
+                    </Form>
+                </div>
+                <div className=' m-3'>
+                    <TambahKaryawan onSuccess={handleRefresh} />
+                </div>
+            </div>
                 {isLoading ? (
                     <div className='text-center'>
                         <Spinner animation="border" variant="dark" size="lg" role="status" aria-hidden="true" />
@@ -124,7 +131,8 @@ const RUDSKaryawan = () => {
                                                     karyawan.ID_Jabatan === 1 ? "px-3 py-2 custom-badge1" : 
                                                     karyawan.ID_Jabatan === 2 ? "px-3 py-2 custom-badge2" : 
                                                     karyawan.ID_Jabatan === 3 ? "px-3 py-2 custom-badge3" : 
-                                                    karyawan.ID_Jabatan === 4 ? "px-3 py-2 custom-badge4" : "px-3 py-2 custom-badge5"} 
+                                                    karyawan.ID_Jabatan === 4 ? "px-3 py-2 custom-badge4" : "px-3 py-2 custom-badge5"
+                                                    } 
                                                 key={karyawan.ID_Jabatan}
                                             >
                                                 {karyawan.jabatan ? karyawan.jabatan.Nama_Jabatan : 'Unknown'}
