@@ -147,7 +147,7 @@ const CreateTitipan = ( ) => {
                                                     >
                                                         <option value="">Select Penitip</option>
                                                         {penitip?.map((penitip, index) => (
-                                                            <option value={penitip.ID_Penitip}>{penitip.Nama_Penitip}</option>
+                                                            <option key={index} value={penitip.ID_Penitip}>{penitip.Nama_Penitip}</option>
                                                         ))}
                                                         
                                                     </Form.Select>

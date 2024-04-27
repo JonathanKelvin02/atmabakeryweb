@@ -122,6 +122,34 @@ export const UpdateTitipan = async (values) => {
     }
 };
 
+export const CreateProdukHampers = async (data) => {
+    try {
+        const response = await useAxios.post("/produk/hampers", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+};
+
+export const UpdateHamper = async (values) => {
+    try {
+        const response = await useAxios.put(`/hampers/${values.ID_Produk}`, values, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 export const UpdateProduct = async (values) => {
     try {
         const response = await useAxios.put(`/produk/${values.ID_Produk}`, values, {

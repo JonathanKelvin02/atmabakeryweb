@@ -94,32 +94,34 @@ const TitipanView = () => {
                     </div>
                 ) : (
                     products?.length > 0 ? (
-                        <table>
-                            <thead>
-                                <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                    <th>Penitip</th>
-                                    <th>Ready Stock</th>
-                                    <th style={{ width: '24%'}}>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {products?.map((homecook, index) => (
-                                    <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                        <td>{homecook.tblproduk.Nama_Produk}</td>
-                                        <td>Rp.{homecook.tblproduk.Harga}</td>
-                                        <td>{homecook.penitip.Nama_Penitip}</td>
-                                        <td>{homecook.tblproduk.StokReady}</td>
-                                        <td>
-                                            <button className="edit-action" onClick={() => handleEdit(homecook)}>Edit</button>
-                                            <button className="delete-action" onClick={() => handleShowModal(homecook.ID_Produk)}>Delete</button>
-                                        </td>
-                                    </tr> 
-                                ))}
-                                
-                            </tbody>
-                        </table>
+                        <Container className="list-product">
+                            <table>
+                                <thead>
+                                    <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Penitip</th>
+                                        <th>Ready Stock</th>
+                                        <th style={{ width: '24%'}}>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products?.map((homecook, index) => (
+                                        <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                            <td>{homecook.tblproduk.Nama_Produk}</td>
+                                            <td>Rp.{homecook.tblproduk.Harga}</td>
+                                            <td>{homecook.penitip.Nama_Penitip}</td>
+                                            <td>{homecook.tblproduk.StokReady}</td>
+                                            <td>
+                                                <button className="edit-action" onClick={() => handleEdit(homecook)}>Edit</button>
+                                                <button className="delete-action" onClick={() => handleShowModal(homecook.ID_Produk)}>Delete</button>
+                                            </td>
+                                        </tr> 
+                                    ))}
+                                    
+                                </tbody>
+                            </table>
+                        </Container>
                     ) : (
                         <Alert variant="dark" className="mt-3 text-center">
                             No Products Yet

@@ -10,6 +10,8 @@ import CreateResep from "../Pages/AdminView/ProductView/CreateHomecookView";
 import EditResep from "../Pages/AdminView/ProductView/EditHomecookView";
 import CreateTitipan from "../Pages/AdminView/ProductView/CreateTitipanView";
 import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
+import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
+import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
             {
                 path: "/admin/edit-titipan",
                 element: <EditTitipan />
+            },
+            {
+                path: "/admin/create-hampers",
+                element: <CreateHampers />
+            },
+            {
+                path: "/admin/edit-hampers",
+                element: <EditHampers />
             }
         ]
     },
