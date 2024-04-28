@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Spinner, Row, Col, InputGroup, Alert } from "react-bootstrap";
+import { Container, Spinner, Row, Col, InputGroup, Alert, Modal, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,29 @@ import { useNavigate } from "react-router-dom";
 import './Product.css';
 
 //Import API
-import { GetAllHampers, GetAllRecipe } from "../../../api/apiProduk";
+import { GetAllHampers, GetAllRecipe, DeleteProduct } from "../../../api/apiProduk";
 
 const HampersView = () => {
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [resep, setResep] = useState([]);
+    const [showModal, setShowModal] = useState(false); 
+    const [productIdToDelete, setProductIdToDelete] = useState(null);
+
+    const deleteHampers = (id) => {
+        setIsLoading(true);
+        DeleteProduct(id).then((response) => {
+            setIsLoading(false);
+            toast.success(response.message);
+            fetchProducts();
+            handleCloseModal();
+        }).catch((e) => {
+            console.log(e);
+            setIsLoading(false);
+            toast.dark(e.message);
+        })
+    }
     
     const fetchProducts = () => {
         setIsLoading(true);
@@ -38,6 +54,20 @@ const HampersView = () => {
             console.log(err);
             setIsLoading(false);
         })
+    }
+
+    const handleEdit = (hamper) => {
+        navigate('/admin/edit-hampers', { state: {hamper} });
+    }
+
+    const handleShowModal = (productId) => {
+        setProductIdToDelete(productId);
+        setShowModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setProductIdToDelete(null);
+        setShowModal(false);
     }
 
     useEffect(() => {
@@ -116,8 +146,8 @@ const HampersView = () => {
                                                 </ul>
                                             </td>
                                             <td>
-                                                <button className="edit-action">Edit</button>
-                                                <button className="delete-action">Delete</button>
+                                                <button className="edit-action" onClick={() => handleEdit(hampers)}>Edit</button>
+                                                <button className="delete-action" onClick={() => handleShowModal(hampers.ID_Produk)}>Delete</button>
                                             </td>
                                         </tr> 
                                     ))}
@@ -132,6 +162,23 @@ const HampersView = () => {
                     )
                 )}
             </Container>
+
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Deletion</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to delete this product?
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Cancel
+                    </Button>
+                    <Button variant="danger" onClick={() => deleteHampers(productIdToDelete)}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };

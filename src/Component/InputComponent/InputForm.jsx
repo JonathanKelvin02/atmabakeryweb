@@ -8,6 +8,7 @@ const InputForm = (props) => {
                 className="text-dark bg-transparent border-secondary"
                 placeholder={props.placeholder || props.label}
                 {...props}
+                required
             />
         </Form.Group>
     );

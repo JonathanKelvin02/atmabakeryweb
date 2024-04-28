@@ -119,6 +119,7 @@ const EditTitipan = () => {
                                                 name="ID_Kategori" 
                                                 value={data?.ID_Kategori}
                                                 onChange={handleChange}
+                                                required
                                             >
                                                 <option value="">Select Category</option>
                                                 <option value="1">Roti</option>
@@ -138,6 +139,7 @@ const EditTitipan = () => {
                                                         name="ID_Penitip" 
                                                         value={data?.ID_Penitip}
                                                         onChange={handleChange}
+                                                        required
                                                     >
                                                         <option value="">Select Penitip</option>
                                                         {penitip?.map((penitip, index) => (

@@ -79,7 +79,12 @@ const CreateHampers = () => {
     const submitData = (event) => {
         event.preventDefault();
         setIsPending(true);
-        
+
+        if (!image) { 
+            toast.dark("Image is required");
+            setIsPending(false); 
+            return; 
+        }
 
         const formData = new FormData();
         formData.append("Nama_Produk", data.Nama_Produk);
@@ -155,6 +160,7 @@ const CreateHampers = () => {
                                                     className="text-dark bg-transparent border-secondary" 
                                                     name="ID_Kategori" 
                                                     onChange={handleChange}
+                                                    required
                                                 >
                                                     <option value="">Select Category</option>
                                                     <option value="1">Roti</option>
@@ -266,6 +272,7 @@ const CreateHampers = () => {
                                                     name='ID_Produk'
                                                     value={isi.ID_Produk}
                                                     onChange={(e) => handleValueChange(index, e)}
+                                                    required
                                                 >
                                                     <option value="">Select Product</option>
                                                     {resep?.map((resep, i) => (
@@ -283,6 +290,7 @@ const CreateHampers = () => {
                                                     name='Kuantitas'
                                                     value={isi.Kuantitas}
                                                     onChange={(e) => handleValueChange(index, e)}
+                                                    required
                                                 />
                                             </Form.Group>
                                         </Col>

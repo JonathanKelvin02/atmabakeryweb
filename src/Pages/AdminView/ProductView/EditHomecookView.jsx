@@ -81,6 +81,7 @@ const EditResep = () => {
                                         name="ID_Kategori" 
                                         onChange={handleChange}
                                         value={data?.ID_Kategori}
+                                        required
                                     >
                                         <option value="">Select Category</option>
                                         <option value="1">Roti</option>

@@ -53,8 +53,13 @@ const CreateTitipan = ( ) => {
     const submitData = (event) => {
         event.preventDefault();
         setIsPending(true);
-        
 
+        if (!image) { 
+            toast.dark("Image is required");
+            setIsPending(false); 
+            return; 
+        }
+        
         const formData = new FormData();
         formData.append("Nama_Produk", data.Nama_Produk);
         formData.append("ID_Kategori", data.ID_Kategori);
@@ -126,6 +131,7 @@ const CreateTitipan = ( ) => {
                                                 className="text-dark bg-transparent border-secondary" 
                                                 name="ID_Kategori" 
                                                 onChange={handleChange}
+                                                required
                                             >
                                                 <option value="">Select Category</option>
                                                 <option value="1">Roti</option>
@@ -144,6 +150,7 @@ const CreateTitipan = ( ) => {
                                                         className="text-dark bg-transparent border-secondary" 
                                                         name="ID_Penitip" 
                                                         onChange={handleChange}
+                                                        required
                                                     >
                                                         <option value="">Select Penitip</option>
                                                         {penitip?.map((penitip, index) => (
