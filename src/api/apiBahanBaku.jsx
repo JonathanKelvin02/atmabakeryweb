@@ -58,3 +58,17 @@ export const UpdateBahanBaku = async (data) => {
         throw e.response.data;
     }
 }
+
+export const DeleteBahanBaku = async (id) => {
+    try {
+        const response = await useAxios.delete("/deleteBahanBaku/"+id, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

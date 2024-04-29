@@ -44,8 +44,7 @@ function FormLogin() {
                     navigate("/owner");
                 } else {
                     navigate("/customer");
-                }
-                
+                }                
                 toast.success(res.message);
             })
             .catch((err) => {
