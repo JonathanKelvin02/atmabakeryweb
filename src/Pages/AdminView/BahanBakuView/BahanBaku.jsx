@@ -5,6 +5,7 @@ import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
 
 import PopUpShowRelated from '../../../Component/PopUp/PopUpForBahanBaku/PopUpContent.jsx'
+import BahanBakuModal from "../../../Component/Modal/BahanBakuModal/BahanBakuModal.jsx";
 
 // Import Css
 import '../ProductView/Product.css';
@@ -17,6 +18,7 @@ import { GetBahanBaku } from "../../../api/apiBahanBaku";
 const BahanBakuView = () => {
     const [bahan, setBahan] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const [activePage, setActivePage] = useState(1);
     const itemsCountPerPage = 10;
@@ -26,6 +28,9 @@ const BahanBakuView = () => {
     const currentItems = bahan.slice(indexOfFirstItem, indexOfLastItem);
 
     const inputCari = useRef("");
+    const [refresh, setRefresh] = useState(false);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [editData, setEditData] = useState(null);
 
     const fetchBahan = () => {
         setIsLoading(true);
@@ -52,17 +57,21 @@ const BahanBakuView = () => {
         setActivePage(Math.ceil((posisi + 1) / itemsCountPerPage));
         // console.log(Math.ceil((posisi + 1) / itemsCountPerPage));
     }
-
-    // const passing = (bahanBakuPassing) => {
-    //     console.log(bahanBakuPassing);
-    // }
-
+    
     useEffect(() => {
         fetchBahan();
-    }, [])
+    }, [refresh])
 
     return(
         <>
+            {/* {showModal && <BahanBakuModal show={showModal} onClose={() => setShowModal(false)} />} */}
+            {/* {showModal && <BahanBakuModal show={showModal} onClose={() => setShowModal(false)} onRefresh={() => setRefresh(oldRefresh => !oldRefresh)} />} */}
+
+            {/* {showModal && <BahanBakuModal show={showModal} onClose={() => setShowModal(false)} onRefresh={() => setRefresh(oldRefresh => !oldRefresh)} initialData={editData} isUpdate={true} />} */}
+            {/* <BahanBakuModal show={showModal} onClose={() => setShowModal(false)} onRefresh={() => setRefresh(oldRefresh => !oldRefresh)} initialData={editData} isUpdate={true} /> */}
+
+            {showModal && <BahanBakuModal show={showModal} onClose={() => setShowModal(false)} onRefresh={() => setRefresh(oldRefresh => !oldRefresh)} initialData={editData} isUpdate={isUpdate} />}
+
             <Container className="top-container">
                 <Row>
                     <Col xs={12} md={8}>
@@ -74,7 +83,9 @@ const BahanBakuView = () => {
                         </InputGroup>
                     </Col>
                 <Col xs={12} md={4} className="d-flex justify-content-md-end mt-3 mt-md-0">
-                    <Button variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button>
+                    {/* <Button onClick={() => { setShowModal(true); setIsUpdate(true); }} variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button> */}
+                    {/* <Button onClick={() => { setShowModal(true); setIsUpdate(false); setEditData(null); }} variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button> */}
+                    <Button onClick={() => { setShowModal(true); setIsUpdate(false); setEditData(null); }} variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button>
                 </Col>
             </Row>
             </Container>
@@ -108,7 +119,7 @@ const BahanBakuView = () => {
                                 <tbody>
                                     {currentItems?.map((data, index) => (
                                         <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                            <td>{data.Nama_Bahan}</td>
+                                            <td>{data.ID_Bahan_Baku}</td>
                                             <td>{data.Stok}</td>
                                             <td>{data.Satuan}</td>
                                             <td>
@@ -122,7 +133,9 @@ const BahanBakuView = () => {
                                                 </Popup>
                                             </td>
                                             <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                                <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success">Edit</Button>
+                                                {/* <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success">Edit</Button> */}
+                                                {/* <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success" onClick={() => { setShowModal(true); setEditData(data); }}>Edit</Button> */}
+                                                <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success" onClick={() => { setShowModal(true); setIsUpdate(true); setEditData(data); }}>Edit</Button>
                                                 <Button style={{width:'68px'}} variant="success">Delete</Button>
                                             </td>
                                         </tr> 
