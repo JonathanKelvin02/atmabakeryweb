@@ -6,6 +6,9 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 //Import API
 import { GetAllResep, SearchResep } from '../../../api/apiResep';
 
+//Import Component
+import ModalAddResep from './ModalAddResep';
+
 const ResepView = () => {
     const [reseps, setResep] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +60,9 @@ const ResepView = () => {
                             </Button>
                         </InputGroup>
                     </Form>
+                </div>
+                <div className='m-2'>
+                    <ModalAddResep onSuccess={fetchResep} />
                 </div>
             </div>
             <div>
