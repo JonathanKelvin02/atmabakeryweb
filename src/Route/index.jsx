@@ -23,6 +23,15 @@ import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
 import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
 import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
 
+import MOMainView from "../Pages/MOView/MOMainView";
+import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
+import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
+
+import ResepView from "../Pages/AdminView/ResepView/ResepView";
+
+import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
+import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -111,6 +120,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/edit-hampers",
                 element: <EditHampers />
+            },
+            {
+                path :"/admin/Resep",
+                element: <ResepView />
             }
         ]
     },

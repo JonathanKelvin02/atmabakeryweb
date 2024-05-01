@@ -105,7 +105,7 @@ const RUDSKaryawan = () => {
                     </div>
                 ) : (
                     karyawans?.length > 0 ? (
-                        <Table className='mt-3 ms-3' striped hover style={{width:'97.5%'}}>
+                        <Table className='ms-3' striped hover responsive style={{width:'97.5%'}}>
                             <thead className='text-center'>
                                 <tr>
                                     <th>No</th>
@@ -114,8 +114,6 @@ const RUDSKaryawan = () => {
                                     <th>Nomor Rekening</th>
                                     <th>Email</th>
                                     <th>Password</th>
-                                    <th>Gaji</th>
-                                    <th>Bonus</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -152,8 +150,6 @@ const RUDSKaryawan = () => {
                                                 </Button>
                                             </InputGroup>
                                         </td>
-                                        <td>{karyawan.Gaji}</td>
-                                        <td>{karyawan.Bonus}</td>
                                         <td className='d-flex justify-content-center'>
                                             {/* <Button variant='success' size='sm' className='me-2'>Edit</Button> */}
                                             <EditKaryawan dataKaryawan={karyawan} onSuccess={handleRefresh} />

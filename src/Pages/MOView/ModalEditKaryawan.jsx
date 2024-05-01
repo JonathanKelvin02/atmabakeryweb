@@ -20,6 +20,7 @@ const ModalEditKaryawan = ({ dataKaryawan, onSuccess }) => {
     const handleShow = () => {
         console.log(data.ID_Pegawai);
         setShow(true);
+        fetchJabatan();
     }
 
     const handleChange = (event) => {
@@ -47,10 +48,6 @@ const ModalEditKaryawan = ({ dataKaryawan, onSuccess }) => {
             toast.error(err);
         })
     }
-
-    useEffect(() => {
-        fetchJabatan();
-    }, []);
 
     return (
         <>
