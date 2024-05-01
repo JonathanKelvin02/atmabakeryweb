@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { Login } from "../../api/apiAuth";
-
+import "./Login.css";
 
 function FormLogin() {
     const navigate = useNavigate();
@@ -14,6 +14,7 @@ function FormLogin() {
         {email: "",
         password: ""}
     );
+    
     const [loading, setLoading] = useState(false);
 
     const handleChange = (event) => {
@@ -43,8 +44,7 @@ function FormLogin() {
                     navigate("/owner");
                 } else {
                     navigate("/customer");
-                }
-                
+                }                
                 toast.success(res.message);
             })
             .catch((err) => {
@@ -54,48 +54,46 @@ function FormLogin() {
             });
     };
 
+    const forgotPassword = () => {
+        navigate('/forgot-password');
+    };
+
     return (
-        <div className="d-flex justify-content-center align-items-center h-75 m-5">
-            <Container className='p-5 shadow-sm' style={{borderRadius:'10px'}}>
-                <div className='text-center'>
-                    <h1 className='mt-3'>Log In</h1>
-                    <label>Welcome Back</label>
-                </div>
-                <Form onSubmit={login}>
-                    <Form.Group className="mb-3" controlId="formGroupEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name='email' placeholder="Enter email" onChange={handleChange}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formGroupPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name='password' placeholder="Password" onChange={handleChange}/>
-                        <Form.Text muted>
-                            <div className="d-flex justify-content-between">
-                                <span>Don't have an account? <a href="/register">Register</a></span>
-                                <a href='/forget-password'>Forget Password</a>
-                            </div>
-                        </Form.Text>
-                    </Form.Group>
-                    <div className='d-grid'>
-                        <Button 
-                            type="submit"
-                            style={{
-                                backgroundColor: '#8e6f8e',
-                                borderColor: '#8e6f8e',
-                                color: 'white'
-                            }} 
-                            disabled={isDisabled || loading}
-                        >
+        <div className="form-login">
+            <div className="form-container">
+                <Container className='form-inner-container'>
+                    <div className='form-header'>
+                        <h1 className='form-title'>Log In</h1>
+                        <label className='form-subtitle'>Welcome Back</label>
+                    </div>
+                    <Form onSubmit={login} className='form-body'>
+                        <Form.Group className="form-group-email">
+                            <div className='form-label-email'>Email</div>
+                            <Form.Control className="form-control-email" type="email" name='email' placeholder="Enter email" onChange={handleChange}/>
+                        </Form.Group>
+                        <Form.Group className="form-group-password">
+                            <div className='form-label-password'>Password</div>
+                            <Form.Control className="form-control-password" type="password" name='password' placeholder="Password" onChange={handleChange}/>
+                            <Form.Text className='form-text mt-3'>
+                                <div>
+                                    Don't have an account? <a href="/register">Register</a>
+                                </div>
+                                <div onClick={() => navigate('/forgot-password')} style={{ color: 'blue', textDecoration: 'underline' }}>Forget Password</div>
+                            </Form.Text>
+                        </Form.Group>
+                        <div className='d-grid'>
+                            <Button className='border-2' style={{ backgroundColor: '#8E6F60', borderColor: '#8E6F60' }} type="submit" disabled={isDisabled || loading}>
                             {loading ? (
                                 <Spinner animation='border' variant='dark' size='sm' />
                             ) : (
-                                <span>Login</span>
+                                <span>Sign In</span>
                             )}
-                        </Button>
-                    </div>
-                </Form>
-            </Container>
-        </div>
+                            </Button>
+                        </div>                    
+                    </Form>
+                </Container>
+            </div>
+        </div>        
     )
 }
 

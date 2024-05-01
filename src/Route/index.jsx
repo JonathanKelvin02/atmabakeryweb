@@ -1,20 +1,28 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-// View Public
+import TopNavBar from "../Component/TopNavBarComponent/TopNavbarForAuth";
 import LoginView from "../Pages/LoginPage/LoginView";
 
-// View Admin
+import LoginForm from "../Pages/LoginPage/FormLogin";
+import ForgotForm from "../Pages/ForgotPage/FormForgot";
+import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
+
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
+
+import BahanBakuView from "../Pages/AdminView/BahanBakuView/BahanBaku";
+import PenitipView from "../Pages/AdminView/PenitipPage/Penitip";
+
 import CreateResep from "../Pages/AdminView/ProductView/CreateHomecookView";
 import EditResep from "../Pages/AdminView/ProductView/EditHomecookView";
 import CreateTitipan from "../Pages/AdminView/ProductView/CreateTitipanView";
 import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
 import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
 import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -23,10 +31,28 @@ const router = createBrowserRouter([
         element: <div>Routes Not Found!</div>
     },
     {
+        path: "/",
+        element:(
+            <TopNavBar />
+        ),
         children: [
             {
                 path: "/",
-                element: <LoginView />
+                element: <LoginView />,
+                children: [
+                    {
+                        path: "/",
+                        element: <LoginForm />
+                    },
+                    {
+                        path: "/forgot-password",
+                        element: <ForgotForm />
+                    },
+                    {
+                        path: "/reset-password",
+                        element: <ResetForm />
+                    }
+                ]
             }
         ]
     },
@@ -53,6 +79,14 @@ const router = createBrowserRouter([
             {
                 path: "/admin/Titipan",
                 element: <TitipanView />
+            },
+            {
+                path: "/admin/BahanBaku",
+                element: <BahanBakuView />
+            },
+            {
+                path: "/admin/Penitip",
+                element: <PenitipView />
             },
             {
                 path: "/admin/create-resep",
