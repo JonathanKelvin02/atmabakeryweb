@@ -1,24 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import ProtectedRoutes from "./ProtectedRoutes";
+import TopNavBar from "../Component/TopNavBarComponent/TopNavbarForAuth";
 import LoginView from "../Pages/LoginPage/LoginView";
 
-//Admin
+import LoginForm from "../Pages/LoginPage/FormLogin";
+import ForgotForm from "../Pages/ForgotPage/FormForgot";
+import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
+
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
-import ResepView from "../Pages/AdminView/ResepView/ResepView";
 
-//MO
-import MOMainView from "../Pages/MOView/MOMainView";
-import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
-import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
+import BahanBakuView from "../Pages/AdminView/BahanBakuView/BahanBaku";
+import PenitipView from "../Pages/AdminView/PenitipPage/Penitip";
 
-//Owner
-import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
-import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
+import CreateResep from "../Pages/AdminView/ProductView/CreateHomecookView";
+import EditResep from "../Pages/AdminView/ProductView/EditHomecookView";
+import CreateTitipan from "../Pages/AdminView/ProductView/CreateTitipanView";
+import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
+import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
+import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
+
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
     {
@@ -26,10 +31,28 @@ const router = createBrowserRouter([
         element: <div>Routes Not Found!</div>
     },
     {
+        path: "/",
+        element:(
+            <TopNavBar />
+        ),
         children: [
             {
                 path: "/",
-                element: <LoginView />
+                element: <LoginView />,
+                children: [
+                    {
+                        path: "/",
+                        element: <LoginForm />
+                    },
+                    {
+                        path: "/forgot-password",
+                        element: <ForgotForm />
+                    },
+                    {
+                        path: "/reset-password",
+                        element: <ResetForm />
+                    }
+                ]
             }
         ]
     },
@@ -58,8 +81,36 @@ const router = createBrowserRouter([
                 element: <TitipanView />
             },
             {
-                path: "/admin/Resep",
-                element: <ResepView />
+                path: "/admin/BahanBaku",
+                element: <BahanBakuView />
+            },
+            {
+                path: "/admin/Penitip",
+                element: <PenitipView />
+            },
+            {
+                path: "/admin/create-resep",
+                element: <CreateResep />
+            },
+            {
+                path: "/admin/edit-resep",
+                element: <EditResep />
+            },
+            {
+                path: "/admin/create-titipan",
+                element: <CreateTitipan />
+            },
+            {
+                path: "/admin/edit-titipan",
+                element: <EditTitipan />
+            },
+            {
+                path: "/admin/create-hampers",
+                element: <CreateHampers />
+            },
+            {
+                path: "/admin/edit-hampers",
+                element: <EditHampers />
             }
         ]
     },

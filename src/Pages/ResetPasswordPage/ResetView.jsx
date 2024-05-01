@@ -1,7 +1,6 @@
 import { Row, Col } from 'react-bootstrap'
-import { Outlet } from 'react-router-dom';
 import PicCarousel from '../../Component/PicCarousel.jsx';
-import FormLogin from './FormLogin.jsx';
+import FormLogin from '../ResetPasswordPage/ResetForm.jsx';
 
 //import gambar
 import img1 from '../../assets/ImgCarousel/ImgCarousel(1).jpg'
@@ -14,8 +13,7 @@ import img7 from '../../assets/ImgCarousel/ImgCarousel(7).jpg'
 
 const images = [img1, img2, img3, img4, img5, img6, img7];
 
-
-function LoginView({ children }) {
+function ResetView() {
 
   return (
     <>
@@ -24,12 +22,11 @@ function LoginView({ children }) {
           <PicCarousel Images={images} />
         </Col>
         <Col>
-          {/* <FormLogin /> */}
-          {children ? children : <Outlet />}
+          <FormLogin />
         </Col>
       </Row>
     </>
   )
 }
 
-export default LoginView;
+export default ResetView;

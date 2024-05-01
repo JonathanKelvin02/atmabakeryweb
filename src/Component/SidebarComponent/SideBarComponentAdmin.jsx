@@ -11,7 +11,7 @@ import { Outlet } from 'react-router-dom';
 import { 
     faUsers, 
     faFile,
-    faReceipt 
+    faListUl
 } from '@fortawesome/free-solid-svg-icons';
 
 const menu = [
@@ -20,16 +20,17 @@ const menu = [
         pil1 : 'Homecook',
         pil2 : 'Hampers',
         pil3 : 'Titipan',
+        icon : faListUl,
         path : '/admin'
     },
     {
-        nama : 'Resep',
+        nama : 'Bahan Baku',
         pil1 : null,
         pil2 : null,
         pil3 : null,
-        icon : faReceipt,
-        path : '/admin'
-    },
+        icon : faListUl,
+        path : '/admin/BahanBaku'
+    },  
     {
         nama : 'User',
         pil1 : null,
@@ -37,7 +38,7 @@ const menu = [
         pil3 : null,
         icon : faUsers,
         path : '/admin'
-    },
+    },  
     {
         nama : 'Karyawan',
         pil1 : null,
@@ -52,7 +53,7 @@ const menu = [
         pil2 : null,
         pil3 : null,
         icon : faUsers,
-        path : '/admin'
+        path : '/admin/Penitip'
     },
     {
         nama : 'Laporan',
@@ -61,7 +62,7 @@ const menu = [
         pil3 : null,
         icon : faFile,
         path : '/admin'
-    }
+    },
 ]
 
 const { Header, Sider } = Layout;
@@ -77,15 +78,20 @@ function SideBarComponent({children}) {
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: '#fff', color: '#000' }}>
-                    <div style={{ display: 'flex' }}>
-                        <Button 
-                            type="text"
-                            onClick={() => setCollapsed(!collapsed)}
-                            icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined />}
-                            style={{marginTop: 16}}
-                        />
-                        <div className="text-topNavar">Home</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Button 
+                                type="text"
+                                onClick={() => setCollapsed(!collapsed)}
+                                icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined />}
+                                style={{marginTop: 16}}
+                            />
+                            <div className="text-topNavar">Home</div>
+                            <div className="text-topNavar">Contact</div>
+                        </div>
+                        {collapsed && <Button type="primary" danger style={{marginTop: 16, marginRight: 8}}>LogOut</Button>}
                     </div>
+
                 </Header>
                 {children ? children : <Outlet />}
             </Layout>

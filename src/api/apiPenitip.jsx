@@ -1,8 +1,8 @@
 import useAxios from "./indexApi";
 
-export const GetBahanBaku = async () => {
+export const GetAllPenitip = async () => {
     try {
-        const response = await useAxios.get("/getBahanBakuAll", {
+        const response = await useAxios.get("/getPenitipAll", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -11,29 +11,30 @@ export const GetBahanBaku = async () => {
         // console.log(response.data.data);
         return response.data.data;
     } catch (e) {
-        throw e.response.data;
-    }    
+        throw error.response.data;
+    }
 }
 
-export const GetRelatedProduct = async (data) => {
-    try{
-        const response = await useAxios.post(`/detail-resepForRelated`, data, {
+export const GetProductBySpesificPenitip = async (data) => {
+    try {
+        const response = await useAxios.post("/productForSpesificPenitip", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },
         });
-
-        console.log(response.data.data);
         return response.data.data;
-    }catch(e){
-        throw e.response.data;
+    } catch (e) {
+        console.log(e);
+        throw error.response.data;
     }
 }
 
-export const PostBahanBaku = async (data) => {
+export const PostPenitip = async (data) => {
+    console.log(data);
+
     try {
-        const response = await useAxios.post("/createBahanBaku", data, {
+        const response = await useAxios.post("/createPenitip", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -41,13 +42,13 @@ export const PostBahanBaku = async (data) => {
         });
         return response.data;
     } catch (e) {
-        throw e.response.data;
+        throw error.response.data;
     }
 }
 
-export const UpdateBahanBaku = async (data) => {
+export const UpdatePenitip = async (data) => {
     try {
-        const response = await useAxios.put("/updateBahanBaku/"+data.ID_Bahan_Baku, data, {
+        const response = await useAxios.put("/updatePenitip/"+data.ID_Penitip, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -55,13 +56,13 @@ export const UpdateBahanBaku = async (data) => {
         });
         return response.data;
     } catch (e) {
-        throw e.response.data;
+        throw error.response.data;
     }
 }
 
-export const DeleteBahanBaku = async (id) => {
+export const DeletePenitip = async (id) => {
     try {
-        const response = await useAxios.delete("/deleteBahanBaku/"+id, {
+        const response = await useAxios.delete("/deletePenitip/"+id, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -69,6 +70,6 @@ export const DeleteBahanBaku = async (id) => {
         });
         return response.data;
     } catch (e) {
-        throw e.response.data;
+        throw error.response.data;
     }
 }
