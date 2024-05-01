@@ -34,7 +34,7 @@ const MenuList = ({ subMenu }) => { // Destructure props to access subMenu
                     );
                 } else {
                     return (
-                        <Menu.Item key={menu.nama} icon={<FontAwesomeIcon icon={menu.icon} />} onClick={() => navigate(`${menu.path}`)}>
+                        <Menu.Item key={menu.nama} onClick={() => navigate(`${menu.path}/${menu.nama}`)} icon={<FontAwesomeIcon icon={menu.icon} />}>
                             {menu.nama}
                         </Menu.Item>
                     );
