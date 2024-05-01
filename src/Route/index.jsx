@@ -23,6 +23,15 @@ import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
 import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
 import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
 
+import MOMainView from "../Pages/MOView/MOMainView";
+import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
+import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
+
+import ResepView from "../Pages/AdminView/ResepView/ResepView";
+
+import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
+import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -111,6 +120,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/edit-hampers",
                 element: <EditHampers />
+            },
+            {
+                path :"/admin/Resep",
+                element: <ResepView />
             }
         ]
     },
@@ -118,13 +131,21 @@ const router = createBrowserRouter([
         path: "/MO",
         element: (
             <ProtectedRoutes roles={'MO'}>
-                {/* Sidebar MO */}
+                <MOMainView />
             </ProtectedRoutes>
         ),
         children: [
             {
                 path: "/MO",
                 // element: <Dashboard MO />
+            },
+            {
+                path: "/MO/Tambah Karyawan",
+                element: <RUDSKaryawan />,
+            },
+            {
+                path: "/MO/Tambah Karyawan/Tambah",
+                element: <ModalAddKaryawan />,
             }
         ]
     },
@@ -132,12 +153,13 @@ const router = createBrowserRouter([
         path: "/owner",
         element: (
             <ProtectedRoutes roles={'Owner'}>
-                {/* Sidebar Owner */}
+                <OwnerMainView/>
             </ProtectedRoutes>
         ),
         children: [
             {
-                path: "/owner",
+                path: "/owner/Gaji & Bonus",
+                element: <ViewGajiBonus />,
                 // element: <Dashboard Owner />
             }
         ]

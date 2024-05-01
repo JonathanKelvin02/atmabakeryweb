@@ -11,7 +11,8 @@ import { Outlet } from 'react-router-dom';
 import { 
     faUsers, 
     faFile,
-    faListUl
+    faListUl,
+    faReceipt
 } from '@fortawesome/free-solid-svg-icons';
 
 const menu = [
@@ -24,12 +25,20 @@ const menu = [
         path : '/admin'
     },
     {
-        nama : 'Bahan Baku',
+        nama : 'Resep',
         pil1 : null,
         pil2 : null,
         pil3 : null,
         icon : faListUl,
-        path : '/admin/BahanBaku'
+        path : '/admin'
+    }, 
+    {
+        nama : 'Bahan Baku',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faReceipt,
+        path : '/admin'
     },  
     {
         nama : 'User',
@@ -53,7 +62,7 @@ const menu = [
         pil2 : null,
         pil3 : null,
         icon : faUsers,
-        path : '/admin/Penitip'
+        path : '/admin'
     },
     {
         nama : 'Laporan',
@@ -73,7 +82,7 @@ function SideBarComponent({children}) {
     return(
         <Layout>
             <Sider theme='light' collapsed={collapsed} collapsible trigger={null} className='sidebar'>
-                <Logo collapsed={collapsed} />
+                <Logo collapsed={collapsed} data={"Admin"} />
                 <MenuList subMenu={menu} />
             </Sider>
             <Layout>
