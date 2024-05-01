@@ -57,7 +57,7 @@ const RUDSKaryawan = () => {
 
     const importingCSS = async () => {
         try {
-            const module = await import('./Badge.css');
+            const module = await import('./badge.css');
             console.log('CSS file imported:', module);
         } catch (error) {
             console.error('Error importing CSS file:', error);
@@ -113,7 +113,6 @@ const RUDSKaryawan = () => {
                                     <th>Nama Jabatan</th>
                                     <th>Nomor Rekening</th>
                                     <th>Email</th>
-                                    <th>Password</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -138,18 +137,6 @@ const RUDSKaryawan = () => {
                                         </td>
                                         <td>{karyawan.Nomor_Rekening}</td>
                                         <td className='underline'>{karyawan.email}</td>
-                                        <td>
-                                            <InputGroup size='sm'>
-                                                <Form.Control disabled
-                                                    type={showPassword ? "text" : "password"}
-                                                    value={karyawan.password}
-                                                    style={{ backgroundColor: 'transparent', border: 'none' }}
-                                                />
-                                                <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} style={{ backgroundColor: 'transparent', border: 'none' }}>
-                                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                                                </Button>
-                                            </InputGroup>
-                                        </td>
                                         <td className='d-flex justify-content-center'>
                                             {/* <Button variant='success' size='sm' className='me-2'>Edit</Button> */}
                                             <EditKaryawan dataKaryawan={karyawan} onSuccess={handleRefresh} />
