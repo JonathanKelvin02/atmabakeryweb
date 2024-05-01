@@ -16,6 +16,13 @@ import TitipanView from "../Pages/AdminView/ProductView/Titipan";
 import BahanBakuView from "../Pages/AdminView/BahanBakuView/BahanBaku";
 import PenitipView from "../Pages/AdminView/PenitipPage/Penitip";
 
+import CreateResep from "../Pages/AdminView/ProductView/CreateHomecookView";
+import EditResep from "../Pages/AdminView/ProductView/EditHomecookView";
+import CreateTitipan from "../Pages/AdminView/ProductView/CreateTitipanView";
+import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
+import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
+import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -80,6 +87,30 @@ const router = createBrowserRouter([
             {
                 path: "/admin/Penitip",
                 element: <PenitipView />
+            },
+            {
+                path: "/admin/create-resep",
+                element: <CreateResep />
+            },
+            {
+                path: "/admin/edit-resep",
+                element: <EditResep />
+            },
+            {
+                path: "/admin/create-titipan",
+                element: <CreateTitipan />
+            },
+            {
+                path: "/admin/edit-titipan",
+                element: <EditTitipan />
+            },
+            {
+                path: "/admin/create-hampers",
+                element: <CreateHampers />
+            },
+            {
+                path: "/admin/edit-hampers",
+                element: <EditHampers />
             }
         ]
     },
