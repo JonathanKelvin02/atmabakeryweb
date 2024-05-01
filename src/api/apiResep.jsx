@@ -47,7 +47,7 @@ export const PostResep = async (data) => {
 
 export const PutResep = async (data) => {
     try {
-        const response = await useAxios.put(`/detail-resep/${data.ID_Produk}`, data, {
+        const response = await useAxios.put(`/detail-resep/${data.ID_Produk}/${data.ID_Bahan_Baku}`, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -62,7 +62,7 @@ export const PutResep = async (data) => {
 
 export const DeleteResep = async (data) => {
     try {
-        const response = await useAxios.delete(`/detail-resep/${data.ID_Produk}`, data, {
+        const response = await useAxios.delete(`/detail-resep/${data}`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,

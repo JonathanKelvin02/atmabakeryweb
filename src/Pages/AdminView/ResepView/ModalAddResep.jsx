@@ -80,9 +80,11 @@ const ModalAddResep = ({onSuccess}) => {
             ...prevData,
             [event.target.name]: event.target.value,
         }));
-    
+        
         setResep((prevResep) => [...prevResep, data]);
+        toast.success("Bahan Baku Berhasil Ditambahkan");
         console.log(typeof resep.length);
+        console.log(resep.length);
         console.log(typeof index);
         console.log(resep);
         if (resep.length === parseInt(index)) {
@@ -151,7 +153,7 @@ const ModalAddResep = ({onSuccess}) => {
                     {[...Array(index)].map((_, i) => (
                         <>
                             <Modal.Header closeButton>
-                                <Modal.Title>Tambah Bahan Baku {i+1}</Modal.Title>
+                                <Modal.Title>Tambah Bahan Baku</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                     <div key={i+1}>

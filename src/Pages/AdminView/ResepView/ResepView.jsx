@@ -1,13 +1,21 @@
 import { Table, Container, Spinner, Alert, Form, InputGroup, Button } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
+// Lazy load the component
+// const ModalAddResep = React.lazy(() => import('./ModalAddResep'));
+// const ModalDeleteResep = React.lazy(() => import('./ModalDeleteResep'));
+// const ModalEditResep = React.lazy(() => import('./ModalEditResep'));
+
 //Import API
 import { GetAllResep, SearchResep } from '../../../api/apiResep';
+import { GetAllRecipe } from "../../../api/apiProduk";
 
 //Import Component
 import ModalAddResep from './ModalAddResep';
+import ModalDeleteResep from './ModalDeleteResep';
+import ModalEditResep from './ModalEditResep';
 
 const ResepView = () => {
     const [reseps, setResep] = useState([]);
@@ -39,7 +47,6 @@ const ResepView = () => {
 
     useEffect(() => {
         fetchResep();
-    
     }, []);
 
     return (
@@ -81,7 +88,7 @@ const ResepView = () => {
                                     <th>Jumlah</th>
                                     <th>Satuan</th>
                                     <th>Lama Memasak</th>
-                                    <th>Action</th>
+                                    <th colSpan={2}>Action</th>
                                 </tr>
                             </thead>
                             <tbody className='text-center align-middle'>
@@ -105,6 +112,8 @@ const ResepView = () => {
                                         <td>{resep.Kuantitas}</td>
                                         <td>{resep.tblbahanbaku?.Satuan}</td>
                                         {rowspan === 0 ? null : <td rowSpan={rowspan}>{resep.tblresep?.Waktu_Memproses}</td>}
+                                        <td><ModalEditResep dataResep={resep} onSuccess={fetchResep}/></td>
+                                        {rowspan === 0 ? null : <td rowSpan={rowspan}><ModalDeleteResep dataResep={resep} onSuccess={fetchResep}/></td>}
                                     </tr>
                                 );
                             })}
