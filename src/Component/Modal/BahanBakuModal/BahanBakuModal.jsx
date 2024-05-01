@@ -21,14 +21,17 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
     const handleChange = (event) => {
         if (event.target.name === 'Nama_Bahan') {
             setNamaBahan(event.target.value);
+            setData(prevData => ({ ...prevData, Nama_Bahan: event.target.value }));
         }
 
         if (event.target.name === 'Stok') {
             setStok(event.target.value);
+            setData(prevData => ({ ...prevData, Stok: event.target.value }));
         }
 
         if (event.target.name === 'Satuan') {
             setSatuan(event.target.value);
+            setData(prevData => ({ ...prevData, Satuan: event.target.value }));
         }
     }
 

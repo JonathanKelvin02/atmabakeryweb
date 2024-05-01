@@ -53,7 +53,7 @@ const menu = [
         pil2 : null,
         pil3 : null,
         icon : faUsers,
-        path : '/admin'
+        path : '/admin/Penitip'
     },
     {
         nama : 'Laporan',

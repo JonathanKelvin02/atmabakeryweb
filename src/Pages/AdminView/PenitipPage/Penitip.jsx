@@ -4,21 +4,20 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
 
-import PopUpShowRelated from '../../../Component/PopUp/PopUpForBahanBaku/PopUpContent.jsx';
-import BahanBakuModal from "../../../Component/Modal/BahanBakuModal/BahanBakuModal.jsx";
+import PopUpShowRelated from '../../../Component/PopUp/PopUpForPenitip/PopUpContent.jsx';
+import BahanBakuModal from "../../../Component/Modal/PenitipModal/PenitipModal.jsx";
 import DeleteModal from "../../../Component/Modal/DeleteConfirmationModal.jsx";
 
 // Import Css
 import '../ProductView/Product.css';
-import './BahanBaku.css';
+import './Penitip.css';
 import '../../../Component/PopUp/PopUpForBahanBaku/PopUp.css';
 
 //Import API
-import { GetBahanBaku, DeleteBahanBaku } from "../../../api/apiBahanBaku";
+import { DeleteBahanBaku } from "../../../api/apiBahanBaku";
+import { GetAllPenitip, DeletePenitip } from "../../../api/apiPenitip";
 
-// Mohon Maafkan saya, saya ngide menjadi satukan modal add dan update, kodingannya jadi belibet
-
-const BahanBakuView = () => {
+const PenitipView = () => {
     // Fetch, Show, and Loading Purpose
     const [bahan, setBahan] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +48,7 @@ const BahanBakuView = () => {
 
     const fetchBahan = () => {
         setIsLoading(true);
-        GetBahanBaku().then((response) => {
+        GetAllPenitip().then((response) => {
             setBahan(response);
             setIsLoading(false);
         }).catch((err) => {
@@ -59,7 +58,7 @@ const BahanBakuView = () => {
     }
 
     const deleteBahan = (idValue) => {
-        DeleteBahanBaku(idValue).then((response) => {
+        DeletePenitip(idValue).then((response) => {
             console.log(response);
             setShowDeleteModal(false);
             setRefresh(oldRefresh => !oldRefresh);
@@ -72,7 +71,7 @@ const BahanBakuView = () => {
     const searchToPagination = () => {
         let posisi = 0;
         for (let i = 0; i < bahan.length; i++) {
-            if(bahan[i].Nama_Bahan === inputCari.current.value) {
+            if(bahan[i].Nama_Penitip === inputCari.current.value) {
                 posisi = i;
                 break;
             }
@@ -110,7 +109,7 @@ const BahanBakuView = () => {
                         </InputGroup>
                     </Col>
                 <Col xs={12} md={4} className="d-flex justify-content-md-end mt-3 mt-md-0">
-                    <Button onClick={() => { setShowModal(true); setIsUpdate(false); setEditData(null); }} variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button>
+                    <Button onClick={() => { setShowModal(true); setIsUpdate(false); setEditData(null); }} variant="success"><FaPlus className="mr-1" /> <b>Add Depositor Data</b></Button>
                 </Col>
             </Row>
             </Container>
@@ -134,9 +133,7 @@ const BahanBakuView = () => {
                             <table className="table">
                                 <thead>
                                     <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                        <th>Ingredients Name</th>
-                                        <th>Stok</th>
-                                        <th>Unit</th>
+                                        <th>Depositor Name</th>
                                         <th>Related Products</th>
                                         <th>Action</th>
                                     </tr>
@@ -144,13 +141,11 @@ const BahanBakuView = () => {
                                 <tbody>
                                     {currentItems?.map((data, index) => (
                                         <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                            <td>{data.Nama_Bahan}</td>
-                                            <td>{data.Stok}</td>
-                                            <td>{data.Satuan}</td>
+                                            <td>{data.Nama_Penitip}</td>
                                             <td>
                                                 {/* <Button variant="outline-success">Show Products</Button> */}
                                                 <Popup
-                                                    trigger={<Button variant="outline-success">Show Product</Button>} 
+                                                    trigger={<Button variant="outline-success">Entrusted Goods</Button>} 
                                                     position="bottom center"
                                                     className="popup-content"
                                                 >
@@ -159,7 +154,7 @@ const BahanBakuView = () => {
                                             </td>
                                             <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                                 <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success" onClick={() => { setShowModal(true); setIsUpdate(true); setEditData(data) }}>Edit</Button>
-                                                <Button style={{width:'68px'}} variant="danger" onClick={() => { setShowDeleteModal(true); setEditData(data); setDeleteId(data.ID_Bahan_Baku) }}>Delete</Button>
+                                                <Button style={{width:'68px'}} variant="danger" onClick={() => { setShowDeleteModal(true); setEditData(data); setDeleteId(data.ID_Penitip) }}>Delete</Button>
                                             </td>
                                         </tr> 
                                     ))}                                
@@ -192,4 +187,4 @@ const BahanBakuView = () => {
     );
 };
 
-export default BahanBakuView;
+export default PenitipView;

@@ -14,6 +14,7 @@ import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
 
 import BahanBakuView from "../Pages/AdminView/BahanBakuView/BahanBaku";
+import PenitipView from "../Pages/AdminView/PenitipPage/Penitip";
 
 import ProtectedRoutes from "./ProtectedRoutes";
 
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/BahanBaku",
                 element: <BahanBakuView />
+            },
+            {
+                path: "/admin/Penitip",
+                element: <PenitipView />
             }
         ]
     },
