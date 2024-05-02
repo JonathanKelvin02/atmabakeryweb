@@ -178,7 +178,7 @@ const PenitipView = () => {
                         </div>
                     ) : (
                         <Alert variant="dark" className="mt-3 text-center">
-                            No Ingredients Yet
+                            No Depositors Yet
                         </Alert>
                     )
                 )}

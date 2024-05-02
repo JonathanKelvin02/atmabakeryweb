@@ -33,7 +33,7 @@ const menu = [
         path : '/admin'
     }, 
     {
-        nama : 'Bahan Baku',
+        nama : 'BahanBaku',
         pil1 : null,
         pil2 : null,
         pil3 : null,

@@ -2,12 +2,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import TopNavBar from "../Component/TopNavBarComponent/TopNavbarForAuth";
-import LoginView from "../Pages/LoginPage/LoginView";
 
+// General Access View
+import LoginView from "../Pages/LoginPage/LoginView";
 import LoginForm from "../Pages/LoginPage/FormLogin";
 import ForgotForm from "../Pages/ForgotPage/FormForgot";
 import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
 
+// Admin Access View
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
@@ -23,12 +25,16 @@ import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
 import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
 import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
 
+import ResepView from "../Pages/AdminView/ResepView/ResepView";
+
+// MO Access View
 import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
 import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 
-import ResepView from "../Pages/AdminView/ResepView/ResepView";
+import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
 
+// Owner Access View
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 
@@ -146,6 +152,10 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Tambah Karyawan/Tambah",
                 element: <ModalAddKaryawan />,
+            },
+            {
+                path: "/MO/Pengeluaran",
+                element: <PengeluaranView />,
             }
         ]
     },

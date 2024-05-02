@@ -21,7 +21,8 @@ const DeleteConfirmationModal = ({show, onClose, initialData, onConfirm }) => {
             </Modal.Header>
             
             <Modal.Body>
-                Are you sure you want to delete this data? <br/> <b>{`${Object.values(initialData).slice(1).join(', ')}`}</b>
+                Are you sure you want to delete this data? <br/>
+                <b>{`${Object.values(initialData).length > 3 ? Object.values(initialData).slice(1).join(', ') : Object.values(initialData).join(', ')}`}</b>
             </Modal.Body>
 
             <Modal.Footer>
