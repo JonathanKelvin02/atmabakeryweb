@@ -8,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 import './Product.css';
 
 //Import API
-import { GetAllRecipe, DeleteProduct } from "../../../api/apiProduk";
+import { GetAllRecipe, DeleteProduct, GetOneRecipe } from "../../../api/apiProduk";
 
 const HomecookView = () => {
     const navigate = useNavigate();
+    const [search, setSearch] = useState("");
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false); 
@@ -66,7 +67,7 @@ const HomecookView = () => {
                 <Row>
                     <Col>
                         <InputGroup>
-                            <input className="search" type="search" name="" id="" placeholder="Search..." />
+                            <input className="search" type="search" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
                             <button type="button" className="search-button">
                                 <FaSearch style={{ color: 'white' }} />
                             </button>
@@ -107,8 +108,12 @@ const HomecookView = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {products?.map((homecook, index) => (
-                                            <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                        {products?.filter((item) => {
+                                            return search.toLowerCase() === '' 
+                                            ? item 
+                                            : item.tblproduk.Nama_Produk.toLowerCase().includes(search.toLowerCase());
+                                        }).map((homecook) => (
+                                            <tr key={homecook.ID_Produk} style={{ borderBottom: '1px solid #EDEEF2' }}>
                                                 <td>{homecook.tblproduk.Nama_Produk}</td>
                                                 <td>Rp.{homecook.tblproduk.Harga}</td>
                                                 <td>{homecook.tblproduk.Stok}</td>

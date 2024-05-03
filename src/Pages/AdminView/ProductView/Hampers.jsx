@@ -13,6 +13,7 @@ import { GetAllHampers, GetAllRecipe, DeleteProduct } from "../../../api/apiProd
 const HampersView = () => {
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
+    const [search, setSearch] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [resep, setResep] = useState([]);
     const [showModal, setShowModal] = useState(false); 
@@ -81,7 +82,7 @@ const HampersView = () => {
                 <Row>
                     <Col>
                         <InputGroup>
-                            <input className="search" type="search" name="" id="" placeholder="Search..." />
+                            <input className="search" type="search" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)}/>
                             <button type="button" className="search-button">
                                 <FaSearch style={{ color: 'white' }} />
                             </button>
@@ -122,7 +123,11 @@ const HampersView = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {products?.map((hampers, index) => (
+                                    {products?.filter((item) => {
+                                            return search.toLowerCase() === '' 
+                                            ? item 
+                                            : item.tblproduk.Nama_Produk.toLowerCase().includes(search.toLowerCase());
+                                        }).map((hampers, index) => (
                                         <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
                                             <td>{hampers.tblproduk.Nama_Produk}</td>
                                             <td>Rp.{hampers.tblproduk.Harga}</td>
