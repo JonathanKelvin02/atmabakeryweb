@@ -1,20 +1,37 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-// View Public
+import TopNavBar from "../Component/TopNavBarComponent/TopNavbarForAuth";
 import LoginView from "../Pages/LoginPage/LoginView";
 
-// View Admin
+import LoginForm from "../Pages/LoginPage/FormLogin";
+import ForgotForm from "../Pages/ForgotPage/FormForgot";
+import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
+
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
 import HampersView from "../Pages/AdminView/ProductView/Hampers";
 import TitipanView from "../Pages/AdminView/ProductView/Titipan";
+
+import BahanBakuView from "../Pages/AdminView/BahanBakuView/BahanBaku";
+import PenitipView from "../Pages/AdminView/PenitipPage/Penitip";
+
 import CreateResep from "../Pages/AdminView/ProductView/CreateHomecookView";
 import EditResep from "../Pages/AdminView/ProductView/EditHomecookView";
 import CreateTitipan from "../Pages/AdminView/ProductView/CreateTitipanView";
 import EditTitipan from "../Pages/AdminView/ProductView/EditTitipanView";
 import CreateHampers from "../Pages/AdminView/ProductView/CreateHampersView";
 import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
+
+import MOMainView from "../Pages/MOView/MOMainView";
+import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
+import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
+
+import ResepView from "../Pages/AdminView/ResepView/ResepView";
+
+import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
+import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -23,10 +40,28 @@ const router = createBrowserRouter([
         element: <div>Routes Not Found!</div>
     },
     {
+        path: "/",
+        element:(
+            <TopNavBar />
+        ),
         children: [
             {
                 path: "/",
-                element: <LoginView />
+                element: <LoginView />,
+                children: [
+                    {
+                        path: "/",
+                        element: <LoginForm />
+                    },
+                    {
+                        path: "/forgot-password",
+                        element: <ForgotForm />
+                    },
+                    {
+                        path: "/reset-password",
+                        element: <ResetForm />
+                    }
+                ]
             }
         ]
     },
@@ -55,6 +90,14 @@ const router = createBrowserRouter([
                 element: <TitipanView />
             },
             {
+                path: "/admin/BahanBaku",
+                element: <BahanBakuView />
+            },
+            {
+                path: "/admin/Penitip",
+                element: <PenitipView />
+            },
+            {
                 path: "/admin/create-resep",
                 element: <CreateResep />
             },
@@ -77,6 +120,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/edit-hampers",
                 element: <EditHampers />
+            },
+            {
+                path :"/admin/Resep",
+                element: <ResepView />
             }
         ]
     },
@@ -84,13 +131,21 @@ const router = createBrowserRouter([
         path: "/MO",
         element: (
             <ProtectedRoutes roles={'MO'}>
-                {/* Sidebar MO */}
+                <MOMainView />
             </ProtectedRoutes>
         ),
         children: [
             {
                 path: "/MO",
                 // element: <Dashboard MO />
+            },
+            {
+                path: "/MO/Tambah Karyawan",
+                element: <RUDSKaryawan />,
+            },
+            {
+                path: "/MO/Tambah Karyawan/Tambah",
+                element: <ModalAddKaryawan />,
             }
         ]
     },
@@ -98,12 +153,13 @@ const router = createBrowserRouter([
         path: "/owner",
         element: (
             <ProtectedRoutes roles={'Owner'}>
-                {/* Sidebar Owner */}
+                <OwnerMainView/>
             </ProtectedRoutes>
         ),
         children: [
             {
-                path: "/owner",
+                path: "/owner/Gaji & Bonus",
+                element: <ViewGajiBonus />,
                 // element: <Dashboard Owner />
             }
         ]

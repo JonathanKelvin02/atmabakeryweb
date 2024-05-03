@@ -8,7 +8,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
     faUsers, 
-    faFile 
+    faFile,
+    faListUl
 } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
@@ -33,23 +34,12 @@ const MenuList = ({ subMenu }) => { // Destructure props to access subMenu
                     );
                 } else {
                     return (
-                        <Menu.Item key={menu.nama} icon={<FontAwesomeIcon icon={menu.icon} />}>
+                        <Menu.Item key={menu.nama} onClick={() => navigate(`${menu.path}/${menu.nama}`)} icon={<FontAwesomeIcon icon={menu.icon} />}>
                             {menu.nama}
                         </Menu.Item>
                     );
                 }
             })}
-
-            {/* Additional Menu Items */}
-            {/* <Menu.Item key="karyawan" icon={<FontAwesomeIcon icon={faUsers} />}>
-                Karyawan
-            </Menu.Item>
-            <Menu.Item key="penitip" icon={<FontAwesomeIcon icon={faUsers} />}>
-                Penitip
-            </Menu.Item>
-            <Menu.Item key="laporan" icon={<FontAwesomeIcon icon={faFile} />}>
-                Laporan
-            </Menu.Item> */}
         </Menu>
     );
 };

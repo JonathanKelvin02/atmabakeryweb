@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Layout, Button, theme } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { Outlet, useNavigate } from 'react-router-dom';
 
-import './SideBarComponent.css'
-
+import './SideBarComponent.css';
 
 import Logo from './Logo';
 import MenuList from './MenuList';
-import RUDSKaryawan from '../../Pages/MOView/RUDSKaryawan.jsx';
 
 import { 
     faUsers, 
@@ -59,13 +58,13 @@ const menu = [
 
 const { Header, Sider } = Layout;
 
-function SideBarComponent() {
+function SideBarComponent({children}) {
     const [collapsed, setCollapsed] = useState(false);
-
+    
     return(
         <Layout>
             <Sider theme='light' collapsed={collapsed} collapsible trigger={null} className='sidebar'>
-                <Logo collapsed={collapsed} />
+                <Logo collapsed={collapsed} data={"MO"} />
                 <MenuList subMenu={menu} />
             </Sider>
             <Layout>
@@ -80,7 +79,7 @@ function SideBarComponent() {
                         <div className="text-topNavar">Home</div>
                     </div>
                 </Header>
-                <RUDSKaryawan />
+                {children ? children : <Outlet />}
             </Layout>
         </Layout>
     );

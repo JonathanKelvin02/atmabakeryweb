@@ -61,6 +61,15 @@
     background-color: #8E6F60;
 }
 
+@media (max-width: 600px) {
+    .search-button {
+        width: 100%;
+    }
+    .search {
+        width: 100%;
+    }
+}
+
 .add-product {
     display: inline-flex;
     align-items: center;
