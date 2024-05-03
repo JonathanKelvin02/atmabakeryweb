@@ -11,7 +11,7 @@ import DeleteModal from "../../../Component/Modal/DeleteConfirmationModal.jsx";
 // Import Css
 import '../ProductView/Product.css';
 import './BahanBaku.css';
-import '../../../Component/PopUp/PopUpForBahanBaku/PopUp.css';
+import '../../../Component/PopUp/PopUp.css';
 
 //Import API
 import { GetBahanBaku, DeleteBahanBaku } from "../../../api/apiBahanBaku";

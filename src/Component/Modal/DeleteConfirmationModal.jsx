@@ -16,7 +16,7 @@ const DeleteConfirmationModal = ({show, onClose, initialData, onConfirm }) => {
 
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Delete Data Modal
+                    Delete Data
                 </Modal.Title>
             </Modal.Header>
             

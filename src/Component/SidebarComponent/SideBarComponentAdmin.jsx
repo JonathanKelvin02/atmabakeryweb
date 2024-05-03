@@ -41,7 +41,7 @@ const menu = [
         path : '/admin'
     },  
     {
-        nama : 'User',
+        nama : 'Customer',
         pil1 : null,
         pil2 : null,
         pil3 : null,

@@ -23,8 +23,6 @@ export const CheckingCredentialToken = async (data) => {
 }
 
 export const SendPasswordReset = async (data) => {
-    console.log(data);
-
     try {
         const response = await useAxios.put("/reset-password", data, {
             headers: {
@@ -34,5 +32,20 @@ export const SendPasswordReset = async (data) => {
         return response.data;
     } catch (e) {
         throw e.response.data;
+    }
+}
+
+export const GetCustomerAll = async () => {
+    try {
+        const response = await useAxios.get("/customer", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        // console.log(response.data.data);
+        return response.data.data;
+    } catch (e) {
+        throw error.response.data;
     }
 }

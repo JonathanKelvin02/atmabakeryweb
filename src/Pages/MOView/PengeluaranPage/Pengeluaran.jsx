@@ -55,12 +55,6 @@ const PenitipView = () => {
     }
 
     const deletePengeluaran = (deletedData) => {
-        const newData = {
-            Nama: deletedData.Nama,
-            Harga: deletedData.Harga,
-            Tanggal: deletedData.Tanggal
-        };
-
         DeletePengeluaran(deletedData).then((response) => {
             console.log(response);
             setShowDeleteModal(false);

@@ -4,25 +4,20 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
 
-import PopUpShowRelated from '../../../Component/PopUp/PopUpForPenitip/PopUpContent.jsx';
-import BahanBakuModal from "../../../Component/Modal/PenitipModal/PenitipModal.jsx";
-import DeleteModal from "../../../Component/Modal/DeleteConfirmationModal.jsx";
+import PopUpShowRelated from '../../../Component/PopUp/PopUpForCustomerAlamat/PopUpContent.jsx';
 
 // Import Css
 import '../ProductView/Product.css';
-import './Penitip.css';
+import './Customer.css';
 import '../../../Component/PopUp/PopUp.css';
 
 //Import API
-import { DeleteBahanBaku } from "../../../api/apiBahanBaku";
-import { GetAllPenitip, DeletePenitip } from "../../../api/apiPenitip";
+import { GetCustomerAll } from "../../../api/apiCustomer.jsx";
 
-const PenitipView = () => {
+const CustomerView = () => {
     // Fetch, Show, and Loading Purpose
-    const [bahan, setBahan] = useState([]);
+    const [bahan, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     // Pagination Purpose
     const [activePage, setActivePage] = useState(1);
@@ -38,40 +33,21 @@ const PenitipView = () => {
     // Refresh Purpose
     const [refresh, setRefresh] = useState(false);
 
-    // Update Purpose
-    const [isUpdate, setIsUpdate] = useState(false);
-    const [editData, setEditData] = useState(null);
-
-    // Delete Purpose
-    const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-    const [deleteId, setDeleteId] = useState(null);
-
-    const fetchBahan = () => {
+    const fetchData = () => {
         setIsLoading(true);
-        GetAllPenitip().then((response) => {
-            setBahan(response);
+        GetCustomerAll().then((response) => {
+            setData(response);
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
             setIsLoading(false);
-        })
-    }
-
-    const deleteBahan = (idValue) => {
-        DeletePenitip(idValue).then((response) => {
-            console.log(response);
-            setShowDeleteModal(false);
-            setRefresh(oldRefresh => !oldRefresh);
-        }).catch((err) => {
-            console.log(err);
-            setShowDeleteModal(false);
         })
     }
 
     const searchToPagination = () => {
         let posisi = 0;
         for (let i = 0; i < bahan.length; i++) {
-            if(bahan[i].Nama_Penitip === inputCari.current.value) {
+            if(bahan[i].Nama_Bahan === inputCari.current.value) {
                 posisi = i;
                 break;
             }
@@ -82,22 +58,11 @@ const PenitipView = () => {
     }
     
     useEffect(() => {
-        fetchBahan();
+        fetchData();
     }, [refresh])
-
-    useEffect(() => {
-        if (deleteConfirmation) {
-            deleteBahan(deleteId);
-            setRefresh(refresh => !refresh);
-            setDeleteConfirmation(false);
-        }
-    }, [deleteConfirmation]);
 
     return(
         <>
-            {showModal && <BahanBakuModal show={showModal} onClose={() => setShowModal(false)} onRefresh={() => setRefresh(oldRefresh => !oldRefresh)} initialData={editData} isUpdate={isUpdate} />}
-            {showDeleteModal && <DeleteModal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} initialData={editData} onConfirm={setDeleteConfirmation}/>}
-
             <Container className="top-container">
                 <Row>
                     <Col xs={12} md={8}>
@@ -108,10 +73,7 @@ const PenitipView = () => {
                             </button>
                         </InputGroup>
                     </Col>
-                <Col xs={12} md={4} className="d-flex justify-content-md-end mt-3 mt-md-0">
-                    <Button onClick={() => { setShowModal(true); setIsUpdate(false); setEditData(null); }} variant="success"><FaPlus className="mr-1" /> <b>Add Depositor Data</b></Button>
-                </Col>
-            </Row>
+                </Row>
             </Container>
             <Container className="big-container">
                 {isLoading ? (
@@ -128,33 +90,35 @@ const PenitipView = () => {
                     </div>
                 ) : (
                     bahan?.length > 0 ? (
-
                         <div className="table-responsive">
                             <table className="table">
                                 <thead>
                                     <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                        <th>Depositor Name</th>
-                                        <th>Related Products</th>
+                                        <th>Customer Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Address</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {currentItems?.map((data, index) => (
                                         <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                            <td>{data.Nama_Penitip}</td>
+                                            <td>{data.Nama_Customer}</td>
+                                            <td>{data.email}</td>
+                                            <td>{data.Nomor_telepon}</td>
                                             <td>
-                                                {/* <Button variant="outline-success">Show Products</Button> */}
+                                                {/* <Button variant="outline-success">Address</Button> */}
                                                 <Popup
-                                                    trigger={<Button variant="outline-success">Entrusted Goods</Button>} 
+                                                    trigger={<Button variant="outline-success">Address Goods</Button>} 
                                                     position="bottom center"
                                                     className="popup-content"
                                                 >
                                                     <PopUpShowRelated data={data}/>
                                                 </Popup>
                                             </td>
-                                            <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                                <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success" onClick={() => { setShowModal(true); setIsUpdate(true); setEditData(data) }}>Edit</Button>
-                                                <Button style={{width:'68px'}} variant="danger" onClick={() => { setShowDeleteModal(true); setEditData(data); setDeleteId(data.ID_Penitip) }}>Delete</Button>
+                                            <td>
+                                                <Button variant="outline-success">Order History</Button>
                                             </td>
                                         </tr> 
                                     ))}                                
@@ -178,7 +142,7 @@ const PenitipView = () => {
                         </div>
                     ) : (
                         <Alert variant="dark" className="mt-3 text-center">
-                            No Depositors Yet
+                            No Ingredients Yet
                         </Alert>
                     )
                 )}
@@ -187,4 +151,4 @@ const PenitipView = () => {
     );
 };
 
-export default PenitipView;
+export default CustomerView;

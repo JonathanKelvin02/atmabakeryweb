@@ -27,6 +27,8 @@ import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
 
 import ResepView from "../Pages/AdminView/ResepView/ResepView";
 
+import CustomerView from "../Pages/AdminView/CustomerView/Customer";
+
 // MO Access View
 import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
@@ -130,6 +132,10 @@ const router = createBrowserRouter([
             {
                 path :"/admin/Resep",
                 element: <ResepView />
+            },
+            {
+                path :"/admin/Customer",
+                element: <CustomerView />
             }
         ]
     },
