@@ -32,6 +32,8 @@ import ResepView from "../Pages/AdminView/ResepView/ResepView";
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 
+import TransaksiBahan from "../Pages/MOView/ShopBahanView/ListTransaksiBK";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -146,6 +148,10 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Tambah Karyawan/Tambah",
                 element: <ModalAddKaryawan />,
+            },
+            {
+                path: "/MO/Pasokan",
+                element: <TransaksiBahan />,
             }
         ]
     },

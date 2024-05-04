@@ -11,7 +11,8 @@ import MenuList from './MenuList';
 import { 
     faUsers, 
     faFile,
-    faBagShopping 
+    faBagShopping,
+    faTruck 
 } from '@fortawesome/free-solid-svg-icons';
 
 const menu = [
@@ -36,6 +37,14 @@ const menu = [
         pil2 : null,
         pil3 : null,
         icon : faBagShopping,
+        path : '/MO'
+    },
+    {
+        nama : 'Pasokan',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faTruck,
         path : '/MO'
     },
     {
