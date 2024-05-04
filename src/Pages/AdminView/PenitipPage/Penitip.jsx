@@ -21,6 +21,8 @@ const PenitipView = () => {
     // Fetch, Show, and Loading Purpose
     const [bahan, setBahan] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+
+    // Modal Purpose
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 

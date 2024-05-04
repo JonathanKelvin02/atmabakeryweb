@@ -1,5 +1,7 @@
 import useAxios from "./indexApi";
 
+
+// Admin Side
 export const SendEmailForLink = async (data) => {
     try {
         const response = await useAxios.post("/forget-password", data);
@@ -47,5 +49,33 @@ export const GetCustomerAll = async () => {
         return response.data.data;
     } catch (e) {
         throw error.response.data;
+    }
+}
+
+export const GetCustomerHistoryByID = async (data) => {
+    try {
+        const response = await useAxios.get("/customerHistory/" + data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetDetailTransaksi = async (data) => {
+    try{
+        const response = await useAxios.get("/customerTransaction/" + data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
     }
 }

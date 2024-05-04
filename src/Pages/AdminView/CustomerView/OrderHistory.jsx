@@ -3,23 +3,25 @@ import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert} from "r
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from "react-js-pagination";
-import Popup from 'reactjs-popup';
 
-import PopUpShowRelated from '../../../Component/PopUp/PopUpForCustomerAlamat/PopUpContent.jsx';
-
-// Import Css
-import '../ProductView/Product.css';
-import './Customer.css';
-import '../../../Component/PopUp/PopUp.css';
+import ModalTransaksi from '../../../Component/Modal/OrderHistoryModal/TransaksiDetailModal.jsx';
+// import ModalReceipt from '../../../Component/Modal/OrderHistoryModal/NotaModal.jsx';
 
 //Import API
-import { GetCustomerAll } from "../../../api/apiCustomer.jsx";
+import { GetCustomerHistoryByID } from "../../../api/apiCustomer.jsx";
 
-const CustomerView = () => {
-    const navigate = useNavigate();
+const OrderHistoryView = () => {
+    // Import Data Using Location
+    const location = useLocation();
+    const dataNow = location.state.dataNow;
+
+    // Modal Purpose
+    const [showModalTransaction, setShowModalTransaction] = useState(false);
+    const [showModalReceipt, setShowModalReceipt] = useState(false);
+    const [modalData, setModalData] = useState({});
 
     // Fetch, Show, and Loading Purpose
-    const [bahan, setData] = useState([]);
+    const [data, setData] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
     // Pagination Purpose
@@ -28,7 +30,8 @@ const CustomerView = () => {
 
     const indexOfLastItem = activePage * itemsCountPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
-    const currentItems = bahan.slice(indexOfFirstItem, indexOfLastItem);
+    // const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = data?.tbltransaksi?.slice(indexOfFirstItem, indexOfLastItem);
 
     // Search Purpose
     const inputCari = useRef("");
@@ -38,7 +41,7 @@ const CustomerView = () => {
 
     const fetchData = () => {
         setIsLoading(true);
-        GetCustomerAll().then((response) => {
+        GetCustomerHistoryByID(dataNow.ID_Customer).then((response) => {
             setData(response);
             setIsLoading(false);
         }).catch((err) => {
@@ -49,8 +52,8 @@ const CustomerView = () => {
 
     const searchToPagination = () => {
         let posisi = 0;
-        for (let i = 0; i < bahan.length; i++) {
-            if(bahan[i].Nama_Bahan === inputCari.current.value) {
+        for (let i = 0; i < data.length; i++) {
+            if(data[i].Nama_data === inputCari.current.value) {
                 posisi = i;
                 break;
             }
@@ -66,6 +69,8 @@ const CustomerView = () => {
 
     return(
         <>
+            {showModalTransaction && <ModalTransaksi show={showModalTransaction} onClose={() => setShowModalTransaction(false) } data={modalData}/>}
+
             <Container className="top-container">
                 <Row>
                     <Col xs={12} md={8}>
@@ -92,46 +97,39 @@ const CustomerView = () => {
                         <h6 className="mt-2 mb-0">Loading...</h6>
                     </div>
                 ) : (
-                    bahan?.length > 0 ? (
+                    data?.tbltransaksi?.length > 0 ? (
                         <div className="table-responsive">
                             <table className="table">
                                 <thead>
                                     <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                        <th>Customer Name</th>
-                                        <th>Email</th>
-                                        <th>Phone Number</th>
-                                        <th>Address</th>
-                                        <th>Action</th>
+                                        <th>Receipt Number</th>
+                                        <th>Total Transaction</th>
+                                        <th>Total Payment</th>
+                                        <th>Transaction Details</th>
+                                        <th>Print Receipt</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {currentItems?.map((data, index) => (
                                         <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                            <td>{data.Nama_Customer}</td>
-                                            <td>{data.email}</td>
-                                            <td>{data.Nomor_telepon}</td>
+                                            <td>{data.ID_Transaksi}</td>
+                                            <td>{data.Total_Transaksi}</td>
+                                            <td>{data.Total_pembayaran}</td>
                                             <td>
-                                                {/* <Button variant="outline-success">Address</Button> */}
-                                                <Popup
-                                                    trigger={<Button variant="outline-success">Address Customer</Button>} 
-                                                    position="bottom center"
-                                                    className="popup-content"
-                                                >
-                                                    <PopUpShowRelated data={data}/>
-                                                </Popup>
+                                                <Button variant="outline-success" onClick={() => { setShowModalTransaction(true); setModalData(data); }}>Transaction Details</Button>
                                             </td>
                                             <td>
-                                                <Button variant="outline-success" onClick={() => navigate('/admin/Customer/OrderHistory', { state: { dataNow: data } })}>Order History</Button>
+                                                <Button variant="outline-success" >Receipt</Button>
                                             </td>
-                                        </tr> 
-                                    ))}                                
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                             <div className="PaginationDesign">
-                                <Pagination
+                                {/* <Pagination
                                     activePage={activePage}
                                     itemsCountPerPage={itemsCountPerPage}
-                                    totalItemsCount={bahan.length}
+                                    totalItemsCount={data.length}
                                     pageRangeDisplayed={5}
                                     onChange={page => setActivePage(page)}
                                     itemClass="page-item"
@@ -140,12 +138,12 @@ const CustomerView = () => {
                                     nextPageText="Next"
                                     firstPageText="First"
                                     lastPageText="Last"
-                                />
+                                /> */}
                             </div>                            
                         </div>
                     ) : (
                         <Alert variant="dark" className="mt-3 text-center">
-                            No Customer Yet
+                            No Order History Yet
                         </Alert>
                     )
                 )}
@@ -154,4 +152,4 @@ const CustomerView = () => {
     );
 };
 
-export default CustomerView;
+export default OrderHistoryView;

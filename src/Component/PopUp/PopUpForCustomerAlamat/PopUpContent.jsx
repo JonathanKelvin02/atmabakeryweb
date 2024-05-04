@@ -53,8 +53,6 @@ const PopupContent = ({ data }) => {
       </div>
     </>
   );
-
-
 };
 
 export default PopupContent;
