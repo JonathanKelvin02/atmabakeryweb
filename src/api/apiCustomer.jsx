@@ -52,6 +52,21 @@ export const GetCustomerAll = async () => {
     }
 }
 
+export const SearchGetCustomer = async (data) => {
+    try {
+        const response = await useAxios.post("/customerSearch", data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+
+}
+
 export const GetCustomerHistoryByID = async (data) => {
     try {
         const response = await useAxios.get("/customerHistory/" + data, {

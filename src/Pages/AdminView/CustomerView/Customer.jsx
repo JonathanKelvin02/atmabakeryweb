@@ -13,7 +13,7 @@ import './Customer.css';
 import '../../../Component/PopUp/PopUp.css';
 
 //Import API
-import { GetCustomerAll } from "../../../api/apiCustomer.jsx";
+import { GetCustomerAll, SearchGetCustomer } from "../../../api/apiCustomer.jsx";
 
 const CustomerView = () => {
     const navigate = useNavigate();
@@ -48,16 +48,25 @@ const CustomerView = () => {
     }
 
     const searchToPagination = () => {
-        let posisi = 0;
-        for (let i = 0; i < bahan.length; i++) {
-            if(bahan[i].Nama_Bahan === inputCari.current.value) {
-                posisi = i;
-                break;
-            }
+        const data = {
+            search: inputCari.current.value
         }
 
+        if(inputCari.current.value === ""){
+            fetchData();
+            return;
+        }
+
+        setIsLoading(true);
+        SearchGetCustomer(data).then((response) => {
+            setData(response);
+            setIsLoading(false);
+        }).catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+        })
+
         inputCari.current.value = "";
-        setActivePage(Math.ceil((posisi + 1) / itemsCountPerPage));
     }
     
     useEffect(() => {

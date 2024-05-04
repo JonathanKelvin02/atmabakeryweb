@@ -61,7 +61,7 @@
     background-color: #8E6F60;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 200px) {
     .search-button {
         width: 100%;
     }

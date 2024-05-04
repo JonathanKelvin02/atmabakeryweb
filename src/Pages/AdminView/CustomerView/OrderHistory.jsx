@@ -51,16 +51,22 @@ const OrderHistoryView = () => {
     }
 
     const searchToPagination = () => {
-        let posisi = 0;
-        for (let i = 0; i < data.length; i++) {
-            if(data[i].Nama_data === inputCari.current.value) {
-                posisi = i;
-                break;
-            }
+        const data = {
+            search: inputCari.current.value
         }
 
+        console.log(data);
+
+        // setIsLoading(true);
+        // SearchGetCustomer(data).then((response) => {
+        //     setData(response);
+        //     setIsLoading(false);
+        // }).catch((err) => {
+        //     console.log(err);
+        //     setIsLoading(false);
+        // })
+
         inputCari.current.value = "";
-        setActivePage(Math.ceil((posisi + 1) / itemsCountPerPage));
     }
     
     useEffect(() => {
@@ -76,7 +82,7 @@ const OrderHistoryView = () => {
                     <Col xs={12} md={8}>
                         <InputGroup style={{display:'flex', flexDirection: 'row', width: '100%'}}>
                             <input className="search" type="search" name="" id="" placeholder="Search..." style={{flexGrow: 1}} ref={inputCari}/>
-                            <button type="button" className="search-button" onClick={() => searchToPagination()}>
+                            <button type="button" className="search-button">
                                 <FaSearch style={{ color: 'white' }} />
                             </button>
                         </InputGroup>

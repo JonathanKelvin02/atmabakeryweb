@@ -130,7 +130,6 @@ const PenitipView = () => {
                     </div>
                 ) : (
                     bahan?.length > 0 ? (
-
                         <div className="table-responsive">
                             <table className="table">
                                 <thead>
