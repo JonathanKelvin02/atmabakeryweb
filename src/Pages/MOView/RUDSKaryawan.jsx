@@ -1,4 +1,4 @@
-import { Container, Button, Table, Form, InputGroup, Badge, Alert, Spinner } from 'react-bootstrap';
+import { Container, Button, Table, Form, Row, InputGroup, Badge, Alert, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 // import './Badge.css'
 
 //Import API
-import { DeleteKaryawan, GetAllKaryawan, SeachKaryawan } from '../../api/apiKaryawan';
+import { DeleteKaryawan, GetAllKaryawan, SeachKaryawan, ResetPasswordKaryawan } from '../../api/apiKaryawan';
 
 //Import Page
 import TambahKaryawan from './ModalAddKaryawan';
@@ -49,6 +49,19 @@ const RUDSKaryawan = () => {
         SeachKaryawan(searchQuery).then((response) => {
             setKaryawan(response);
             setIsLoading(false);
+        }).catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+        })
+    }
+
+    const resetPasswordKaryawan = (id) => {
+        setIsLoading(true);
+        console.log(id);
+        ResetPasswordKaryawan(id).then((response) => {
+            setIsLoading(false);
+            toast.success("Password Berhasil Direset");
+            fetchKaryawan();
         }).catch((err) => {
             console.log(err);
             setIsLoading(false);
@@ -137,10 +150,12 @@ const RUDSKaryawan = () => {
                                         </td>
                                         <td>{karyawan.Nomor_Rekening}</td>
                                         <td className='underline'>{karyawan.email}</td>
-                                        <td className='d-flex justify-content-center'>
-                                            {/* <Button variant='success' size='sm' className='me-2'>Edit</Button> */}
-                                            <EditKaryawan dataKaryawan={karyawan} onSuccess={handleRefresh} />
-                                            <Button variant='danger' size='sm' onClick={() => deleteKaryawan(karyawan.ID_Pegawai)}>Delete</Button>
+                                        <td className=''>
+                                            <div className='d-grid gap-2'>
+                                                <EditKaryawan dataKaryawan={karyawan} onSuccess={handleRefresh} />
+                                                <Button variant='danger' className='me-2' size='sm' onClick={() => deleteKaryawan(karyawan.ID_Pegawai)}>Delete</Button>
+                                                <Button variant='warning' className='me-2' size='sm' onClick={() => resetPasswordKaryawan(karyawan.ID_Pegawai)}>Reset Password</Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
