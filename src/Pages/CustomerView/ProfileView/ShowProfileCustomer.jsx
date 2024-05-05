@@ -1,96 +1,179 @@
-import {useState, useEffect} from 'react';
-import {Container, Button, Form, Spinner} from 'react-bootstrap';
-
-//Import API
-import {GetProfile} from '../../../api/apiCustomer';
+import { useState, useEffect } from 'react';
+import { Container, Button, Form, Spinner, Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+// Import API
+import { GetProfile, UpdateProfile, UpdateProfileImage } from '../../../api/apiCustomer';
+import { getProfile } from '../../../api/indexApi';
 
 const ShowProfileCustomer = () => {
-    const [loading, setLoading] = useState(false)
-    const [profile, setProfile] = useState({});
-    const [gambar, setGambar] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [disabled, setDisabled] = useState(true);
 
-    const getProfile = () => {
+    const [data, setData] = useState({
+        Nama_Customer: "",
+        email: "",
+        Nomor_telepon: "",
+    })
+    const [Profile, setProfile] = useState(null);
+
+    const getDataProfile = () => {
         setLoading(true);
         GetProfile().then((response) => {
-            setProfile(response);
+            setData(response);
             setLoading(false);
         }).catch((err) => {
             console.log(err);
             setLoading(false);
         })
     }
-    
-    const handleGambar = (event) => {
-        setGambar(event.target.files[0]);
+
+    const updateImageProfile = (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('Profile', Profile);
+
+        UpdateProfileImage(formData).then((response) => {
+            toast.success('Berhasil Mengubah Gambar Profile');
+        }).catch((err) => {
+            console.log(err);
+            toast.error(err);
+            setProfile(null);
+        })
     }
     
+    const updateProfile = (event) => {
+        event.preventDefault();
+        UpdateProfile(data, data.ID_Customer).then((response) => {
+            toast.success('Berhasil Mengubah Profile');
+            setDisabled(true);
+            setProfile(null);
+            getDataProfile();
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+    const handleProfile = (event) => {
+        setProfile(event.target.files[0]);
+    }
+
+    const handleChange = (event) => {
+        setData({
+            ...data,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    const handleDisabled = (e) => {
+        e.preventDefault();
+        setDisabled(false);
+    }
+
     useEffect(() => {
-        getProfile();
-    },[])
-    console.log(profile);
-    // console.log(profile);
+        getDataProfile();
+    }, []);
+
+    console.log(data.Profile);
+
     return (
         <Container>
-            {loading ? (
-                <div>
-                    <Spinner animation="border" role="status"/>
-                    <p>Loading...</p>
-                </div>
+            {loading || data.length == 0 ? (
+                <Col>
+                    <Row>
+                    <div className='d-flex justify-content-center align-item-center mt-5'>
+                        <Spinner animation="border" role="status" style={{width:'10rem', height:'10rem'}}/>
+                    </div>
+                    </Row>
+                    <Row>
+                        <p className='d-flex justify-content-center align-item-center mt-3'><b>Loading...</b></p>
+                    </Row>
+                </Col>
             ) : (
-                <div>
-                    <h1>Profile</h1>
-                    <Form>
-                        <Form.Group className="mb-3">
-                            <div className='img-preview text-center position-relative mb-3' style={{aspectRatio:'16/9'}}>
-                                {gambar && (
-                                    <img
-                                    src={gambar!=null ? URL.createObjectURL(gambar) : profile.Gambar_Customer}
-                                    alt='Gambar'
-                                    className='w-100 h-100 object-fit-cover'
-                                    />
-                                    
-                                )}
+                <Row>
+                    <Col md={6}>
+                        <div className="img-preview text-center position-relative mb-3 me-3" style={{ aspectRatio: '1/1' }}>
+                            <Form onSubmit={updateImageProfile}>
+                            {data?.profile !== null ? (
+                                <img
+                                    src={Profile === null ? getProfile(data?.Profile) : URL.createObjectURL(Profile)}
+                                    alt={data?.Profile}
+                                    className='img-fluid img-thumbnail'
+                                />
+                            ) : (
+                                <img
+                                    src='https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'
+                                    alt='Profile'
+                                    className='img-fluid img-thumbnail'
+                                />
+                            )}
+                            {Profile !== null ? (
+                                <Button 
+                                    variant='primary' 
+                                    type='submit' 
+                                    size='sm'
+                                    className='w-fit h-fit position-absolute bottom-0 end-0 me-3' 
+                                    disabled={disabled}
+                                    >
+                                    Save
+                                </Button>
+                            ) : (
                                 <Button
-                                variant='primary'
-                                type='button'
-                                size='sm'
-                                className='w-fit h-fit position-absolute bottom-0 end-0 me-3'
-                                onClick={() => document.getElementById('Profile').click()}
+                                    variant='primary'
+                                    type='button'
+                                    size='sm'
+                                    className="w-fit h-fit position-absolute bottom-0 end-0 me-3"
+                                    onClick={() => document.getElementById('Profile').click()}
+                                    disabled={disabled}
                                 >
                                     Pilih Gambar Profile
                                 </Button>
+                            )}
+                            
                                 <Form.Control
-                                type='file'
-                                name='Profile'
-                                id='Profile'
-                                className='d-none'
-                                onChange={handleGambar}
-                                accept='image/*'
+                                    type='file'
+                                    name='Profile'
+                                    id='Profile'
+                                    className='d-none'
+                                    onChange={handleProfile}
+                                    accept='image/*'
                                 />
-                            </div>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Nama</Form.Label>
-                            <Form.Control type="text" value={profile.Nama_Customer} disabled />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" value={profile.email} disabled />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Nomor Telepon</Form.Label>
-                            <Form.Control type="text" value={profile.Nomor_telepon} disabled />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Edit
-                        </Button>
-                    </Form>
-                </div>
+                                
+                            </Form>
+                        </div>
+                    </Col>
+
+                    <Col md={6}>
+                        <Form onSubmit={updateProfile}>
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Nama Pengguna</Form.Label>
+                                <Form.Control name='Nama_Customer' type='text' value={data.Nama_Customer} onChange={handleChange} disabled={disabled}/>
+                            </Form.Group>
+
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Email Pengguna</Form.Label>
+                                <Form.Control name='email' type='text' value={data.email} onChange={handleChange} disabled={disabled}/>
+                            </Form.Group>
+
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Nomor Telepon Pengguna</Form.Label>
+                                <Form.Control name='Nomor_telepon' type='text' value={data.Nomor_telepon} onChange={handleChange} disabled={disabled}/>
+                            </Form.Group>
+
+                            {disabled ? (
+                                <Button variant="success" type="button" onClick={handleDisabled}>
+                                    Edit
+                                </Button>
+                            ) : (
+                                <Button variant="primary" type="submit">
+                                    Save
+                                </Button>
+                            )}
+                        </Form>
+                    </Col>
+                </Row>
             )}
-            
         </Container>
     )
 }
-
 
 export default ShowProfileCustomer;
