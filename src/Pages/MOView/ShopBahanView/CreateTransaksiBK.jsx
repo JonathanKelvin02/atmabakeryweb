@@ -1,15 +1,13 @@
 import { Modal, Form, Button, Spinner, Row, Col, Alert, Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { FaSearch, FaPlus, FaTrash } from 'react-icons/fa';
+import { FaPlus, FaTrash } from 'react-icons/fa';
 
 //Import API
 import { GetBahanBaku } from "../../../api/apiBahanBaku";
 import { CreateTransBahan } from "../../../api/apiTransBahan";
-import { useNavigate } from "react-router-dom";
 
 const CreateTransaksiBahan = ({ onSuccess }) => {
-    const navigate = useNavigate();
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isPending, setIsPending] = useState(false);

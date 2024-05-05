@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { FaSearch, FaPlus, FaCalendar } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import CreateTransaksiBahan from "./CreateTransaksiBK";
+import EditTransaksiBahan from "./EditTransaksiBK";
 
 //Import Css
 import './ListTransaksi.css';
@@ -142,7 +143,7 @@ const TransaksiBahan = () => {
                                                     Rp.{sumSubTotal(trans)}
                                                 </td>
                                                 <td>
-                                                    <button className="edit-action" onClick={() => handleEdit(trans)}>Edit</button>
+                                                    <EditTransaksiBahan dataTransaksi={trans} onSuccess={fetchTrans} />
                                                     <button className="delete-action" onClick={() => handleShowModal(trans.ID_Transaksi_Baku)}>Delete</button>
                                                 </td>
                                             </tr> 
