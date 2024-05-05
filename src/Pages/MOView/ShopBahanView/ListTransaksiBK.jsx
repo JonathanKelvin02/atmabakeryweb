@@ -118,7 +118,11 @@ const TransaksiBahan = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {transactions?.map((trans) => (
+                                        {transactions?.filter((item) => {
+                                            return search === '' 
+                                            ? item 
+                                            : item.Tanggal.includes(search);
+                                        }).map((trans) => (
                                             <tr key={trans.ID_Transaksi_Baku} style={{ borderBottom: '1px solid #EDEEF2' }}>
                                                 <td>{formatDate(trans.Tanggal)}</td>
                                                 <td>
