@@ -10,7 +10,7 @@ import EditTransaksiBahan from "./EditTransaksiBK";
 import './ListTransaksi.css';
 
 //Import API
-import { getAllTransBahan  } from "../../../api/apiTransBahan";
+import { getAllTransBahan, DeleteTransBahan  } from "../../../api/apiTransBahan";
 
 const TransaksiBahan = () => {
     const navigate = useNavigate();
@@ -20,19 +20,19 @@ const TransaksiBahan = () => {
     const [showModal, setShowModal] = useState(false); 
     const [productIdToDelete, setProductIdToDelete] = useState(null);
 
-    // const deleteHomecook = (id) => {
-    //     setIsLoading(true);
-    //     DeleteProduct(id).then((response) => {
-    //         setIsLoading(false);
-    //         toast.success(response.message);
-    //         fetchProducts();
-    //         handleCloseModal();
-    //     }).catch((e) => {
-    //         console.log(e);
-    //         setIsLoading(false);
-    //         toast.dark(e.message);
-    //     })
-    // }
+    const deleteTrans = (id) => {
+        setIsLoading(true);
+        DeleteTransBahan(id).then((response) => {
+            setIsLoading(false);
+            toast.success(response.message);
+            fetchTrans();
+            handleCloseModal();
+        }).catch((e) => {
+            console.log(e);
+            setIsLoading(false);
+            toast.dark(e.message);
+        })
+    }
     
     const fetchTrans = () => {
         setIsLoading(true);
@@ -59,10 +59,6 @@ const TransaksiBahan = () => {
         return new Date(dateString).toLocaleDateString('id-ID', options);
     }
 
-    const handleEdit = (resep) => {
-        navigate('/admin/edit-resep', { state: {resep} });
-    }
-
     const handleShowModal = (productId) => {
         setProductIdToDelete(productId);
         setShowModal(true);
@@ -83,7 +79,7 @@ const TransaksiBahan = () => {
                 <Row>
                     <Col>
                         <InputGroup>
-                            <input className="search" type="search" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
+                            <input className="search" type="date" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
                             <button type="button" className="search-button">
                                 <FaCalendar style={{ color: 'white' }} />
                             </button>
@@ -172,7 +168,7 @@ const TransaksiBahan = () => {
                     <Button variant="secondary" onClick={handleCloseModal}>
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={() => deleteHomecook(productIdToDelete)}>
+                    <Button variant="danger" onClick={() => deleteTrans(productIdToDelete)}>
                         Delete
                     </Button>
                 </Modal.Footer>

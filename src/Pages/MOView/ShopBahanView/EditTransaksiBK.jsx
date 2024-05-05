@@ -20,7 +20,7 @@ const EditTransaksiBahan = ({ dataTransaksi, onSuccess }) => {
 
     const [bahanBaku, setBahanBaku] = useState([]);
     const [data, setData] = useState({
-        ID_transaksi_Bahan: dataTransaksi.ID_transaksi_Bahan,
+        ID_transaksi_Baku: dataTransaksi.ID_Transaksi_Baku,
         Tanggal: dataTransaksi.Tanggal
     });
 
@@ -76,7 +76,7 @@ const EditTransaksiBahan = ({ dataTransaksi, onSuccess }) => {
         setIsPending(true);
 
         const requestData = {
-            ID_transaksi_Bahan: data.ID_transaksi_Bahan,
+            ID_Transaksi_Baku: data.ID_transaksi_Baku,
             Tanggal: data.Tanggal,
             bahanbaku: listBahan
         };
