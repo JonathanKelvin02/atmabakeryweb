@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { FaSearch, FaPlus } from 'react-icons/fa';
+import { FaSearch, FaPlus, FaCalendar } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import CreateTransaksiBahan from "./CreateTransaksiBK";
 
 //Import Css
 import './ListTransaksi.css';
@@ -35,6 +36,7 @@ const TransaksiBahan = () => {
     const fetchTrans = () => {
         setIsLoading(true);
         getAllTransBahan().then((response) => {
+            console.log(response);
             setTransactions(response);
             setIsLoading(false);
         }).catch((err) => {
@@ -72,7 +74,7 @@ const TransaksiBahan = () => {
 
     useEffect(() => {
         fetchTrans();
-    }, [])
+    }, []);
 
     return(
         <>
@@ -82,14 +84,12 @@ const TransaksiBahan = () => {
                         <InputGroup>
                             <input className="search" type="search" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
                             <button type="button" className="search-button">
-                                <FaSearch style={{ color: 'white' }} />
+                                <FaCalendar style={{ color: 'white' }} />
                             </button>
                         </InputGroup>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                        <button className="add-product border-0" type="button" onClick={() => navigate('/admin/create-resep')}>
-                            <FaPlus className="mr-1" /> <b>Add Product</b>
-                        </button>
+                        <CreateTransaksiBahan onSuccess={fetchTrans} />
                     </Col>
                 </Row>
             </Container>
