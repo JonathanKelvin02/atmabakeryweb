@@ -36,3 +36,17 @@ export const SendPasswordReset = async (data) => {
         throw e.response.data;
     }
 }
+
+export const GetProfile = async () => {
+    try {
+        const response = await useAxios.get("/customer", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
