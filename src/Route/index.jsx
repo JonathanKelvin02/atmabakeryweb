@@ -35,6 +35,7 @@ import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 
 import CustomerView from "../Pages/CustomerView/CustomerView";
 import ShowProfileCustomer from "../Pages/CustomerView/ProfileView/ShowProfileCustomer";
+import ShowHistoryCustomer from "../Pages/CustomerView/HistoryView/ShowHistoryCustomer";
 
 import ProtectedRoutes from "./ProtectedRoutes";
 
@@ -183,6 +184,10 @@ const router = createBrowserRouter([
             {
                 path: "/customer/Profile",
                 element: <ShowProfileCustomer/>
+            },
+            {
+                path: "/customer/History",
+                element: <ShowHistoryCustomer/>
             }
         ]
     }

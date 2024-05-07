@@ -78,3 +78,31 @@ export const UpdateProfile = async (data, id) => {
         throw e.response.data;
     }
 }
+
+export const GetHistory = async () => {
+    try {
+        const response = await useAxios.get("/customer/history", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const SearchHistory = async (nama) => {
+    try {
+        const response = await useAxios.get("/customer/history/"+nama, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

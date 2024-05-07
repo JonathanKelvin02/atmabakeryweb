@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import {Button, Container, Form, Nav, Navbar} from 'react-bootstrap';
-import { FaCircleUser ,FaCartShopping } from 'react-icons/fa6';
+import { FaCircleUser ,FaCartShopping, FaReceipt } from 'react-icons/fa6';
 
 function TopNavbar({children}) {
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -44,6 +44,7 @@ function TopNavbar({children}) {
                         </Form>
                         
                         <Nav className='d-flex align-items-center'>
+                            <Nav.Link href='/customer/History' className="mx-2"><FaReceipt/></Nav.Link>
                             <Nav.Link className="mx-2"><FaCartShopping /></Nav.Link>
                             <Nav.Link href='/customer/Profile' className="mx-2" ><FaCircleUser /></Nav.Link>
                         </Nav>
