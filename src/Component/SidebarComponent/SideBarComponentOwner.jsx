@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Layout, Button, theme } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { MdLogout } from "react-icons/md";
 import { 
     faMoneyBillWave, 
     faFile
@@ -13,6 +14,10 @@ import './SideBarComponent.css';
 //Import Component
 import Logo from './Logo';
 import MenuList from './MenuList';
+
+//Import API
+import { LogoutPegawai } from '../../api/apiAuth';
+import { toast } from 'react-toastify';
 
 const menu = [
     {
@@ -36,9 +41,18 @@ const { Header, Sider } = Layout;
 function SideBarComponentOwner({children}) {
     const[collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
-    const handleLogout = () => {
-        navigate('/');
-    };
+    const handleLogout = (event) => {
+        LogoutPegawai().then((res) => {
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user");
+            sessionStorage.removeItem("role");
+            navigate("/");
+            toast.success(res.message);
+        }).catch((e) => {
+            console.log(e);
+            toast.dark(e.message);
+        })
+    }
 
     return(
         <Layout>
@@ -59,9 +73,9 @@ function SideBarComponentOwner({children}) {
                             <div className="text-topNavar">Home</div>
                         </div>
                         <div>
-                            <Button style={{ marginTop: 16, marginRight: 24, backgroundColor:'red', color:'white', border:'none' }} onClick={handleLogout}>
-                                LogOut
-                            </Button>
+                        {collapsed && <Button danger style={{marginTop: 16, marginRight: 8, fontWeight: 'bold'}} onClick={handleLogout}>
+                            <MdLogout /> LogOut    
+                        </Button>}
                         </div>
                     </div>
                 </Header>

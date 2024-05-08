@@ -67,7 +67,7 @@ const TitipanView = () => {
                 <Row>
                     <Col>
                         <InputGroup>
-                            <input className="search" type="search" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)}/>
+                            <input className="search" type="search" name="" id="" placeholder="Search Product Name..." onChange={(e) => setSearch(e.target.value)}/>
                             <button type="button" className="search-button">
                                 <FaSearch style={{ color: 'white' }} />
                             </button>
