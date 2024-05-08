@@ -79,9 +79,9 @@ const TransaksiBahan = () => {
                 <Row>
                     <Col>
                         <InputGroup>
-                            <input className="search" type="date" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
+                            <input className="search" type="search" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
                             <button type="button" className="search-button">
-                                <FaCalendar style={{ color: 'white' }} />
+                                <FaSearch style={{ color: 'white' }} />
                             </button>
                         </InputGroup>
                     </Col>
@@ -119,9 +119,15 @@ const TransaksiBahan = () => {
                                     </thead>
                                     <tbody>
                                         {transactions?.filter((item) => {
-                                            return search === '' 
+                                            return search.toLowerCase() === '' 
                                             ? item 
-                                            : item.Tanggal.includes(search);
+                                            : formatDate(item.Tanggal).includes(search) ||
+                                            item.bahanbaku.some((bahan) =>
+                                                bahan.Nama_Bahan.toLowerCase().includes(search.toLowerCase())
+                                            ) ||
+                                            item.bahanbaku.some((bahan) =>
+                                                bahan.pivot.Kuantitas.toString().toLowerCase().includes(search.toLowerCase())
+                                            );
                                         }).map((trans) => (
                                             <tr key={trans.ID_Transaksi_Baku} style={{ borderBottom: '1px solid #EDEEF2' }}>
                                                 <td>{formatDate(trans.Tanggal)}</td>
