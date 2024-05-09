@@ -10,7 +10,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
 import { GetAllResep, SearchResep } from '../../../api/apiResep';
-import { GetAllRecipe } from "../../../api/apiProduk";
 
 //Import Component
 import ModalAddResep from './ModalAddResep';

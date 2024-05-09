@@ -13,6 +13,7 @@ const ModalAddResep = ({onSuccess}) => {
     const[tampil, setTampil] = useState(false);
     const[isLoading, setIsLoading] = useState(false);
     const[index, setIndex] = useState(0);
+    const[idProduk, setIdProduk] = useState('');
 
     const[produk, setProduk] = useState([]);
     const[bahanBaku, setBahanBaku] = useState([]);
@@ -52,6 +53,10 @@ const ModalAddResep = ({onSuccess}) => {
         });
     }
 
+    const handleChangeIdProduk = (event) => {
+        setIdProduk(event.target.value);
+    }
+
     const handleChangeIndex = (event) => {
         setIndex(event.target.value);
     }
@@ -83,15 +88,12 @@ const ModalAddResep = ({onSuccess}) => {
         
         setResep((prevResep) => [...prevResep, data]);
         toast.success("Bahan Baku Berhasil Ditambahkan");
-        console.log(typeof resep.length);
-        console.log(resep.length);
-        console.log(typeof index);
-        console.log(resep);
         if (resep.length === parseInt(index)) {
             setIsLoading(true);
             PostResep(resep)
                 .then((response) => {
                     setIsLoading(false);
+                    setIdProduk('');
                     handleClose();
                     toast.success("Resep Berhasil Ditambahkan");
                 })
@@ -102,6 +104,9 @@ const ModalAddResep = ({onSuccess}) => {
         }
     };
     
+    console.log(idProduk);
+    console.log(typeof idProduk)
+    console.log(resep);
 
     useEffect(() => {
         fetchProduk();
@@ -122,7 +127,7 @@ const ModalAddResep = ({onSuccess}) => {
                     <Modal.Body>
                         <Form.Group className='mb-3' controlId='formBasicTotalInput'>
                             <Form.Label>Nama Produk</Form.Label>
-                            <Form.Select name='ID_Produk' required>
+                            <Form.Select name='ID_Produk' onChange={handleChangeIdProduk} required>
                                 <option selected hidden>Pilih Produk</option>
                                 {produk.map((item, index) => (
                                     <option key={index} value={item.ID_Produk}>{item.tblproduk.Nama_Produk}</option>
@@ -159,7 +164,7 @@ const ModalAddResep = ({onSuccess}) => {
                                     <div key={i+1}>
                                         <Form.Group className="mb-3" controlId={`formBasicNamaProduk${i}`}>
                                             <Form.Label>Nama Produk</Form.Label>
-                                            <Form.Select name="ID_Produk" onChange={handleChange} required>
+                                            <Form.Select name="ID_Produk" onChange={handleChange} required >
                                                 <option selected hidden>
                                                     Pilih Produk
                                                 </option>
