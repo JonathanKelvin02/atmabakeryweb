@@ -114,10 +114,6 @@ const router = createBrowserRouter([
                 element: <BahanBakuView />
             },
             {
-                path: "/admin/Penitip",
-                element: <PenitipView />
-            },
-            {
                 path: "/admin/create-resep",
                 element: <CreateResep />
             },
@@ -182,7 +178,11 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Pasokan",
                 element: <TransaksiBahan />,
-            }
+            },
+            {
+                path: "/MO/Penitip",
+                element: <PenitipView />
+            },
         ]
     },
     {

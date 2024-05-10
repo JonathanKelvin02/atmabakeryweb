@@ -18,9 +18,12 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
     const [data, setData] = useState(
         initialData 
         ? {
+            ID_Pengeluaran: initialData.ID_Pengeluaran,
+
             Nama: initialData.Nama, 
             Harga: initialData.Harga, 
             Tanggal: initialData.Tanggal, 
+
             Nama_Old: initialData.Nama,
             Harga_Old: initialData.Harga,
             Tanggal_Old: initialData.Tanggal
@@ -29,6 +32,7 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
             Nama: "", 
             Harga: "", 
             Tanggal: "", 
+            
             Nama_Old: "",
             Harga_Old: "",
             Tanggal_Old: ""
@@ -39,6 +43,8 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
         setData(
             initialData 
                 ? {
+                    ID_Pengeluaran: initialData.ID_Pengeluaran,
+
                     Nama: initialData.Nama, 
                     Harga: initialData.Harga, 
                     Tanggal: initialData.Tanggal, 
@@ -159,10 +165,18 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
                         <Form.Control style={{ borderColor: '#3C4242' }} type="date" name='Tanggal' placeholder="Enter the date" onChange={handleChange} value={tanggal}/>
                         {errors.Tanggal && <div style={{ color: 'red' }}>{errors.Tanggal}</div>}
                     </Form.Group>
+
+                    <Form.Group className="mb-2">
+                        <Form.Check 
+                            type="checkbox" 
+                            label="I confirm the data is correct" 
+                            onChange={handleConfirmationChange}
+                        />
+                    </Form.Group>
                 </Modal.Body>
                 
                 <Modal.Footer>
-                    <Button variant="outline-success" type="submit" onClick={SendDataPengeluaran} >Save</Button>
+                    <Button variant="outline-success" type="submit" onClick={SendDataPengeluaran} disabled={!isConfirmed}>Save</Button>
                     <Button variant="danger" onClick={onClose}>Cancel</Button>
                 </Modal.Footer>
                 

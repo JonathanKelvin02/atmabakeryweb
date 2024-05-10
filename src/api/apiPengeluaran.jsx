@@ -31,10 +31,8 @@ export const PostPengeluaran = async (data) => {
 }
 
 export const UpdatePengeluaran = async (data) => {
-    console.log(data);
-
     try {
-        const response = await useAxios.put("/pengeluaran", data, {
+        const response = await useAxios.put("/updatePengeluaranByID/"+data.ID_Pengeluaran, data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -47,9 +45,9 @@ export const UpdatePengeluaran = async (data) => {
     }
 }
 
-export const DeletePengeluaran = async (data) => {
+export const DeletePengeluaran = async (id) => {
     try {
-        const response = await useAxios.post("/pengeluaranDelete", data, {
+        const response = await useAxios.delete("/deletePengeluaranByID/"+id, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
