@@ -11,6 +11,7 @@ import { PostKaryawan } from "../../api/apiKaryawan";
 const TambahKaryawan = ({ onSuccess }) => {
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [validated, setValidated] = useState(false);
 
     const [jabatan, setJabatan] = useState([]);
     const [data, setData] = useState({
@@ -25,6 +26,7 @@ const TambahKaryawan = ({ onSuccess }) => {
     const handleClose = () => {
         setShow(false);
         onSuccess();
+        setValidated(false);
     }
 
     const handleShow = () => {
@@ -47,16 +49,23 @@ const TambahKaryawan = ({ onSuccess }) => {
     }
 
     const submitData = (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        PostKaryawan(data).then((response) => {
-            setIsLoading(false);
-            toast.success("Karyawan Berhasil Ditambahkan");
-            handleClose();  
-        }).catch((err) => {
-            console.log(err);
-            setIsLoading(false);
-        })
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            event.preventDefault();
+            setIsLoading(true);
+            PostKaryawan(data).then((response) => {
+                setIsLoading(false);
+                toast.success("Karyawan Berhasil Ditambahkan");
+                handleClose();  
+            }).catch((err) => {
+                console.log(err);
+                setIsLoading(false);
+            })
+        }
+        setValidated(true);
     }
 
     useEffect(() => {
@@ -73,36 +82,42 @@ const TambahKaryawan = ({ onSuccess }) => {
                 <Modal.Header closeButton>
                     <Modal.Title>Tambah Karyawan Baru (MO)</Modal.Title>
                 </Modal.Header>
-                <Form onSubmit={submitData}>
+                <Form noValidate validated={validated} onSubmit={submitData}>
                     <Modal.Body>
                         <Form.Group className="mb-3" controlId="formBasicNama">
                             <Form.Label>Nama Karyawan</Form.Label>
                             <Form.Control type="text" placeholder="Masukkan Nama Karyawan" name="Nama_Pegawai" onChange={handleChange} required/>
+                            <Form.Control.Feedback type="invalid">Harap masukkan <b>Nama Karyawan</b></Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicJabatan">
                             <Form.Label>Jabatan</Form.Label>
-                            <Form.Select name="ID_Jabatan" onChange={handleChange} required>
-                                <option selected hidden>Pilih Jabatan</option>
+                            <Form.Control as="select" type="select" name="ID_Jabatan" onChange={handleChange} required>
+                                <option selected hidden value=''>Pilih Jabatan</option>
                                 {jabatan.map((jabatan, index) => (
                                     <option key={index} value={jabatan.ID_Jabatan}>{jabatan.Nama_Jabatan}</option>
                                 ))}
-                            </Form.Select>
+                            </Form.Control>
+                            <Form.Control.Feedback type="invalid">Harap masukkan <b>Jabatan</b></Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicRekening">
                             <Form.Label>Nomor Rekening</Form.Label>
                             <Form.Control type="text" placeholder="Masukkan Nomor Rekening" name="Nomor_Rekening" onChange={handleChange} required/>
+                            <Form.Control.Feedback type="invalid">Harap masukkan Nomor Rekening</Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="email" placeholder="Masukkan Email" name="email" onChange={handleChange} required/>
+                            <Form.Control.Feedback type="invalid">Harap masukkan <b>Email</b></Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Masukkan Password" name="password" onChange={handleChange} required/>
+                            <Form.Control.Feedback type="invalid">Harap masukkan <b>Password</b></Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicNomorTelepon">
                             <Form.Label>Nomor Telepon</Form.Label>
                             <Form.Control type="text" placeholder="Masukkan Nomor Telepon" name="Nomor_Telepon" onChange={handleChange} required/>
+                            <Form.Control.Feedback type="invalid">Harap masukkan <b>Nomor Telepon</b></Form.Control.Feedback>
                         </Form.Group>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>

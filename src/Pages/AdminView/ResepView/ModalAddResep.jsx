@@ -11,6 +11,7 @@ import {GetBahanBaku} from '../../../api/apiBahanBaku';
 const ModalAddResep = ({onSuccess}) => {
     const[isLoading, setIsLoading] = useState(false);
     const[show, setShow] = useState(false);
+    const[validated, setValidated] = useState(false);
 
     const[produk, setProduk] = useState([]);
     const[bahanBaku, setBahanBaku] = useState([]);
@@ -25,6 +26,7 @@ const ModalAddResep = ({onSuccess}) => {
         setResep([
             {ID_Bahan_Baku:'', ID_Produk:'', Kuantitas:''}
         ]);
+        setValidated(false);
     };
 
     const handleShow = () => setShow(true);
@@ -60,9 +62,15 @@ const ModalAddResep = ({onSuccess}) => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        PostResep(resep)
+        const form = event.currentTarget;
+        console.log(form.checkValidity());
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            event.preventDefault();
+            setIsLoading(true);
+            PostResep(resep)
             .then((response) => {
                 setIsLoading(false);
                 handleClose();
@@ -72,14 +80,14 @@ const ModalAddResep = ({onSuccess}) => {
                 console.log(err);
                 setIsLoading(false);
             });
+        }
+        setValidated(true);
     }
 
     useEffect(() => {
         fetchProduk();
         fetchBahanBaku();
     },[])
-
-    console.log(resep);
 
     return (
         <>
@@ -94,7 +102,7 @@ const ModalAddResep = ({onSuccess}) => {
 
                 <Button className='m-3' onClick={addBahanBaku}>Add Resep</Button>
 
-                <Form onSubmit={handleSubmit}>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Modal.Body>
                         {resep.map((detailResep, index) => {
                             return (
@@ -103,8 +111,8 @@ const ModalAddResep = ({onSuccess}) => {
                                         <div className='col'>
                                             <Form.Group className="mb-3">
                                                 <Form.Label>Nama Produk</Form.Label>
-                                                <Form.Select name="ID_Produk" value={detailResep.ID_Produk} onChange={e => handleChange(e, index)} required >
-                                                    <option selected hidden>
+                                                <Form.Control name="ID_Produk" type='select' as="select" value={detailResep.ID_Produk} onChange={e => handleChange(e, index)} required>
+                                                    <option selected hidden value=''>
                                                         Pilih Produk
                                                     </option>
                                                     {produk.map((item, index) => (
@@ -112,15 +120,16 @@ const ModalAddResep = ({onSuccess}) => {
                                                             {item.tblproduk.Nama_Produk}
                                                         </option>
                                                     ))}
-                                                </Form.Select>
+                                                </Form.Control>
+                                                <Form.Control.Feedback type='invalid'>Pilih Produk</Form.Control.Feedback>
                                             </Form.Group>
                                         </div>
 
                                         <div className='col'>
                                             <Form.Group className="mb-3">
                                                 <Form.Label>Bahan Baku</Form.Label>
-                                                <Form.Select name="ID_Bahan_Baku" value={detailResep.ID_Bahan_Baku} onChange={e => handleChange(e, index)} required>
-                                                    <option selected hidden>
+                                                <Form.Control name="ID_Bahan_Baku" type='select' as="select" value={detailResep.ID_Bahan_Baku} onChange={e => handleChange(e, index)} required>
+                                                    <option selected hidden value="">
                                                         Pilih Bahan Baku
                                                     </option>
                                                     {bahanBaku.map((item, index) => (
@@ -128,7 +137,8 @@ const ModalAddResep = ({onSuccess}) => {
                                                             {item.Nama_Bahan}
                                                         </option>
                                                     ))}
-                                                </Form.Select>
+                                                </Form.Control>
+                                                <Form.Control.Feedback type='invalid'>Pilih Bahan Baku</Form.Control.Feedback>
                                             </Form.Group>
                                         </div>
 
@@ -136,6 +146,7 @@ const ModalAddResep = ({onSuccess}) => {
                                         <Form.Group className="mb-3">
                                             <Form.Label>Kuantitas</Form.Label>
                                             <Form.Control type="number" placeholder="Masukkan Kuantitas" name="Kuantitas" value={detailResep.Kuantitas} onChange={e => handleChange(e, index)} required />
+                                            <Form.Control.Feedback type='invalid'>Masukan Kuantitas</Form.Control.Feedback>
                                         </Form.Group>
                                     </div>
                                 </>

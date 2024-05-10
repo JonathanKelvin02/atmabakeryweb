@@ -10,6 +10,8 @@ import { GetBahanBaku } from "../../../api/apiBahanBaku";
 const ModalEditResep = ({dataResep, onSuccess, getProduk}) => {
     const[show, setShow] = useState(false);
     const[loading, setLoading] = useState(false);
+    const[validated, setValidated] = useState(false);
+
     const[data, setData] = useState(dataResep);
     
     const[dataProduk, setDataProduk] = useState([]);
@@ -51,16 +53,23 @@ const ModalEditResep = ({dataResep, onSuccess, getProduk}) => {
     }
 
     const SubmitData = async (event) => {
-        event.preventDefault();
-        setLoading(true);
-        PutResep(data).then((response) => {
-            setLoading(false);
-            toast.success("Resep Berhasil Diubah");
-            handleClose();
-        }).catch((err) => {
-            setLoading(false);
-            toast.error(err.response.data);
-        })
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            event.preventDefault();
+            setLoading(true);
+            PutResep(data).then((response) => {
+                setLoading(false);
+                toast.success("Resep Berhasil Diubah");
+                handleClose();
+            }).catch((err) => {
+                setLoading(false);
+                toast.error(err.response.data);
+            })
+        }
+        setValidated(true);
     }
 
     // useEffect(() => {
@@ -81,7 +90,7 @@ const ModalEditResep = ({dataResep, onSuccess, getProduk}) => {
                 <Modal.Header closeButton>
                     <Modal.Title><b>Edit Resep</b></Modal.Title>
                 </Modal.Header>
-                <Form onSubmit={SubmitData}>
+                <Form noValidate validated={validated} onSubmit={SubmitData}>
                     <Modal.Body>
                         <Form.Group className='mb-3'>
                             <Form.Label>Nama Produk</Form.Label>
@@ -118,6 +127,7 @@ const ModalEditResep = ({dataResep, onSuccess, getProduk}) => {
                         <Form.Group className='mb-3'>
                             <Form.Label>Kuantitas</Form.Label>
                             <Form.Control type='number' name='Kuantitas' value={data.Kuantitas} onChange={handleChange} required/>
+                            <Form.Control.Feedback type='invalid'>Masukan Kuantitas</Form.Control.Feedback>
                         </Form.Group>   
                     </Modal.Body>
 
