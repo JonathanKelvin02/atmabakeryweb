@@ -119,7 +119,7 @@ const HomecookView = () => {
                                                 <td>{homecook.tblproduk.Stok}</td>
                                                 <td>{homecook.tblproduk.StokReady}</td>
                                                 <td>
-                                                    <button className="edit-action">Recipe</button>
+                                                    {/* <button className="edit-action">Recipe</button> */}
                                                     <button className="edit-action" onClick={() => handleEdit(homecook)}>Edit</button>
                                                     <button className="delete-action" onClick={() => handleShowModal(homecook.ID_Produk)}>Delete</button>
                                                 </td>

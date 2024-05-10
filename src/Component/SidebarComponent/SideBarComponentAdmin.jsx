@@ -98,11 +98,27 @@ function SideBarComponent({children}) {
     }
 
     return(
-        <Layout>
+        <Layout className='content'>
             <Sider theme='light' collapsed={collapsed} collapsible trigger={null} className='sidebar'>
                 <Logo collapsed={collapsed} data={"Admin"} />
                 <MenuList subMenu={menu} />
             </Sider>
+            {collapsed && 
+                <aside className='sidebar-phone'>
+                    <div className='sidebar-menu'>
+                        <Logo data={"Admin"} />
+                        <MenuList subMenu={menu} />
+                    </div>
+                    <div>
+                        <Button 
+                            type="text"
+                            onClick={() => setCollapsed(!collapsed)}
+                            icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined />}
+                            style={{marginTop: 16}}
+                        />
+                    </div>
+                </aside>
+            }
             <Layout>
                 <Header style={{ padding: 0, background: '#fff', color: '#000' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>

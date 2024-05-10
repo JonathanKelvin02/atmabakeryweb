@@ -1,6 +1,14 @@
+.content {
+    min-height: 100vh;
+}
+
 .sidebar{
     color: #FFF;
-    min-height: 100vh;
+    /* min-height: 100vh; */
+}
+
+.sidebar-phone {
+    display: none;
 }
 
 .logo{
@@ -62,4 +70,40 @@
     gap: 15px;
     font-size: 1rem;
     position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+    .sidebar {
+        display: none;
+        min-height: 100vh;
+    }
+
+    .sidebar-phone {
+        display: flex;
+        bottom: 0;
+        float: left;
+        left: 0;
+        position: fixed;
+        top: 0;
+        z-index: 9999;
+    }
+
+    .sidebar-menu {
+        background-color: #FFF;
+        overflow: auto;
+    }
+
+    .sidebar-menu::-webkit-scrollbar {
+        background-color: #f1f1f1;
+        width: 4px;
+    }
+    
+    .sidebar-menu::-webkit-scrollbar-thumb {
+        background-color: #888; 
+        border-radius: 25px;
+    }
+    
+    .sidebar-menu::-webkit-scrollbar-thumb:hover {
+        background-color: #555; 
+    }
 }
