@@ -114,7 +114,7 @@ function SideBarComponent({children}) {
                             type="text"
                             onClick={() => setCollapsed(!collapsed)}
                             icon={collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined />}
-                            style={{marginTop: 16}}
+                            style={{marginTop: 16, marginLeft: 8, border: '1px solid #d5d5d5'}}
                         />
                     </div>
                 </aside>
