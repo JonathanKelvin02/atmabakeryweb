@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import TopNavBar from "../Component/TopNavBarComponent/TopNavbarForAuth";
 import LoginView from "../Pages/LoginPage/LoginView";
 
+import RegisterForm from "../Pages/LoginPage/FormRegister"
 import LoginForm from "../Pages/LoginPage/FormLogin";
 import ForgotForm from "../Pages/ForgotPage/FormForgot";
 import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
@@ -32,6 +33,10 @@ import ResepView from "../Pages/AdminView/ResepView/ResepView";
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 
+import CustomerView from "../Pages/CustomerView/CustomerView";
+import ShowProfileCustomer from "../Pages/CustomerView/ProfileView/ShowProfileCustomer";
+import ShowHistoryCustomer from "../Pages/CustomerView/HistoryView/ShowHistoryCustomer";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -52,6 +57,10 @@ const router = createBrowserRouter([
                     {
                         path: "/",
                         element: <LoginForm />
+                    },
+                    {
+                        path: "/register",
+                        element: <RegisterForm/>
                     },
                     {
                         path: "/forgot-password",
@@ -168,13 +177,17 @@ const router = createBrowserRouter([
         path: "/customer",
         element: (
             <ProtectedRoutes roles={'Customer'}>
-                {/* Sidebar Customer */}
+                <CustomerView/>
             </ProtectedRoutes>
         ),
         children: [
             {
-                path: "/customer",
-                // element: <Dashboard Customer />
+                path: "/customer/Profile",
+                element: <ShowProfileCustomer/>
+            },
+            {
+                path: "/customer/History",
+                element: <ShowHistoryCustomer/>
             }
         ]
     }
