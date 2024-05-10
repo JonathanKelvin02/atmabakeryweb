@@ -28,7 +28,7 @@ import EditHampers from "../Pages/AdminView/ProductView/EditHampersView";
 
 import ResepView from "../Pages/AdminView/ResepView/ResepView";
 
-import CustomerView from "../Pages/AdminView/CustomerView/Customer";
+import CustomerAdminView from "../Pages/AdminView/CustomerView/Customer";
 import OrderHistoryView from "../Pages/AdminView/CustomerView/OrderHistory";
 
 // MO Access View
@@ -114,10 +114,6 @@ const router = createBrowserRouter([
                 element: <BahanBakuView />
             },
             {
-                path: "/admin/Penitip",
-                element: <PenitipView />
-            },
-            {
                 path: "/admin/create-resep",
                 element: <CreateResep />
             },
@@ -147,7 +143,7 @@ const router = createBrowserRouter([
             },
             {
                 path :"/admin/Customer",
-                element: <CustomerView />
+                element: <CustomerAdminView />
             },
             {
                 path: "/admin/Customer/OrderHistory",
@@ -182,7 +178,11 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Pasokan",
                 element: <TransaksiBahan />,
-            }
+            },
+            {
+                path: "/MO/Penitip",
+                element: <PenitipView />
+            },
         ]
     },
     {

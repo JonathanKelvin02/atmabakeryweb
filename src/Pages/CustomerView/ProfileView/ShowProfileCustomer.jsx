@@ -73,7 +73,7 @@ const ShowProfileCustomer = () => {
         getDataProfile();
     }, []);
 
-    console.log(data.Profile);
+    console.log(data);
 
     return (
         <Container>
