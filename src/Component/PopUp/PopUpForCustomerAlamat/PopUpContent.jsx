@@ -41,15 +41,21 @@ const PopupContent = ({ data }) => {
         <div style={{ maxHeight, overflowY: 'auto' }}>
           <table className="table">
             <tbody>
-              {dataInside?.map((data, index) => (
+              {dataInside?.length > 0 ? (
+                dataInside.map((data, index) => (
                   <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
                       <td style={{ textAlign: 'left' }}>{data.Alamat}</td>
                       <td style={{ textAlign: 'center' }}>{data.Jarak || 0}</td>
                   </tr> 
-              ))}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={2} style={{ textAlign: 'center' }}>No data available</td>
+                </tr>
+              )}
             </tbody>
           </table>
-        </div>                          
+        </div>
       </div>
     </>
   );

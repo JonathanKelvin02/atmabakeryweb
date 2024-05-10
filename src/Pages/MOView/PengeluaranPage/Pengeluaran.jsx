@@ -56,7 +56,7 @@ const PenitipView = () => {
     }
 
     const deletePengeluaran = (deletedData) => {
-        DeletePengeluaran(deletedData).then((response) => {
+        DeletePengeluaran(deletedData.ID_Pengeluaran).then((response) => {
             console.log(response);
             setShowDeleteModal(false);
             toast.success("Expenses Data Deleted Successfully");

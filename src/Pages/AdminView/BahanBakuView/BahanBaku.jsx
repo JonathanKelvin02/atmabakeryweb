@@ -76,7 +76,8 @@ const BahanBakuView = () => {
         };
 
         if(inputCari.current.value === ""){
-            fetchData();
+            setRefresh(refresh => !refresh);
+            
             return;
         }
 
