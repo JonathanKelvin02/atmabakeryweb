@@ -46,6 +46,8 @@ import CustomerView from "../Pages/CustomerView/CustomerView";
 import ShowProfileCustomer from "../Pages/CustomerView/ProfileView/ShowProfileCustomer";
 import ShowHistoryCustomer from "../Pages/CustomerView/HistoryView/ShowHistoryCustomer";
 
+import TransaksiBahan from "../Pages/MOView/ShopBahanView/ListTransaksiBK";
+
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const router = createBrowserRouter([
@@ -176,6 +178,10 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Pengeluaran",
                 element: <PengeluaranView />,
+            },
+            {
+                path: "/MO/Pasokan",
+                element: <TransaksiBahan />,
             }
         ]
     },

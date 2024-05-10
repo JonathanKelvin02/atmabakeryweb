@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react";
 import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { FaSearch, FaPlus } from 'react-icons/fa';
+import { FaSearch, FaPlus, FaCalendar } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import CreateTransaksiBahan from "./CreateTransaksiBK";
+import EditTransaksiBahan from "./EditTransaksiBK";
 
-// Import Css
-import './Product.css';
+//Import Css
+import './ListTransaksi.css';
 
 //Import API
-import { GetAllRecipe, DeleteProduct, GetOneRecipe } from "../../../api/apiProduk";
+import { getAllTransBahan, DeleteTransBahan  } from "../../../api/apiTransBahan";
 
-const HomecookView = () => {
+const TransaksiBahan = () => {
     const navigate = useNavigate();
     const [search, setSearch] = useState("");
-    const [products, setProducts] = useState([]);
+    const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false); 
     const [productIdToDelete, setProductIdToDelete] = useState(null);
 
-    const deleteHomecook = (id) => {
+    const deleteTrans = (id) => {
         setIsLoading(true);
-        DeleteProduct(id).then((response) => {
+        DeleteTransBahan(id).then((response) => {
             setIsLoading(false);
             toast.success(response.message);
-            fetchProducts();
+            fetchTrans();
             handleCloseModal();
         }).catch((e) => {
             console.log(e);
@@ -32,10 +34,11 @@ const HomecookView = () => {
         })
     }
     
-    const fetchProducts = () => {
+    const fetchTrans = () => {
         setIsLoading(true);
-        GetAllRecipe().then((response) => {
-            setProducts(response);
+        getAllTransBahan().then((response) => {
+            console.log(response);
+            setTransactions(response);
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -43,8 +46,17 @@ const HomecookView = () => {
         })
     }
 
-    const handleEdit = (resep) => {
-        navigate('/admin/edit-resep', { state: {resep} });
+    const sumSubTotal = (trans) => {
+        let total = 0;
+        trans.bahanbaku.forEach((mytrans) => {
+            total += mytrans.pivot.Sub_Total;
+        });
+        return total;
+    }
+
+    const formatDate = (dateString) => {
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('id-ID', options);
     }
 
     const handleShowModal = (productId) => {
@@ -58,8 +70,8 @@ const HomecookView = () => {
     }
 
     useEffect(() => {
-        fetchProducts();
-    }, [])
+        fetchTrans();
+    }, []);
 
     return(
         <>
@@ -67,16 +79,14 @@ const HomecookView = () => {
                 <Row>
                     <Col>
                         <InputGroup>
-                            <input className="search" type="search" name="" id="" placeholder="Search Product Name..." onChange={(e) => setSearch(e.target.value)} />
+                            <input className="search" type="search" name="" id="" placeholder="Search..." onChange={(e) => setSearch(e.target.value)} />
                             <button type="button" className="search-button">
                                 <FaSearch style={{ color: 'white' }} />
                             </button>
                         </InputGroup>
                     </Col>
                     <Col className="d-flex justify-content-end">
-                        <button className="add-product border-0" type="button" onClick={() => navigate('/admin/create-resep')}>
-                            <FaPlus className="mr-1" /> <b>Add Product</b>
-                        </button>
+                        <CreateTransaksiBahan onSuccess={fetchTrans} />
                     </Col>
                 </Row>
             </Container>
@@ -94,34 +104,53 @@ const HomecookView = () => {
                         <h6 className="mt-2 mb-0">Loading...</h6>
                     </div>
                 ) : (
-                    products?.length > 0 ? (
+                    transactions?.length > 0 ? (
                         <>
                             <Container className="list-product">
                                 <table>
                                     <thead>
                                         <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                            <th>Product Name</th>
-                                            <th>Price</th>
-                                            <th>Limit/Day</th>
-                                            <th>Ready Stock</th>
+                                            <th>Tanggal</th>
+                                            <th>List Bahan Baku</th>
+                                            <th>Kuantitas</th>
+                                            <th>Total</th>
                                             <th style={{ width: '24%'}}>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {products?.filter((item) => {
+                                        {transactions?.filter((item) => {
                                             return search.toLowerCase() === '' 
                                             ? item 
-                                            : item.tblproduk.Nama_Produk.toLowerCase().includes(search.toLowerCase());
-                                        }).map((homecook) => (
-                                            <tr key={homecook.ID_Produk} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                                <td>{homecook.tblproduk.Nama_Produk}</td>
-                                                <td>Rp.{homecook.tblproduk.Harga}</td>
-                                                <td>{homecook.tblproduk.Stok}</td>
-                                                <td>{homecook.tblproduk.StokReady}</td>
+                                            : formatDate(item.Tanggal).includes(search) ||
+                                            item.bahanbaku.some((bahan) =>
+                                                bahan.Nama_Bahan.toLowerCase().includes(search.toLowerCase())
+                                            ) ||
+                                            item.bahanbaku.some((bahan) =>
+                                                bahan.pivot.Kuantitas.toString().toLowerCase().includes(search.toLowerCase())
+                                            );
+                                        }).map((trans) => (
+                                            <tr key={trans.ID_Transaksi_Baku} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                                <td>{formatDate(trans.Tanggal)}</td>
                                                 <td>
-                                                    {/* <button className="edit-action">Recipe</button> */}
-                                                    <button className="edit-action" onClick={() => handleEdit(homecook)}>Edit</button>
-                                                    <button className="delete-action" onClick={() => handleShowModal(homecook.ID_Produk)}>Delete</button>
+                                                    <ul className="m-0 p-0" style={{listStyleType: 'none'}}>
+                                                        {trans.bahanbaku.map((mytrans, index) => (
+                                                            <li key={index}>{mytrans.Nama_Bahan}</li>
+                                                        ))}
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul className="m-0 p-0" style={{listStyleType: 'none'}}>
+                                                        {trans.bahanbaku.map((mytrans, index) => (
+                                                            <li key={index}>{mytrans.pivot.Kuantitas}</li>
+                                                        ))}
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    Rp.{sumSubTotal(trans)}
+                                                </td>
+                                                <td>
+                                                    <EditTransaksiBahan dataTransaksi={trans} onSuccess={fetchTrans} />
+                                                    <button className="delete-action" onClick={() => handleShowModal(trans.ID_Transaksi_Baku)}>Delete</button>
                                                 </td>
                                             </tr> 
                                         ))}
@@ -149,7 +178,7 @@ const HomecookView = () => {
                     <Button variant="secondary" onClick={handleCloseModal}>
                         Cancel
                     </Button>
-                    <Button variant="danger" onClick={() => deleteHomecook(productIdToDelete)}>
+                    <Button variant="danger" onClick={() => deleteTrans(productIdToDelete)}>
                         Delete
                     </Button>
                 </Modal.Footer>
@@ -158,4 +187,4 @@ const HomecookView = () => {
     );
 };
 
-export default HomecookView;
+export default TransaksiBahan;

@@ -108,7 +108,6 @@ const EditHampers = () => {
         if (hamper.resep) {
             const mappedRecipes = hamper.resep.map(recipe => ({
                 ID_Produk: recipe.ID_Produk,
-                Waktu_Memproses: recipe.Waktu_Memproses,
                 Kuantitas: recipe.pivot.Kuantitas
             }));
             setInputProduct(mappedRecipes);
