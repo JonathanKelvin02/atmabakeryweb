@@ -17,6 +17,8 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
         initialData || {Nama_Bahan: "", Stok: "", Satuan: ""}
     );
 
+    const [isConfirmed, setIsConfirmed] = useState(false);
+
     useEffect(() => {
         setData(initialData || {Nama_Bahan: "", Stok: "", Satuan: ""});
     }, [initialData]);
@@ -36,6 +38,10 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
             setSatuan(event.target.value);
             setData(prevData => ({ ...prevData, Satuan: event.target.value }));
         }
+    }
+
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
     }
 
     const handleSubmit = (event) => {
@@ -85,7 +91,7 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
 
     return (
         <>
-            <Form onSubmit={SendDataBahan} className='roboto'>
+            <Form className='roboto'>
                 <Modal
                     show={show}
                     onHide={onClose}
@@ -119,10 +125,18 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
                         <Form.Control style={{ borderColor: '#3C4242' }} type="text" name='Satuan' placeholder="Enter the unit" onChange={handleChange} value={satuan}/>
                         {errors.Nama_Bahan && <div style={{ color: 'red' }}>{errors.Satuan}</div>}
                     </Form.Group>
+
+                    <Form.Group className="mb-2">
+                        <Form.Check 
+                            type="checkbox" 
+                            label="I confirm the data is correct" 
+                            onChange={handleConfirmationChange}
+                        />
+                    </Form.Group>
                 </Modal.Body>
                 
                 <Modal.Footer>
-                    <Button variant="outline-success" type="submit" onClick={SendDataBahan}>Save</Button>
+                    <Button variant="outline-success" type="submit" onClick={SendDataBahan} disabled={!isConfirmed}>Save</Button>
                     <Button variant="danger" onClick={onClose}>Cancel</Button>
                 </Modal.Footer>
                 

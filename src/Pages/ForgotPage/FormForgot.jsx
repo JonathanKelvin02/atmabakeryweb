@@ -42,7 +42,7 @@ function FormForgot() {
             })
             .catch((err) => {
                 console.log(err);
-                toast.error("Sending Email Failed" + err.message);
+                toast.error("No Email Found");
                 // toast.dark(err.message);
                 setLoading(false);
             });

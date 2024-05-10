@@ -14,6 +14,8 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
         initialData || {Nama_Penitip: ""}
     );
 
+    const [isConfirmed, setIsConfirmed] = useState(false);
+
     useEffect(() => {
         setData(initialData || {Nama_Penitip: ""});
     }, [initialData]);
@@ -23,6 +25,10 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
             setNamaPenitip(event.target.value);
             setData(prevData => ({ ...prevData, Nama_Penitip: event.target.value }));
         }
+    }
+
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
     }
 
     const handleSubmit = (event) => {
@@ -86,10 +92,18 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
                         <Form.Control style={{ borderColor: '#3C4242' }} type="text" name='Nama_Penitip' placeholder="Enter depositor name" onChange={handleChange} value={namaPenitip}/>
                         {errors.Nama_Penitip && <div style={{ color: 'red' }}>{errors.Nama_Penitip}</div>}
                     </Form.Group>
+
+                    <Form.Group className="mb-2">
+                        <Form.Check 
+                            type="checkbox" 
+                            label="I confirm the data is correct" 
+                            onChange={handleConfirmationChange}
+                        />
+                    </Form.Group>
                 </Modal.Body>
                 
                 <Modal.Footer>
-                    <Button variant="outline-success" type="submit" onClick={SendDataBahan}>Save</Button>
+                    <Button variant="outline-success" type="submit" onClick={SendDataBahan} disabled={!isConfirmed}>Save</Button>
                     <Button variant="danger" onClick={onClose}>Cancel</Button>
                 </Modal.Footer>
                 

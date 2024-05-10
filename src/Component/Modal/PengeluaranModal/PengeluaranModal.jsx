@@ -13,6 +13,8 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
     const [errors, setErrors] = useState({});
 
     const [isDisabled, setIsDisabled] = useState(true);
+    const [isConfirmed, setIsConfirmed] = useState(false);
+
     const [data, setData] = useState(
         initialData 
         ? {
@@ -70,6 +72,10 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
             setTanggal(event.target.value);
             setData(prevData => ({ ...prevData, Tanggal: event.target.value }));
         }
+    }
+
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
     }
 
     const handleSubmit = (event) => {
