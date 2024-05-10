@@ -3,23 +3,21 @@ import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert} from "r
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
-import PopUpShowRelated from '../../../Component/PopUp/PopUpForBahanBaku/PopUpContent.jsx';
-import BahanBakuModal from "../../../Component/Modal/BahanBakuModal/BahanBakuModal.jsx";
-import DeleteModal from "../../../Component/Modal/DeleteConfirmationModal.jsx";
+import PengeluaranModal from "../../../Component/Modal/PengeluaranModal/PengeluaranModal";
+import DeleteModal from "../../../Component/Modal/DeleteConfirmationModal";
 
 // Import Css
-import '../ProductView/Product.css';
-import './BahanBaku.css';
-import '../../../Component/PopUp/PopUp.css';
+import '../../AdminView/ProductView/Product.css';
+import '../../AdminView/PenitipPage/Penitip.css';
 
 //Import API
-import { GetBahanBaku, DeleteBahanBaku, SearchBahanBaku } from "../../../api/apiBahanBaku";
+import { GetAllPengeluaran, DeletePengeluaran, SearchPengeluaran } from "../../../api/apiPengeluaran";
 
-const BahanBakuView = () => {
+const PenitipView = () => {
     // Fetch, Show, and Loading Purpose
-    const [bahan, setBahan] = useState([]);
+    const [pengeluaran, setPengeluaran] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -30,7 +28,7 @@ const BahanBakuView = () => {
 
     const indexOfLastItem = activePage * itemsCountPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsCountPerPage;
-    const currentItems = bahan.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = pengeluaran.slice(indexOfFirstItem, indexOfLastItem);
 
     // Search Purpose
     const inputCari = useRef("");
@@ -44,12 +42,12 @@ const BahanBakuView = () => {
 
     // Delete Purpose
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-    const [deleteId, setDeleteId] = useState(null);
+    const [deletedData, setDeletedData] = useState(null);
 
-    const fetchBahan = () => {
+    const fetchPengeluaran = () => {
         setIsLoading(true);
-        GetBahanBaku().then((response) => {
-            setBahan(response);
+        GetAllPengeluaran().then((response) => {
+            setPengeluaran(response);
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -57,50 +55,49 @@ const BahanBakuView = () => {
         })
     }
 
-    const deleteBahan = (idValue) => {
-        DeleteBahanBaku(idValue).then((response) => {
+    const deletePengeluaran = (deletedData) => {
+        DeletePengeluaran(deletedData).then((response) => {
             console.log(response);
-            toast.success("Ingredients Data Deleted Successfully");
             setShowDeleteModal(false);
+            toast.success("Expenses Data Deleted Successfully");
             setRefresh(oldRefresh => !oldRefresh);
         }).catch((err) => {
             console.log(err);
-            toast.success("Ingredients Data Deleted Failed");
+            toast.success("Expenses Data Deleted Failed");
             setShowDeleteModal(false);
         })
     }
 
     const searchToPagination = () => {
-        const data = {
-            Nama_Bahan: inputCari.current.value
-        };
-
-        if(inputCari.current.value === ""){
-            fetchData();
-            return;
+        const newData = {
+            Nama: inputCari.current.value
         }
 
-        setIsLoading(true);
-        SearchBahanBaku(data).then((response) => {
-            setBahan(response);
-            toast.success("Search Data " + inputCari.current.value + " Success");
-            setIsLoading(false);
-        }).catch((err) => {
-            console.log(err);
-            toast.warning("Search Data Bahan Failed");
-            setIsLoading(false);
-        })
+        if(inputCari.current.value === ""){
+            fetchPengeluaran();
+        }else{
+            setIsLoading(true);
+            SearchPengeluaran(newData).then((response) => {
+                setPengeluaran(response);
+                toast.success("Expenses Data Searched Successfully");
+                setIsLoading(false);
+            }).catch((err) => {
+                console.log(err);
+                toast.error("Expenses Data Searched Failed");
+                setIsLoading(false);
+            })
+        }
 
         inputCari.current.value = "";
     }
     
     useEffect(() => {
-        fetchBahan();
+        fetchPengeluaran();
     }, [refresh])
 
     useEffect(() => {
         if (deleteConfirmation) {
-            deleteBahan(deleteId);
+            deletePengeluaran(deletedData);
             setRefresh(refresh => !refresh);
             setDeleteConfirmation(false);
         }
@@ -108,7 +105,7 @@ const BahanBakuView = () => {
 
     return(
         <>
-            {showModal && <BahanBakuModal show={showModal} onClose={() => setShowModal(false)} onRefresh={() => setRefresh(oldRefresh => !oldRefresh)} initialData={editData} isUpdate={isUpdate} />}
+            {showModal && <PengeluaranModal show={showModal} onClose={() => setShowModal(false)} onRefresh={() => setRefresh(oldRefresh => !oldRefresh)} initialData={editData} isUpdate={isUpdate} />}
             {showDeleteModal && <DeleteModal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} initialData={editData} onConfirm={setDeleteConfirmation}/>}
 
             <Container className="top-container">
@@ -122,7 +119,7 @@ const BahanBakuView = () => {
                         </InputGroup>
                     </Col>
                 <Col xs={12} md={4} className="d-flex justify-content-md-end mt-3 mt-md-0">
-                    <Button onClick={() => { setShowModal(true); setIsUpdate(false); setEditData(null); }} variant="success"><FaPlus className="mr-1" /> <b>Add Ingredients</b></Button>
+                    <Button onClick={() => { setShowModal(true); setIsUpdate(false); setEditData(null)}} variant="success"><FaPlus className="mr-1" /> <b>Add Expense Data</b></Button>
                 </Col>
             </Row>
             </Container>
@@ -140,61 +137,51 @@ const BahanBakuView = () => {
                         <h6 className="mt-2 mb-0">Loading...</h6>
                     </div>
                 ) : (
-                    bahan?.length > 0 ? (
+                    pengeluaran?.length > 0 ? (
+
                         <div className="table-responsive">
                             <table className="table">
                                 <thead>
                                     <tr style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                        <th>Ingredients Name</th>
-                                        <th>Stok</th>
-                                        <th>Unit</th>
-                                        <th>Related Products</th>
+                                        <th>Expenditure name</th>
+                                        <th>Price</th>
+                                        <th>Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {currentItems?.map((data, index) => (
                                         <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                            <td>{data.Nama_Bahan}</td>
-                                            <td>{data.Stok}</td>
-                                            <td>{data.Satuan}</td>
-                                            <td>
-                                                {/* <Button variant="outline-success">Show Products</Button> */}
-                                                <Popup
-                                                    trigger={<Button variant="outline-success">Show Product</Button>} 
-                                                    position="bottom center"
-                                                    className="popup-content"
-                                                >
-                                                    <PopUpShowRelated data={data}/>
-                                                </Popup>
-                                            </td>
+                                            <td>{data.Nama}</td>
+                                            <td>{data.Harga}</td>
+                                            <td>{data.Tanggal}</td>
                                             <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                                                 <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success" onClick={() => { setShowModal(true); setIsUpdate(true); setEditData(data) }}>Edit</Button>
-                                                <Button style={{width:'68px'}} variant="danger" onClick={() => { setShowDeleteModal(true); setEditData(data); setDeleteId(data.ID_Bahan_Baku) }}>Delete</Button>
+                                                <Button style={{width:'68px'}} variant="danger" onClick={() => { setShowDeleteModal(true); setEditData(data); setDeletedData(data); }}>Delete</Button>
                                             </td>
                                         </tr> 
-                                    ))}                                
+                                    ))}
                                 </tbody>
                             </table>
-                            <div className="PaginationDesign">
-                                <Pagination
-                                    activePage={activePage}
-                                    itemsCountPerPage={itemsCountPerPage}
-                                    totalItemsCount={bahan.length}
-                                    pageRangeDisplayed={5}
-                                    onChange={page => setActivePage(page)}
-                                    itemClass="page-item"
-                                    linkClass="page-link"
-                                    prevPageText="Prev"
-                                    nextPageText="Next"
-                                    firstPageText="First"
-                                    lastPageText="Last"
-                                />
-                            </div>                            
+                                <div className="PaginationDesign">
+                                    <Pagination
+                                        activePage={activePage}
+                                        itemsCountPerPage={itemsCountPerPage}
+                                        totalItemsCount={pengeluaran.length}
+                                        pageRangeDisplayed={5}
+                                        onChange={page => setActivePage(page)}
+                                        itemClass="page-item"
+                                        linkClass="page-link"
+                                        prevPageText="Prev"
+                                        nextPageText="Next"
+                                        firstPageText="First"
+                                        lastPageText="Last"
+                                    />
+                                </div>
                         </div>
                     ) : (
                         <Alert variant="dark" className="mt-3 text-center">
-                            No Ingredients Yet
+                            No Expenses Yet
                         </Alert>
                     )
                 )}
@@ -203,4 +190,4 @@ const BahanBakuView = () => {
     );
 };
 
-export default BahanBakuView;
+export default PenitipView;

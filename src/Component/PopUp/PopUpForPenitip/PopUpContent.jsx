@@ -13,6 +13,8 @@ const PopupContent = ({ data }) => {
   const maxHeight = isMobile ? '28vh' : '40vh';
 
   const fetchProduct = () => {
+    console.log(data);
+
     setIsLoading(true);
     GetProductBySpesificPenitip(data).then((response) => {
       setProduk(response);

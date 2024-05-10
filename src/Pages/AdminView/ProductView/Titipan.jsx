@@ -115,7 +115,7 @@ const TitipanView = () => {
                                         <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
                                             <td>{homecook.tblproduk.Nama_Produk}</td>
                                             <td>Rp.{homecook.tblproduk.Harga}</td>
-                                            <td>{homecook.penitip.Nama_Penitip}</td>
+                                            <td>{homecook.penitip?.Nama_Penitip}</td>
                                             <td>{homecook.tblproduk.StokReady}</td>
                                             <td>
                                                 <button className="edit-action" onClick={() => handleEdit(homecook)}>Edit</button>

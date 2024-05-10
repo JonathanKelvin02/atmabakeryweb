@@ -1,8 +1,8 @@
 import useAxios from "./indexApi";
 
-export const GetAllPenitip = async () => {
+export const GetAllPengeluaran = async () => {
     try {
-        const response = await useAxios.get("/getPenitipAll", {
+        const response = await useAxios.get("/pengeluaran", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -15,27 +15,41 @@ export const GetAllPenitip = async () => {
     }
 }
 
-export const GetProductBySpesificPenitip = async (data) => {
+export const PostPengeluaran = async (data) => {
     try {
-        const response = await useAxios.post("/productForSpesificPenitip", data, {
+        const response = await useAxios.post("/pengeluaran", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },
         });
-        console.log(response.data.data);
-        return response.data.data;
+        // console.log(response.data);
+        return response.data;
     } catch (e) {
-        console.log(e);
         throw error.response.data;
     }
 }
 
-export const PostPenitip = async (data) => {
+export const UpdatePengeluaran = async (data) => {
     console.log(data);
 
     try {
-        const response = await useAxios.post("/createPenitip", data, {
+        const response = await useAxios.put("/pengeluaran", data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (e) {
+        throw error.response.data;
+    }
+}
+
+export const DeletePengeluaran = async (data) => {
+    try {
+        const response = await useAxios.post("/pengeluaranDelete", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -47,44 +61,14 @@ export const PostPenitip = async (data) => {
     }
 }
 
-export const UpdatePenitip = async (data) => {
+export const SearchPengeluaran = async (data) => {
     try {
-        const response = await useAxios.put("/updatePenitip/"+data.ID_Penitip, data, {
+        const response = await useAxios.post("/pengeluaranSearch", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },
         });
-        return response.data;
-    } catch (e) {
-        throw error.response.data;
-    }
-}
-
-export const DeletePenitip = async (id) => {
-    try {
-        const response = await useAxios.delete("/deletePenitip/"+id, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-            },
-        });
-        return response.data;
-    } catch (e) {
-        throw error.response.data;
-    }
-}
-
-export const SearchPenitip = async (data) => {
-    try {
-        const response = await useAxios.post("/searchPenitipByNama", data, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-            },
-        });
-
-
         return response.data.data;
     } catch (e) {
         throw error.response.data;

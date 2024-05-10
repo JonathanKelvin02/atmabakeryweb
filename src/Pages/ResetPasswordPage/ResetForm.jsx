@@ -28,17 +28,22 @@ function FormReset() {
     const handleChange = (event) => {
         const newData = { ...data, [event.target.name]: event.target.value};
         setData(newData);
-        if (newData.password.trim().length > 0 && newData.passwordConfirm.trim().length > 0) {
-            setIsDisabled(false);
-        } else {
+
+        console.log(newData);
+
+        if(newData.passwordConfirm.trim().length === 0 && newData.password.trim().length === 0){
             setIsDisabled(true);
+            return;
         }
 
-        if (newData.password !== newData.passwordConfirm){
-            setErrorMessage('New password and comfirm new password do not match');
-        } else {
-            setErrorMessage('');
-        }        
+        if(newData.password !== newData.passwordConfirm){
+            setErrorMessage('New password and confirm new password do not match');
+            setIsDisabled(true);
+            return;
+        }
+    
+        setErrorMessage('');
+        setIsDisabled(false);
     }
 
     const searchTokenCredential = () => {
@@ -46,21 +51,25 @@ function FormReset() {
         CheckingCredentialToken(data).then((response) => {
             setIsTokenValid(true);
             setIsLoading(false);
+            toast.success("Token valdiated successfully");
         }).catch((err) => {
             console.log(err);
             setIsTokenValid(false);
+            toast.error("Token valdiated failed");
             setIsLoading(false);
         })
     }
 
-    const resetPasswordSender = () => {
+    const resetPasswordSender = (event) => {
         event.preventDefault();
 
         SendPasswordReset(data).then((response) => {
             navigate("/");
+            toast.success("Reset Password Success");
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
+            toast.error("Reset Password Failed");
             setIsLoading(false);
         })
     }

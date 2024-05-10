@@ -21,7 +21,7 @@
     border-radius: 0 0 8px 8px;
     width: fit-content;
     height: fit-content;
-    max-height: 380px;
+    max-height: fit-content;
 }
 
 .list-product {
@@ -61,7 +61,7 @@
     background-color: #8E6F60;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 200px) {
     .search-button {
         width: 100%;
     }

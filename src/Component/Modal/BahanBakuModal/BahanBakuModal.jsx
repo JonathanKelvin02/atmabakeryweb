@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Container, Form, Button, Alert, Spinner, Modal } from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 import { PostBahanBaku, UpdateBahanBaku } from '../../../api/apiBahanBaku';
 
@@ -9,10 +10,14 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
     const [stok, setStok] = useState(initialData ? initialData.Stok : "");
     const [satuan, setSatuan] = useState(initialData ? initialData.Satuan : "");
 
+    const [errors, setErrors] = useState({});
+
     const [isDisabled, setIsDisabled] = useState(true);
     const [data, setData] = useState(
         initialData || {Nama_Bahan: "", Stok: "", Satuan: ""}
     );
+
+    const [isConfirmed, setIsConfirmed] = useState(false);
 
     useEffect(() => {
         setData(initialData || {Nama_Bahan: "", Stok: "", Satuan: ""});
@@ -35,25 +40,58 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
         }
     }
 
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        let errors = {};
+
+        if (!namaBahan.trim()) {
+            errors.Nama_Bahan = 'Ingredients name is required';
+        }
+
+        if (!stok || stok < 0) {
+            errors.Stok = 'Quantity is required and should be 0 or more';
+        }
+
+        if (!satuan.trim()) {
+            errors.Satuan = 'Unit is required';
+        }
+
+        setErrors(errors);
+        return errors;
+    }
+
     const SendDataBahan = (event) => {
         event.preventDefault();
         console.log(isUpdate);
 
-        const apiFunction = isUpdate ? UpdateBahanBaku : PostBahanBaku;
+        const errors = handleSubmit(event);
 
-        apiFunction(data).then((response) => {
-            console.log(response);
-            onClose();
-            onRefresh();
-        }).catch((err) => {
-            console.log(err);
-            onClose();
-        })
+        if (Object.keys(errors).length > 0) {
+            return;
+        }else{
+            const apiFunction = isUpdate ? UpdateBahanBaku : PostBahanBaku;
+
+            apiFunction(data).then((response) => {
+                console.log(response);
+                toast.success("Ingredients Data " + (isUpdate ? "Update" : "Add") + " Successfully");
+                onClose();
+                onRefresh();
+            }).catch((err) => {
+                console.log(err);
+                toast.error("Ingredients Data " + (isUpdate ? "Update" : "Add") + " Failed");
+                // onClose();
+            })
+        }
     }
 
     return (
         <>
-            <Form onSubmit={SendDataBahan} className='roboto'>
+            <Form className='roboto'>
                 <Modal
                     show={show}
                     onHide={onClose}
@@ -73,21 +111,32 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Ingredients Name</div>
                         <Form.Control style={{ borderColor: '#3C4242' }} type="text" name='Nama_Bahan' placeholder="Enter ingredients name" onChange={handleChange} value={namaBahan}/>
+                        {errors.Nama_Bahan && <div style={{ color: 'red' }}>{errors.Nama_Bahan}</div>}
                     </Form.Group>
                     
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Quantity</div>
                         <Form.Control style={{ borderColor: '#3C4242' }} type="number" name='Stok' placeholder="Enter the quantity" onChange={handleChange} value={stok}/>
+                        {errors.Nama_Bahan && <div style={{ color: 'red' }}>{errors.Stok}</div>}
                     </Form.Group>
 
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Unit</div>
                         <Form.Control style={{ borderColor: '#3C4242' }} type="text" name='Satuan' placeholder="Enter the unit" onChange={handleChange} value={satuan}/>
+                        {errors.Nama_Bahan && <div style={{ color: 'red' }}>{errors.Satuan}</div>}
+                    </Form.Group>
+
+                    <Form.Group className="mb-2">
+                        <Form.Check 
+                            type="checkbox" 
+                            label="I confirm the data is correct" 
+                            onChange={handleConfirmationChange}
+                        />
                     </Form.Group>
                 </Modal.Body>
                 
                 <Modal.Footer>
-                    <Button variant="outline-success" type="submit" onClick={SendDataBahan}>Save</Button>
+                    <Button variant="outline-success" type="submit" onClick={SendDataBahan} disabled={!isConfirmed}>Save</Button>
                     <Button variant="danger" onClick={onClose}>Cancel</Button>
                 </Modal.Footer>
                 
