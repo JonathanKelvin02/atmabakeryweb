@@ -75,3 +75,18 @@ export const SeachKaryawan = async (data) => {
         throw error.response.data;
     }
 }
+
+export const ResetPasswordKaryawan = async (id) => {
+    try {
+        const response = await useAxios.put(`/reset-password/${id}`, {}, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}

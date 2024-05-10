@@ -7,6 +7,11 @@ export const getGambar = (gambar) => {
     return `${BASE_URL}/storage/img/${gambar}`;
 }
 
+export const getProfile = (Profile) => {
+    return `${BASE_URL}/storage/customer/${Profile}`;
+
+}
+
 const useAxios = axios.create({
     baseURL: `${BASE_URL}/api`
 });
