@@ -72,3 +72,17 @@ export const DeleteBahanBaku = async (id) => {
         throw e.response.data;
     }
 }
+
+export const SearchBahanBaku = async (data) => {
+    try {
+        const response = await useAxios.post("/searchBahanBakuByNama", data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
