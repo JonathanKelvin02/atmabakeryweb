@@ -3,6 +3,7 @@ import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert} from "r
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
+import { ToastContainer, toast } from 'react-toastify';
 
 import PengeluaranModal from "../../../Component/Modal/PengeluaranModal/PengeluaranModal";
 import DeleteModal from "../../../Component/Modal/DeleteConfirmationModal";
@@ -58,9 +59,11 @@ const PenitipView = () => {
         DeletePengeluaran(deletedData).then((response) => {
             console.log(response);
             setShowDeleteModal(false);
+            toast.success("Expenses Data Deleted Successfully");
             setRefresh(oldRefresh => !oldRefresh);
         }).catch((err) => {
             console.log(err);
+            toast.success("Expenses Data Deleted Failed");
             setShowDeleteModal(false);
         })
     }
@@ -76,9 +79,11 @@ const PenitipView = () => {
             setIsLoading(true);
             SearchPengeluaran(newData).then((response) => {
                 setPengeluaran(response);
+                toast.success("Expenses Data Searched Successfully");
                 setIsLoading(false);
             }).catch((err) => {
                 console.log(err);
+                toast.error("Expenses Data Searched Failed");
                 setIsLoading(false);
             })
         }

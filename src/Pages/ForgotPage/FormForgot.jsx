@@ -3,6 +3,7 @@ import { Container, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
+
 import { Login } from "../../api/apiAuth";
 import { SendEmailForLink } from "../../api/apiCustomer";
 
@@ -31,15 +32,18 @@ function FormForgot() {
     const login = (event) => {
         console.log("proses login");
         event.preventDefault();
+        
         setLoading(true);
 
         SendEmailForLink(data)
             .then((res) => {
+                toast.success("Sending Email Success");
                 navigate("/");
             })
             .catch((err) => {
                 console.log(err);
-                toast.dark(err.message);
+                toast.error("Sending Email Failed" + err.message);
+                // toast.dark(err.message);
                 setLoading(false);
             });
     };

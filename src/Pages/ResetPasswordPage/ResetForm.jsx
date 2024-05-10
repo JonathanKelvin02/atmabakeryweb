@@ -46,21 +46,25 @@ function FormReset() {
         CheckingCredentialToken(data).then((response) => {
             setIsTokenValid(true);
             setIsLoading(false);
+            toast.success("Token valdiated successfully");
         }).catch((err) => {
             console.log(err);
             setIsTokenValid(false);
+            toast.success("Token valdiated failed");
             setIsLoading(false);
         })
     }
 
-    const resetPasswordSender = () => {
+    const resetPasswordSender = (event) => {
         event.preventDefault();
 
         SendPasswordReset(data).then((response) => {
             navigate("/");
+            toast.success("Reset Password Success");
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
+            toast.error("Reset Password Failed");
             setIsLoading(false);
         })
     }

@@ -3,6 +3,7 @@ import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert} from "r
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
+import { toast } from 'react-toastify';
 
 import PopUpShowRelated from '../../../Component/PopUp/PopUpForPenitip/PopUpContent.jsx';
 import BahanBakuModal from "../../../Component/Modal/PenitipModal/PenitipModal.jsx";
@@ -14,8 +15,7 @@ import './Penitip.css';
 import '../../../Component/PopUp/PopUp.css';
 
 //Import API
-import { DeleteBahanBaku } from "../../../api/apiBahanBaku";
-import { GetAllPenitip, DeletePenitip } from "../../../api/apiPenitip";
+import { GetAllPenitip, DeletePenitip, SearchPenitip } from "../../../api/apiPenitip";
 
 const PenitipView = () => {
     // Fetch, Show, and Loading Purpose
@@ -63,24 +63,37 @@ const PenitipView = () => {
         DeletePenitip(idValue).then((response) => {
             console.log(response);
             setShowDeleteModal(false);
+            toast.success("Depositor Data Deleted Successfully");
             setRefresh(oldRefresh => !oldRefresh);
         }).catch((err) => {
             console.log(err);
+            toast.warning("Depositor Data Deleted Error");
             setShowDeleteModal(false);
         })
     }
 
     const searchToPagination = () => {
-        let posisi = 0;
-        for (let i = 0; i < bahan.length; i++) {
-            if(bahan[i].Nama_Penitip === inputCari.current.value) {
-                posisi = i;
-                break;
-            }
+        const data = {
+            Nama_Penitip: inputCari.current.value
+        };
+
+        if(inputCari.current.value === ""){
+            fetchData();
+            return;
         }
 
+        setIsLoading(true);
+        SearchPenitip(data).then((response) => {
+            setBahan(response);
+            toast.success("Search Data " + inputCari.current.value + " Success");
+            setIsLoading(false);
+        }).catch((err) => {
+            console.log(err);
+            toast.warning("Search Data Failed");
+            setIsLoading(false);
+        })
+
         inputCari.current.value = "";
-        setActivePage(Math.ceil((posisi + 1) / itemsCountPerPage));
     }
     
     useEffect(() => {

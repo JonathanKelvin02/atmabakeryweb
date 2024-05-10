@@ -3,6 +3,7 @@ import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert} from "r
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
+import { toast } from 'react-toastify';
 
 import PopUpShowRelated from '../../../Component/PopUp/PopUpForBahanBaku/PopUpContent.jsx';
 import BahanBakuModal from "../../../Component/Modal/BahanBakuModal/BahanBakuModal.jsx";
@@ -14,7 +15,7 @@ import './BahanBaku.css';
 import '../../../Component/PopUp/PopUp.css';
 
 //Import API
-import { GetBahanBaku, DeleteBahanBaku } from "../../../api/apiBahanBaku";
+import { GetBahanBaku, DeleteBahanBaku, SearchBahanBaku } from "../../../api/apiBahanBaku";
 
 const BahanBakuView = () => {
     // Fetch, Show, and Loading Purpose
@@ -59,25 +60,38 @@ const BahanBakuView = () => {
     const deleteBahan = (idValue) => {
         DeleteBahanBaku(idValue).then((response) => {
             console.log(response);
+            toast.success("Ingredients Data Deleted Successfully");
             setShowDeleteModal(false);
             setRefresh(oldRefresh => !oldRefresh);
         }).catch((err) => {
             console.log(err);
+            toast.success("Ingredients Data Deleted Failed");
             setShowDeleteModal(false);
         })
     }
 
     const searchToPagination = () => {
-        let posisi = 0;
-        for (let i = 0; i < bahan.length; i++) {
-            if(bahan[i].Nama_Bahan === inputCari.current.value) {
-                posisi = i;
-                break;
-            }
+        const data = {
+            Nama_Bahan: inputCari.current.value
+        };
+
+        if(inputCari.current.value === ""){
+            fetchData();
+            return;
         }
 
+        setIsLoading(true);
+        SearchBahanBaku(data).then((response) => {
+            setBahan(response);
+            toast.success("Search Data " + inputCari.current.value + " Success");
+            setIsLoading(false);
+        }).catch((err) => {
+            console.log(err);
+            toast.warning("Search Data Bahan Failed");
+            setIsLoading(false);
+        })
+
         inputCari.current.value = "";
-        setActivePage(Math.ceil((posisi + 1) / itemsCountPerPage));
     }
     
     useEffect(() => {
@@ -127,7 +141,6 @@ const BahanBakuView = () => {
                     </div>
                 ) : (
                     bahan?.length > 0 ? (
-
                         <div className="table-responsive">
                             <table className="table">
                                 <thead>

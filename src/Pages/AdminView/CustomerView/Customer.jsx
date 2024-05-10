@@ -4,6 +4,7 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import Popup from 'reactjs-popup';
+import { toast } from 'react-toastify';
 
 import PopUpShowRelated from '../../../Component/PopUp/PopUpForCustomerAlamat/PopUpContent.jsx';
 
@@ -60,9 +61,11 @@ const CustomerView = () => {
         setIsLoading(true);
         SearchGetCustomer(data).then((response) => {
             setData(response);
+            toast.success("Customer Data Searched Successfully");
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
+            toast.error("Customer Data Searched Failed");
             setIsLoading(false);
         })
 

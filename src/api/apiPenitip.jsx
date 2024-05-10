@@ -74,3 +74,19 @@ export const DeletePenitip = async (id) => {
         throw error.response.data;
     }
 }
+
+export const SearchPenitip = async (data) => {
+    try {
+        const response = await useAxios.post("/searchPenitipByNama", data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+
+
+        return response.data.data;
+    } catch (e) {
+        throw error.response.data;
+    }
+}
