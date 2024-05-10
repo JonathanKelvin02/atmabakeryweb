@@ -39,7 +39,7 @@ export const SendPasswordReset = async (data) => {
 
 export const GetCustomerAll = async () => {
     try {
-        const response = await useAxios.get("/customer", {
+        const response = await useAxios.get("/customerGetAll", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,

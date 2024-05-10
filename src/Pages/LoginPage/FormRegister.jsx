@@ -13,6 +13,9 @@ function FormRegister() {
     const navigate = useNavigate();
     const [isDisabled, setIsDisabled] = useState(true);
     const [loading, setLoading] = useState(false);
+
+    const [valPassword, setValPassword] = useState("");
+
     const [data, setData] = useState({
         Nama_Customer: "",
         email: "",
@@ -30,18 +33,29 @@ function FormRegister() {
         }
     }
 
+    const handleChangePassword = (event) => {
+        setValPassword(event.target.value);
+    }
+
+
     const register = (event) => {
-        event.preventDefault();
-        setLoading(true);
-        Register(data).then((response) => {
-            sendEmail(event);
-            toast.success("Berhasil Membuat Akun");
-            setLoading(false);
-            navigate('/');
-        }).catch((err) => {
-            console.log(err);
-            setLoading(false);
-        })
+        if (data.Password !== valPassword) {
+            event.preventDefault();
+            toast.error("Validasi Password Tidak Tepat");
+            return;
+        } else {
+            event.preventDefault();
+            setLoading(true);
+            Register(data).then((response) => {
+                sendEmail(event);
+                toast.success("Berhasil Membuat Akun");
+                setLoading(false);
+                navigate('/');
+            }).catch((err) => {
+                console.log(err);
+                setLoading(false);
+            })
+        }
     }
 
     const sendEmail = (event) => {
@@ -80,6 +94,11 @@ function FormRegister() {
                             <Form.Group className="form-group-password">
                                 <div className='form-label-password'>Password</div>
                                 <Form.Control className="form-control-password" type="password" name='password' placeholder="Password" onChange={handleChange}/>
+                            </Form.Group>
+
+                            <Form.Group className="form-group-password">
+                                <div className='form-label-password'>Validasi Password</div>
+                                <Form.Control className="form-control-password" type="password" name='valPassword' placeholder="Password" onChange={handleChangePassword}/>
                             </Form.Group>
 
                             <Form.Group className='form-group-Nomor_Telepon'>

@@ -159,6 +159,14 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
                         <Form.Control style={{ borderColor: '#3C4242' }} type="date" name='Tanggal' placeholder="Enter the date" onChange={handleChange} value={tanggal}/>
                         {errors.Tanggal && <div style={{ color: 'red' }}>{errors.Tanggal}</div>}
                     </Form.Group>
+
+                    <Form.Group className="mb-2">
+                        <Form.Check 
+                            type="checkbox" 
+                            label="I confirm the data is correct" 
+                            onChange={handleConfirmationChange}
+                        />
+                    </Form.Group>
                 </Modal.Body>
                 
                 <Modal.Footer>

@@ -1,21 +1,21 @@
 import { Container, Button, Table, Form, Row, InputGroup, Badge, Alert, Spinner } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 
 //Import CSS
 // import './Badge.css'
 
 //Import API
-import { DeleteKaryawan, GetAllKaryawan, SeachKaryawan, ResetPasswordKaryawan } from '../../api/apiKaryawan';
+import { GetAllKaryawan, SeachKaryawan, ResetPasswordKaryawan } from '../../api/apiKaryawan';
 
 //Import Page
 import TambahKaryawan from './ModalAddKaryawan';
 import EditKaryawan from './ModalEditKaryawan';
+import ModalDeleteKaryawan from './ModalDeleteKaryawan';
 
 const RUDSKaryawan = () => {
-    const [showPassword, setShowPassword] = useState(false);
     const [karyawans, setKaryawan] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -25,18 +25,6 @@ const RUDSKaryawan = () => {
         GetAllKaryawan().then((response) => {
             setKaryawan(response);
             setIsLoading(false);
-        }).catch((err) => {
-            console.log(err);
-            setIsLoading(false);
-        })
-    }
-
-    const deleteKaryawan = (id) => {
-        setIsLoading(true);
-        DeleteKaryawan(id).then((response) => {
-            setIsLoading(false);
-            toast.success("Karyawan Berhasil Dihapus");
-            fetchKaryawan();
         }).catch((err) => {
             console.log(err);
             setIsLoading(false);
@@ -153,7 +141,7 @@ const RUDSKaryawan = () => {
                                         <td className=''>
                                             <div className='d-grid gap-2'>
                                                 <EditKaryawan dataKaryawan={karyawan} onSuccess={handleRefresh} />
-                                                <Button variant='danger' className='me-2' size='sm' onClick={() => deleteKaryawan(karyawan.ID_Pegawai)}>Delete</Button>
+                                                <ModalDeleteKaryawan dataKaryawan={karyawan} onSuccess={handleRefresh} />
                                                 <Button variant='warning' className='me-2' size='sm' onClick={() => resetPasswordKaryawan(karyawan.ID_Pegawai)}>Reset Password</Button>
                                             </div>
                                         </td>
