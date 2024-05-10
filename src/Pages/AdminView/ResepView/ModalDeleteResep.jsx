@@ -37,10 +37,10 @@ const ModalDeleteResep = ({dataResep, onSuccess}) => {
 
             <Modal size='lg' show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton className='text-center'>
-                    <Modal.Title>Hapus Resep {dataResep.tblproduk.Nama_Produk}</Modal.Title>
+                    <Modal.Title>Hapus Resep {dataResep?.tblproduk?.Nama_Produk}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <span>Apakah anda yakin ingin menghapus data produk {dataResep.tblproduk.Nama_Produk} ?</span>
+                    <span>Apakah anda yakin ingin menghapus data produk {dataResep.tblproduk?.Nama_Produk} ?</span>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant='secondary' onClick={handleClose}>Batal</Button>

@@ -52,6 +52,21 @@ export const GetCustomerAll = async () => {
     }
 }
 
+export const GetProfile = async () => {
+    try {
+        const response = await useAxios.get("/customer", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        // console.log(response.data.data);
+        return response.data.data;
+    } catch (e) {
+        throw error.response.data;
+    }
+}
+
 export const SearchGetCustomer = async (data) => {
     try {
         const response = await useAxios.post("/customerSearch", data, {
@@ -64,7 +79,6 @@ export const SearchGetCustomer = async (data) => {
     } catch (e) {
         throw e.response.data;
     }
-
 }
 
 export const GetCustomerHistoryByID = async (data) => {
@@ -84,6 +98,62 @@ export const GetCustomerHistoryByID = async (data) => {
 export const GetDetailTransaksi = async (data) => {
     try{
         const response = await useAxios.get("/customerTransaction/" + data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const UpdateProfileImage = async (data) => {
+    try {
+        const response = await useAxios.post("/customer", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const UpdateProfile = async (data, id) => {
+    try {
+        const response = await useAxios.put("/customer/"+id, data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetHistory = async () => {
+    try {
+        const response = await useAxios.get("/customer/history", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const SearchHistory = async (nama) => {
+    try {
+        const response = await useAxios.get("/customer/history/"+nama, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
