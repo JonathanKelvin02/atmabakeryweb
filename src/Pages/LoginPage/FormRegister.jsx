@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Container, Form, Button, Spinner} from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -33,13 +33,17 @@ function FormRegister() {
         }
     }
 
+    const x = useRef('');
+
     const handleChangePassword = (event) => {
         setValPassword(event.target.value);
     }
 
 
     const register = (event) => {
-        if (data.Password !== valPassword) {
+        console.log(x.current.value);
+        console.log(valPassword);
+        if (x.current.value !== valPassword) {
             event.preventDefault();
             toast.error("Validasi Password Tidak Tepat");
             return;
@@ -93,7 +97,7 @@ function FormRegister() {
 
                             <Form.Group className="form-group-password">
                                 <div className='form-label-password'>Password</div>
-                                <Form.Control className="form-control-password" type="password" name='password' placeholder="Password" onChange={handleChange}/>
+                                <Form.Control className="form-control-password" type="password" name='password' placeholder="Password" onChange={handleChange} ref={x}/>
                             </Form.Group>
 
                             <Form.Group className="form-group-password">
