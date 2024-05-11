@@ -117,13 +117,20 @@ const BahanBakuModal = ({ show, onClose, onRefresh, initialData, isUpdate }) => 
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Quantity</div>
                         <Form.Control style={{ borderColor: '#3C4242' }} type="number" name='Stok' placeholder="Enter the quantity" onChange={handleChange} value={stok}/>
-                        {errors.Nama_Bahan && <div style={{ color: 'red' }}>{errors.Stok}</div>}
+                        {errors.Stok && <div style={{ color: 'red' }}>{errors.Stok}</div>}
                     </Form.Group>
 
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Unit</div>
-                        <Form.Control style={{ borderColor: '#3C4242' }} type="text" name='Satuan' placeholder="Enter the unit" onChange={handleChange} value={satuan}/>
-                        {errors.Nama_Bahan && <div style={{ color: 'red' }}>{errors.Satuan}</div>}
+                        <Form.Select style={{ borderColor: '#3C4242' }} name='Satuan' onChange={handleChange} value={satuan}>
+                            <option value="">Select a unit</option>
+                            <option value="gr">gr</option>
+                            <option value="butir">butir</option>
+                            <option value="gram">gram</option>
+                            <option value="buah">buah</option>
+                            <option value="ml">ml</option>
+                        </Form.Select>
+                        {errors.Satuan && <div style={{ color: 'red' }}>{errors.Satuan}</div>}
                     </Form.Group>
 
                     <Form.Group className="mb-2">
