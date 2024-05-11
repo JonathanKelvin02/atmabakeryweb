@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Col, Form, Row, Button, Spinner, Alert } from 'react-bootstrap';
+import { Container, Col, Form, Row, Button, Spinner, Alert, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import InputForm from '../../../Component/InputComponent/InputForm';
 import { FaUpload, FaPlus, FaTrash } from "react-icons/fa6";
@@ -14,6 +14,7 @@ import { CreateProdukHampers, UpdateHamper, GetAllRecipe } from "../../../api/ap
 const CreateHampers = () => {
     const navigate = useNavigate();
     const [resep, setResep] = useState([]);
+    const [isConfirmed, setIsConfirmed] = useState(false);
 
     //array isi hampers
     const [inputProduct, setInputProduct] = useState([{ 
@@ -74,6 +75,10 @@ const CreateHampers = () => {
             console.log(e);
             setIsLoading(false);
         })
+    }
+
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
     }
 
     const submitData = (event) => {
@@ -237,8 +242,17 @@ const CreateHampers = () => {
                                                 accept='image/'
                                             />
                                         </div>
+                                        
+                                        <Form.Group className='mb-2'>
+                                            <Form.Check 
+                                                type='checkbox'
+                                                label="I confirm the data is correct"
+                                                onChange={handleConfirmationChange}
+                                            />
+                                        </Form.Group>
+
                                         <Row className="" style={{marginTop: '20px', marginRight: '8px'}}>
-                                            <Button type='submit' disabled={isPending} variant='light' style={{width: '100px', marginRight: '10px', border: '2px solid #8E6F60', color: '#8E6F60', fontWeight: 'bold'}}>
+                                            <Button type='submit' disabled={isPending || !isConfirmed} variant='light' style={{width: '100px', marginRight: '10px', border: '2px solid #8E6F60', color: '#8E6F60', fontWeight: 'bold'}}>
                                                 {isPending ? (
                                                     <>
                                                         <Spinner 
