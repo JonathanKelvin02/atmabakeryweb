@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {Button, Form, Modal, Spinner} from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
@@ -16,9 +16,13 @@ const ModalAddResep = ({onSuccess}) => {
     const[produk, setProduk] = useState([]);
     const[bahanBaku, setBahanBaku] = useState([]);
 
+    const[off, setOff] = useState(true);
+
     const[resep, setResep] = useState([
         {ID_Bahan_Baku:'', ID_Produk:'', Kuantitas:''}
     ])
+
+    const x = useRef('');
 
     const handleClose = () => {
         setShow(false);
@@ -36,10 +40,11 @@ const ModalAddResep = ({onSuccess}) => {
         let dataResep = [...resep];
         dataResep[index][e.target.name] = e.target.value;
         setResep(dataResep);
+        setOff(false);
     }
 
     const addBahanBaku = () => {
-        let newResep = {ID_Bahan_Baku:'', ID_Produk:'', Kuantitas:''};
+        let newResep = {ID_Bahan_Baku:'', ID_Produk:x.current.value, Kuantitas:''};
         setResep([...resep, newResep]);
     }
 
@@ -89,6 +94,8 @@ const ModalAddResep = ({onSuccess}) => {
         fetchBahanBaku();
     },[])
 
+    console.log(resep);
+
     return (
         <>
             <Button onClick={handleShow} className='ms-3' style={{ backgroundColor: '#8e6f8e', borderColor:'#8e6f8e' }}>
@@ -100,55 +107,100 @@ const ModalAddResep = ({onSuccess}) => {
                     <Modal.Title>Tambah Resep</Modal.Title>
                 </Modal.Header>
 
-                <Button className='m-3' onClick={addBahanBaku}>Add Resep</Button>
+                <Button className='m-3' onClick={addBahanBaku} disabled={off}>Add Resep</Button>
 
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Modal.Body>
                         {resep.map((detailResep, index) => {
                             return (
                                 <>
-                                    <div className='m-3 row' key={index}>
-                                        <div className='col'>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label>Nama Produk</Form.Label>
-                                                <Form.Control name="ID_Produk" type='select' as="select" value={detailResep.ID_Produk} onChange={e => handleChange(e, index)} required>
-                                                    <option selected hidden value=''>
-                                                        Pilih Produk
-                                                    </option>
-                                                    {produk.map((item, index) => (
-                                                        <option key={index} value={item.ID_Produk}>
-                                                            {item.tblproduk.Nama_Produk}
+                                    {index === 0 ? (
+                                        <div className='m-3 row' key={index}>
+                                            <div className='col'>
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label>Nama Produk</Form.Label>
+                                                    <Form.Control name="ID_Produk" type='select' as="select" value={detailResep.ID_Produk} onChange={e => handleChange(e, index)} ref={x} required>
+                                                        <option selected hidden value=''>
+                                                            Pilih Produk
                                                         </option>
-                                                    ))}
-                                                </Form.Control>
-                                                <Form.Control.Feedback type='invalid'>Pilih Produk</Form.Control.Feedback>
+                                                        {produk.map((item, index) => (
+                                                            <option key={index} value={item.ID_Produk}>
+                                                                {item.tblproduk.Nama_Produk}
+                                                            </option>
+                                                        ))}
+                                                    </Form.Control>
+                                                    <Form.Control.Feedback type='invalid'>Pilih Produk</Form.Control.Feedback>
+                                                </Form.Group>
+                                            </div>
+
+                                            <div className='col'>
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label>Bahan Baku</Form.Label>
+                                                    <Form.Control name="ID_Bahan_Baku" type='select' as="select" value={detailResep.ID_Bahan_Baku} onChange={e => handleChange(e, index)} required>
+                                                        <option selected hidden value="">
+                                                            Pilih Bahan Baku
+                                                        </option>
+                                                        {bahanBaku.map((item, index) => (
+                                                            <option key={index} value={item.ID_Bahan_Baku}>
+                                                                {item.Nama_Bahan}
+                                                            </option>
+                                                        ))}
+                                                    </Form.Control>
+                                                    <Form.Control.Feedback type='invalid'>Pilih Bahan Baku</Form.Control.Feedback>
+                                                </Form.Group>
+                                            </div>
+
+                                            
+                                            <Form.Group className="mb-3">
+                                                <Form.Label>Kuantitas</Form.Label>
+                                                <Form.Control type="number" placeholder="Masukkan Kuantitas" name="Kuantitas" value={detailResep.Kuantitas} onChange={e => handleChange(e, index)} required />
+                                                <Form.Control.Feedback type='invalid'>Masukan Kuantitas</Form.Control.Feedback>
                                             </Form.Group>
                                         </div>
-
-                                        <div className='col'>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label>Bahan Baku</Form.Label>
-                                                <Form.Control name="ID_Bahan_Baku" type='select' as="select" value={detailResep.ID_Bahan_Baku} onChange={e => handleChange(e, index)} required>
-                                                    <option selected hidden value="">
-                                                        Pilih Bahan Baku
-                                                    </option>
-                                                    {bahanBaku.map((item, index) => (
-                                                        <option key={index} value={item.ID_Bahan_Baku}>
-                                                            {item.Nama_Bahan}
+                                    ) : (
+                                        <div className='m-3 row' key={index}>
+                                            <div className='col'>
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label>Nama Produk</Form.Label>
+                                                    <Form.Control name="ID_Produk" type='select' as="select" value={x.current.value} onChange={e => handleChange(e, index)} required disabled>
+                                                        <option selected hidden value=''>
+                                                            Pilih Produk
                                                         </option>
-                                                    ))}
-                                                </Form.Control>
-                                                <Form.Control.Feedback type='invalid'>Pilih Bahan Baku</Form.Control.Feedback>
+                                                        {produk.map((item, index) => (
+                                                            <option key={index} value={item.ID_Produk}>
+                                                                {item.tblproduk.Nama_Produk}
+                                                            </option>
+                                                        ))}
+                                                    </Form.Control>
+                                                    <Form.Control.Feedback type='invalid'>Pilih Produk</Form.Control.Feedback>
+                                                </Form.Group>
+                                            </div>
+
+                                            <div className='col'>
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label>Bahan Baku</Form.Label>
+                                                    <Form.Control name="ID_Bahan_Baku" type='select' as="select" value={detailResep.ID_Bahan_Baku} onChange={e => handleChange(e, index)} required>
+                                                        <option selected hidden value="">
+                                                            Pilih Bahan Baku
+                                                        </option>
+                                                        {bahanBaku.map((item, index) => (
+                                                            <option key={index} value={item.ID_Bahan_Baku}>
+                                                                {item.Nama_Bahan}
+                                                            </option>
+                                                        ))}
+                                                    </Form.Control>
+                                                    <Form.Control.Feedback type='invalid'>Pilih Bahan Baku</Form.Control.Feedback>
+                                                </Form.Group>
+                                            </div>
+
+                                            
+                                            <Form.Group className="mb-3">
+                                                <Form.Label>Kuantitas</Form.Label>
+                                                <Form.Control type="number" placeholder="Masukkan Kuantitas" name="Kuantitas" value={detailResep.Kuantitas} onChange={e => handleChange(e, index)} required />
+                                                <Form.Control.Feedback type='invalid'>Masukan Kuantitas</Form.Control.Feedback>
                                             </Form.Group>
                                         </div>
-
-                                        
-                                        <Form.Group className="mb-3">
-                                            <Form.Label>Kuantitas</Form.Label>
-                                            <Form.Control type="number" placeholder="Masukkan Kuantitas" name="Kuantitas" value={detailResep.Kuantitas} onChange={e => handleChange(e, index)} required />
-                                            <Form.Control.Feedback type='invalid'>Masukan Kuantitas</Form.Control.Feedback>
-                                        </Form.Group>
-                                    </div>
+                                    )}
                                 </>
                             )
                         })}
