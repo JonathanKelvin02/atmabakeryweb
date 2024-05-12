@@ -8,6 +8,7 @@ import { getProfile } from '../../../api/indexApi';
 const ShowProfileCustomer = () => {
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(true);
+    const [valid, setValid] = useState(true);
 
     const [data, setData] = useState({
         Nama_Customer: "",
@@ -15,6 +16,10 @@ const ShowProfileCustomer = () => {
         Nomor_telepon: "",
     })
     const [Profile, setProfile] = useState(null);
+
+    const handleChangeValid = () => {
+        setValid(!valid);
+    }
 
     const getDataProfile = () => {
         setLoading(true);
@@ -159,17 +164,28 @@ const ShowProfileCustomer = () => {
                                 <Form.Control name='Nomor_telepon' type='text' value={data.Nomor_telepon} onChange={handleChange} disabled={disabled}/>
                             </Form.Group>
 
+                            <Form.Group className="mb-2">
+                                <Form.Check 
+                                        type="checkbox" 
+                                        label="I confirm the data is correct" 
+                                        onChange={handleChangeValid}
+                                        disabled={disabled}
+                                    />
+                            </Form.Group>
+
                             {disabled ? (
                                 <Button variant="success" type="button" onClick={handleDisabled}>
                                     Edit
                                 </Button>
                             ) : (
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" type="submit" disabled={valid}>
                                     Save
                                 </Button>
                             )}
                         </Form>
                     </Col>
+
+                    
                 </Row>
             )}
         </Container>
