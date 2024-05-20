@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.BigContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 40vh;
+    color: black;
+    /* background-color: blue; */
+}
+
+.BackgroundImage {
+    /* background-image: url('../../../assets/TopNavBar/TopNavBar.svg'); */
+    background: linear-gradient(rgba(49, 49, 49, 0.8), rgba(49, 49, 49, 0.8)), url('../../../assets/TopNavBar/TopNavBar.svg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Top .TopWrapper */
+
+.TopWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10%;
+    padding-top: 2%;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    /* background-color: black; */
+}
+
+/* Menu Css */
+
+.NavLogo {
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+.Atma {
+    color: #F9F2ED;
+}
+
+.Bakery {
+    color: #C67C4E;
+}
+
+.NavMenu ul{
+    padding: 0 12%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
+.NavMenu ul li{
+    list-style: none;
+    margin: 2vh;
+}
+
+.NavMenu ul li .link{
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.5s ease;
+}
+
+.NavMenu ul li .link:hover{
+    color: #C67C4E;
+}
+
+/* Button css */
+
+.NavButtonContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.NavButton a{
+    color: #fff;
+}
+
+.NavButton .PerButton a{
+    border: none;
+    padding: 8px 18px;
+    border-radius: 40px;
+    /* background-color: #007BFF; */
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 1vh;
+    transition: background-color 0.5s ease;
+}
+
+.NavButton .PerButton:hover a{
+    background-color: #C67C4E;
+}
+
+/* Centered Content */
+
+.CenterContent {
+    margin-top: 3vh;
+    min-width: 300px;
+    width: 40vw;
+    height: 30%;
+    /* background-color: blue; */
+}
+
+.CenteredTitle{
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 4vh;
+}
+
+.ContentNow{
+    color: #fff;
+    text-align: center;   
+}
+
+.ContentNow a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.separator {
+    color: #fff;
+}
+
+/* Sidebar CSS */
+
+.sidebarButton {
+    display: none;
+}
+
+.sidebarMenu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden; 
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebarMenu a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebarMenu a:hover {
+    color: #f1f1f1;
+}
+
+.sidebarButton {
+    background-color: transparent;
+    color: #fff;
+    border-radius: 14px;
+    padding: 8px 18px;
+    border: 2px solid #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+@media (max-width: 1100px) {
+    .NavMenu, .NavButton {
+        display: none;
+    }
+
+    .dropdownMenu, .sidebarButton {
+        display: block;
+    }
+}
