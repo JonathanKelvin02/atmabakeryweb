@@ -123,9 +123,9 @@ export const UpdateProfileImage = async (data) => {
     }
 }
 
-export const UpdateProfile = async (data, id) => {
+export const UpdateProfile = async (data) => {
     try {
-        const response = await useAxios.put("/customer/"+id, data, {
+        const response = await useAxios.put("/update-customer", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
