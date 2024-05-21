@@ -31,6 +31,11 @@ import ResepView from "../Pages/AdminView/ResepView/ResepView";
 import CustomerAdminView from "../Pages/AdminView/CustomerView/Customer";
 import OrderHistoryView from "../Pages/AdminView/CustomerView/OrderHistory";
 
+import ShowAlamatCustomer from "../Pages/AdminView/AlamatView/ShowAllAlamatCustomer";
+import ShowAllAlamatNoJarak from "../Pages/AdminView/AlamatView/ShowAllAlamatNoJarak";
+
+import ConfirmPesanan from "../Pages/AdminView/PesananView/ConfirmPesanan";
+
 // MO Access View
 import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
@@ -42,9 +47,11 @@ import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 
+//Customer View
 import CustomerView from "../Pages/CustomerView/CustomerView";
 import ShowProfileCustomer from "../Pages/CustomerView/ProfileView/ShowProfileCustomer";
 import ShowHistoryCustomer from "../Pages/CustomerView/HistoryView/ShowHistoryCustomer";
+import ShowAlamat from "../Pages/CustomerView/AlamatView/ShowAlamat";
 
 import TransaksiBahan from "../Pages/MOView/ShopBahanView/ListTransaksiBK";
 
@@ -148,6 +155,18 @@ const router = createBrowserRouter([
             {
                 path: "/admin/Customer/OrderHistory",
                 element: <OrderHistoryView />
+            },
+            {
+                path:"/admin/Tampil Alamat",
+                element: <ShowAlamatCustomer />
+            },
+            {
+                path: "/admin/Jarak dan Biaya",
+                element: <ShowAllAlamatNoJarak />
+            },
+            {
+                path: "/admin/Pesanan",
+                element: <ConfirmPesanan />
             }
         ]
     },
@@ -215,6 +234,10 @@ const router = createBrowserRouter([
             {
                 path: "/customer/History",
                 element: <ShowHistoryCustomer/>
+            },
+            {
+                path: "/customer/Alamat",
+                element: <ShowAlamat/>
             }
         ]
     }

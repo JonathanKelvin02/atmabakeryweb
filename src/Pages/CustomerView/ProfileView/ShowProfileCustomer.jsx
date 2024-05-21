@@ -14,6 +14,7 @@ const ShowProfileCustomer = () => {
         Nama_Customer: "",
         email: "",
         Nomor_telepon: "",
+        Tanggal_Lahir: "",
     })
     const [Profile, setProfile] = useState(null);
 
@@ -49,8 +50,9 @@ const ShowProfileCustomer = () => {
     const updateProfile = (event) => {
         event.preventDefault();
         UpdateProfile(data, data.ID_Customer).then((response) => {
-            toast.success('Berhasil Mengubah Profile');
+            toast.success(response.message);
             setDisabled(true);
+            setValid(true);
             setProfile(null);
             getDataProfile();
         }).catch((err) => {
@@ -151,17 +153,22 @@ const ShowProfileCustomer = () => {
                         <Form onSubmit={updateProfile}>
                             <Form.Group className='mb-3'>
                                 <Form.Label>Nama Pengguna</Form.Label>
-                                <Form.Control name='Nama_Customer' type='text' value={data.Nama_Customer} onChange={handleChange} disabled={disabled}/>
+                                <Form.Control name='Nama_Customer' type='text' value={data?.Nama_Customer} onChange={handleChange} disabled={disabled}/>
                             </Form.Group>
 
                             <Form.Group className='mb-3'>
                                 <Form.Label>Email Pengguna</Form.Label>
-                                <Form.Control name='email' type='text' value={data.email} onChange={handleChange} disabled={disabled}/>
+                                <Form.Control name='email' type='text' value={data?.email} onChange={handleChange} disabled={disabled}/>
                             </Form.Group>
 
                             <Form.Group className='mb-3'>
                                 <Form.Label>Nomor Telepon Pengguna</Form.Label>
                                 <Form.Control name='Nomor_telepon' type='text' value={data.Nomor_telepon} onChange={handleChange} disabled={disabled}/>
+                            </Form.Group>
+
+                            <Form.Group className='mb-3'>
+                                <Form.Label>Tanggal Lahir</Form.Label>
+                                <Form.Control name='Tanggal_Lahir' type='date' value={data.Tanggal_Lahir} onChange={handleChange} disabled={disabled}/>
                             </Form.Group>
 
                             <Form.Group className="mb-2">

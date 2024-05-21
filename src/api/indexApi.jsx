@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const BASE_URL = "http://127.0.0.1:8000"
+// export const BASE_URL = "https://backend-p3l.vercel.app"
 
 // Ambil gambar produk dari API
 export const getGambar = (gambar) => {
