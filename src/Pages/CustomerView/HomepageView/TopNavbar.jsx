@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate  } from 'react-router-dom';
-import {Button, Container, Form, Nav, Navbar} from 'react-bootstrap';
-import { FaCircleUser ,FaCartShopping, FaReceipt } from 'react-icons/fa6';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import './TopNavbar.css';
 
-function TopNavbar({children}) {
+function TopNavbar({ children }) {
     const navigate = useNavigate();
 
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const openNav = () => {
-        setSidebarOpen(true);
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen);
     };
 
-    const closeNav = () => {
-        setSidebarOpen(false);
-    };
+    useEffect(() => {
+        const header = document.querySelector('.TopWrapper');
 
-    return(
+        const handleScroll = () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    return (
         <>
             <div className='BigContainer BackgroundImage'>
                 <div className='TopWrapper'>
@@ -26,17 +38,19 @@ function TopNavbar({children}) {
                         <span className='Atma'>Atma</span> <span className='Bakery'>Bakery</span>
                     </div>
 
-                    <div id="mySidebar" className="sidebarMenu" style={{width: sidebarOpen ? '250px' : '0'}}>
-                        <a href="#">Home</a>
-                        <a href="#">Product</a>
-                        <a href="#">About</a>
-                        <a href="#">Shop</a>
-                        <a href="#">Contact</a>
-                        <a href="#">Login</a>
-                        <a href="#">Sign Up</a>
-                    </div>
+                    <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
 
-                    <button className="sidebarButton" onClick={openNav}>Menu</button>
+                    {dropdownOpen && (
+                        <div className="dropdownMenu">
+                            <a href="#">Home</a>
+                            <a href="#">Product</a>
+                            <a href="#">About</a>
+                            <a href="#">Shop</a>
+                            <a href="#">Contact</a>
+                            <a href="#">Login</a>
+                            <a href="#">Sign Up</a>
+                        </div>
+                    )}
 
                     <div className='NavMenu'>
                         <ul>
@@ -61,7 +75,7 @@ function TopNavbar({children}) {
                         Our Product
                     </div>
                     <div className='ContentNow'>
-                        <a href='/'>Home</a> <span className='separator'>&gt;</span> <a style={{color: "#FF9F0D"}} href='/'>Product</a>
+                        <a href='/'>Home</a> <span className='separator'>&gt;</span> <a style={{ color: "#FF9F0D" }} href='/'>Product</a>
                     </div>
                 </div>
             </div>
