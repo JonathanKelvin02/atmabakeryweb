@@ -1,5 +1,6 @@
 //import Component
 import TopNavbar from '../HomepageView/TopNavbar';
+import InfoFooter from '../HomepageView/InfoFooter';
 import Footer from '../HomepageView/Footer';
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ function HomepageView() {
                 <p>Your one-stop shop for delicious baked goods!</p>
             </div>
 
-
+            <InfoFooter/>
             <Footer/>
         </>
     )

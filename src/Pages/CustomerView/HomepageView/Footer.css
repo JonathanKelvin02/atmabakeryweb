@@ -38,12 +38,76 @@
 
 .InfoFooter {
     background-color: #313131;
+    /* background-color: orange; */
     color: #fff;
     width: 100%;
+    height: 60vh;
     padding: 20px;
-    text-align: center;
     z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: left;
 }
+
+.SmallBox{
+    background-color: #313131;
+    /* background-color: black; */
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.SmallBox ul {
+    text-align: left;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.SmallBox ul li {
+    margin: 10px 0;
+    color: white;
+}
+
+.SmallBox ul li:first-child {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.SmallBox p {
+    margin-top: 10px;
+    color: white;
+}
+
+.SmallBox ul li p {
+    text-align: justify;
+}
+
+.InfoFooter ul{
+    padding: 0 5%;
+    margin: 0;
+}
+
+.InfoFooter ul li{
+    list-style: none;
+    margin: 2vh;
+}
+
+@media only screen and (max-width: 768px) {
+    .InfoFooter {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .SmallBox {
+        width: 80%;
+        margin: 10px auto;
+        text-align: left;
+    }
+}
+
