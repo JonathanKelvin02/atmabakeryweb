@@ -1,0 +1,43 @@
+/* General font settings */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Footer Container */
+
+.StationaryFooter {
+    background-color: #313131;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.StationaryFooter ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.StationaryFooter li {
+    margin: 0 10vw;
+}
+
+.StationaryFooter li img {
+    margin-right: 10px;
+}
+
+.StationaryFooter li img:not(:last-child) {
+    margin-right: 10px;
+}

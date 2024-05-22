@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import './TopNavbar.css';
 
-function TopNavbar({ children }) {
+function TopNavbar() {
     const navigate = useNavigate();
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -79,8 +79,6 @@ function TopNavbar({ children }) {
                     </div>
                 </div>
             </div>
-
-            {children ? children : <Outlet />}
         </>
     )
 }

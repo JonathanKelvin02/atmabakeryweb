@@ -1,0 +1,14 @@
+.OuterContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ContentMainContainer {
+    /* width: calc(100vw - 300px);
+    height: calc(100vh - 300px); */
+    width: 100vw;
+    height: 200vh;
+    margin: 20px;
+    /* background-color: blue; */
+}

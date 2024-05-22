@@ -11,6 +11,7 @@ import ForgotForm from "../Pages/ForgotPage/FormForgot";
 import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
 
 import CustomerHomeView from "../Pages/CustomerView/HomepageView/Homepage";
+import MainHomepageContent from "../Pages/CustomerView/HomepageView/ContentHomepageView"; 
 
 // Admin Access View
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
@@ -210,6 +211,10 @@ const router = createBrowserRouter([
             </ProtectedRoutes>
         ),
         children: [
+            {
+                path: "/customer",
+                element: <MainHomepageContent />
+            },
             {
                 path: "/customer/Profile",
                 element: <ShowProfileCustomer/>
