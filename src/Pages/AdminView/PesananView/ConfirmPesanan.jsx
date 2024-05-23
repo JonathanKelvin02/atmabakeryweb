@@ -64,14 +64,14 @@ const ConfirmPesanan = () => {
                                 pesanan.map((data, index) => {
                                     return (
                                         <tr key={index}>
-                                            <td>{data.ID_Transaksi}</td>
-                                            <td>{data.tblcustomer.Nama_Customer}</td>
-                                            <td>{data.Status}</td>
-                                            <td>{data.tbljenispengiriman.Nama_Pengiriman}</td>
-                                            <td>{data.Tanggal_Ambil}</td>
-                                            <td>{data.Total_Transaksi}</td>
-                                            <td>{data.Total_pembayaran}</td>
-                                            <td>{data.Total_pembayaran - data.Total_Transaksi}</td>
+                                            <td>{data?.ID_Transaksi}</td>
+                                            <td>{data?.tblcustomer.Nama_Customer}</td>
+                                            <td>{data?.Status}</td>
+                                            <td>{data?.tbljenispengiriman.Nama_Pengiriman}</td>
+                                            <td>{data?.Tanggal_Ambil}</td>
+                                            <td>{data?.Total_Transaksi}</td>
+                                            <td>{data?.Total_pembayaran}</td>
+                                            <td>{data?.Total_pembayaran - data?.Total_Transaksi}</td>
                                             <td>
                                                 <UpdateStatusTransaksi dataTransaksi={data} onSuccess={fetchPesanan} />
                                             </td>

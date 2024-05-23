@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import {Form, Modal, Button, Spinner} from 'react-bootstrap';
+import {useState} from 'react';
+import {Modal, Button, Form, Spinner} from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
 //Import API
-import { UpdateStatus } from '../../../api/apiTransaksi';
+import { PutTransaksiDikirim } from '../../../api/apiTransaksi';
 
-const UpdateStatusTransaksi = ({onSuccess, dataTransaksi}) => {
-    const [show, setShow] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [transaksi, setTransaksi] = useState(dataTransaksi);
+const UpdateTransaksiDikirim = ({onSuccess, dataTransaksi}) => {
+    const[show, setShow] = useState(false);
+    const[loading, setLoading] = useState(false);
+    const[transaksi] = useState(dataTransaksi);
 
     const handleClose = () => {
         setShow(false);
@@ -19,31 +19,40 @@ const UpdateStatusTransaksi = ({onSuccess, dataTransaksi}) => {
         setShow(true);
     }
 
-    const updateStatus = (event) => {
+    const updateTransaksi = (event) => {
         event.preventDefault();
         setLoading(true);
-        UpdateStatus(transaksi).then((response) => {
-            toast.success("Berhasil mengubah status transaksi");
-            handleClose();
+        PutTransaksiDikirim(transaksi).then((response) => {
             setLoading(false);
+            toast.success(response.message);
+            handleClose();
         }).catch((error) => {
             console.log(error);
-            toast.error(error.message);
             setLoading(false);
         })
     }
 
-    return(
+    return (
         <>
-            <Button variant='primary' onClick={handleShow}>Update Status</Button>
+            <Button className='secondary' size='sm' onClick={handleShow}>
+                Update Status Transaksi
+            </Button>
+
             <Modal show={show} size='lg' onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Update Status Transaksi</Modal.Title>
                 </Modal.Header>
-                <Form onSubmit={updateStatus}>
+
+                <Form onSubmit={updateTransaksi}>
                     <Modal.Body>
-                        <p>Apakah anda yakin ingin mengubah status transaksi dengan ID <b>{transaksi.ID_Transaksi}</b>?</p>
+                        <span>Apakah anda yakin untuk mengupdate Transaksi dengan ID <b>{transaksi.ID_Transaksi}</b> ? </span> <br/>
+                        {transaksi.Nama_Pengiriman === 'Pick Up' ? (
+                            <span>Status : <b>{transaksi.Status}</b> diubah menjadi <b>Siap Dipick-Up</b></span>
+                        ) : (
+                            <span>Status : <b>{transaksi.Status}</b> diubah menjadi <b>Siap Dikirim</b></span>
+                        )}
                     </Modal.Body>
+                    
                     <Modal.Footer>
                         <Button variant='secondary' onClick={handleClose}>Close</Button>
                         {loading ? (
@@ -60,4 +69,4 @@ const UpdateStatusTransaksi = ({onSuccess, dataTransaksi}) => {
     )
 }
 
-export default UpdateStatusTransaksi;
+export default UpdateTransaksiDikirim;

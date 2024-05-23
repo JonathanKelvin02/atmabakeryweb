@@ -27,6 +27,12 @@ const UpdateJarakBiaya = ({onSuccess, dataAlamat}) => {
     }
 
     const handleChange = (event) => {
+        if (event.target.name === 'Jarak' && parseInt(event.target.value) > 15) {
+            alamat.Biaya = 25000;
+        } else {
+            alamat.Biaya = 5000 * Math.floor(2 + (parseInt(event.target.value)/5))
+        }
+
         setAlamat({
             ...alamat,
             [event.target.name] : event.target.value
@@ -92,7 +98,7 @@ const UpdateJarakBiaya = ({onSuccess, dataAlamat}) => {
 
                         <Form.Group className='mb-3'>
                             <Form.Label>Biaya</Form.Label>
-                            <Form.Control type='number' name='Biaya' value={alamat.Biaya} onChange={handleChange} required/>
+                            <Form.Control type='number' name='Biaya' value={alamat.Biaya} onChange={handleChange} required disabled/>
                             <Form.Control.Feedback type='invalid'>Biaya Harus Diisi</Form.Control.Feedback>
                         </Form.Group>
 

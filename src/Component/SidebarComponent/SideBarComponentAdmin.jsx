@@ -66,8 +66,8 @@ const menu = [
     }, 
     {
         nama : 'Pesanan',
-        pil1 : null,
-        pil2 : null,
+        pil1 : 'Ubah Status',
+        pil2 : 'Tampil Pesanan',
         pil3 : null,
         icon : faCartShopping,
         path : '/admin'

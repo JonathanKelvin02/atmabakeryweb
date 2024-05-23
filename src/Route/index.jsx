@@ -35,6 +35,7 @@ import ShowAlamatCustomer from "../Pages/AdminView/AlamatView/ShowAllAlamatCusto
 import ShowAllAlamatNoJarak from "../Pages/AdminView/AlamatView/ShowAllAlamatNoJarak";
 
 import ConfirmPesanan from "../Pages/AdminView/PesananView/ConfirmPesanan";
+import ShowProcessPesanan from "../Pages/AdminView/PesananView/ShowProcessPesanan";
 
 // MO Access View
 import MOMainView from "../Pages/MOView/MOMainView";
@@ -165,8 +166,12 @@ const router = createBrowserRouter([
                 element: <ShowAllAlamatNoJarak />
             },
             {
-                path: "/admin/Pesanan",
+                path: "/admin/Ubah Status",
                 element: <ConfirmPesanan />
+            },
+            {
+                path: "/admin/Tampil Pesanan",
+                element: <ShowProcessPesanan />
             }
         ]
     },
