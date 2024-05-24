@@ -31,7 +31,7 @@ const InfoFooter = () => {
                 <div className="footer-col">
                     <h4>About Us</h4>
                     <ul>
-                    <li><a href="#"><p>Premium Bread and Cake produced with <br/>high quality ingredients. <br/>Favorited by all Atma Jaya communities.</p></a></li>
+                    <li><a href="#"><p>Premium Bread and Cake produced with <br/>high quality ingredients. Favorited by <br/>all Atma Jaya communities.</p></a></li>
                     <li><a href="#">atmabakery@uajy.ac.id</a></li>
                     <li><a href="#">Jln.Babarsari, CondongCatur, Bantul</a></li>
                     <li><a href="#">Yogyakarta, Indonesia- 55281</a></li>

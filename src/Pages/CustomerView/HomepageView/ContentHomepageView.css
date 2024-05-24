@@ -1,14 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 .OuterContainer {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.OuterContainer .TopMiddleContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.TopMiddleContent {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.top-left-image, .bottom-right-image {
+    position: absolute;
+    width: 34vw;
+    height: auto;
+}
+
+.top-left-image {
+    top: 0;
+    left: 0;
+}
+
+.bottom-right-image {
+    bottom: 0;
+    right: 0;
+}
+
+.bottom-row {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
 }
 
 .ContentMainContainer {
-    /* width: calc(100vw - 300px);
-    height: calc(100vh - 300px); */
     width: 100vw;
     height: 200vh;
     margin: 20px;
-    /* background-color: blue; */
+    background-color: blue;
+}
+
+@media (max-width: 992px) {
+    .OuterContainer .TopMiddleContent {
+        height: 100vh;
+    }
+
+    .top-left-image, .bottom-right-image {
+        width: 50vw;
+    }
+
+    .bottom-row {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .OuterContainer .TopMiddleContent {
+        height: 100vh;
+    }
+
+    .top-left-image, .bottom-right-image {
+        width: 60vw;
+    }
+
+    .bottom-row {
+        padding: 20px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .bottom-row > Col {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .responsive-text-h3 {
+        font-size: 5vw !important;
+    }
+
+    .responsive-text-p {
+        font-size: 4vw !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .OuterContainer .TopMiddleContent {
+        height: 110vh;
+    }
+
+    .top-left-image, .bottom-right-image {
+        width: 70vw;
+    }
+
+    .bottom-row {
+        padding: 15px;
+    }
+
+    .responsive-text-h3 {
+        font-size: 6vw !important;
+        line-height: 6vh !important;
+    }
+
+    .responsive-text-p {
+        font-size: 5vw !important;
+        line-height: 5vh !important;
+    }
+}
+
+@media (max-width: 375px) {
+    .OuterContainer .TopMiddleContent {
+        height: 120vh;
+    }
+
+    .top-left-image, .bottom-right-image {
+        width: 80vw;
+    }
+
+    .bottom-row {
+        padding: 10px;
+    }
+
+    .responsive-text-h3 {
+        font-size: 7vw !important;
+        line-height: 7vh !important;
+    }
+
+    .responsive-text-p {
+        font-size: 6vw !important;
+        line-height: 6vh !important;
+    }
 }
