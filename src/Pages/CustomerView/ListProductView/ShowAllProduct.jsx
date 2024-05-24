@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal } from "react-bootstrap";
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 import { useNavigate } from "react-router-dom";
 
 import './ShowAllProduct.css';
@@ -8,6 +12,7 @@ import { getGambar } from '../../../api/indexApi';
 import { GetAllProducts } from "../../../api/apiProduk";
 
 const ShowProductCust = () => {
+    const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +58,8 @@ const ShowProductCust = () => {
                                 {products.map((product, index) => (
                                     <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4 product-col" onClick={() => goToDetails(product)}>
                                         <div className="product-card">
-                                                <img src={getGambar(product.Gambar)} alt={product.name} className="img-fluid product-image" />
+                                            <AdvancedImage cldImg={cld.image(product.Gambar)} className='img-fluid product-image' />
+                                                {/* <img src={getGambar(product.Gambar)} alt={product.name} className="img-fluid product-image" /> */}
                                                 <div className="product-info">
                                                     <div className="product-name">
                                                         <h6 className="mt-2 m-0"><strong>{product.Nama_Produk}</strong></h6>

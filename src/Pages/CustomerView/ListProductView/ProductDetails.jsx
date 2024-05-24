@@ -1,5 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal, Form } from "react-bootstrap";
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { CartContext } from "../../../context/ShoppingCartContext";
 import Cart from "../CartView/Cart";
@@ -10,6 +14,7 @@ import { getGambar } from '../../../api/indexApi';
 import { GetOneProduct } from "../../../api/apiProduk"; 
 
 const ProductDetails = () => {
+    const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
     const location = useLocation();
     const product = location.state.product;
     const navigate = useNavigate();
@@ -19,6 +24,9 @@ const ProductDetails = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedSize, setSelectedSize] = useState("1");
     const [showModal, setShowModal] = useState(false);
+
+    //Set Image
+    const img = cld.image(product.Gambar).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(500).height(500));
 
     //Size Disable
     const isDisabled = product.kategori.Nama_Kategori === "Titipan"  ? true : product.kategori.Nama_Kategori === "Hampers" ? true : false;
@@ -51,7 +59,8 @@ const ProductDetails = () => {
             <Row className="details-container">
                 {/* <div className="details-container"> */}
                     <Col xs={12} md={6} className="d-flex justify-content-center p-4" style={{height: 'fit-content'}}>
-                        <img src={getGambar(product.Gambar)} alt={product.Nama_Produk} className="product-img"/>
+                        <AdvancedImage cldImg={img} className='product-img' />
+                        {/* <img src={getGambar(product.Gambar)} alt={product.Nama_Produk} className="product-img"/> */}
                     </Col>
                     <Col xs={12} md={6} className="d-flex flex-column justify-content-start p-4" style={{height: 'fit-content'}}>
                         <div className={`label-stock ${styleLabelBorder}`}>

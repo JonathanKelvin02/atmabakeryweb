@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Container, Col, Form, Row, Button, Spinner, Alert, Modal } from 'react-bootstrap';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import InputForm from '../../../Component/InputComponent/InputForm';
 import { FaUpload } from "react-icons/fa6";
@@ -13,6 +17,7 @@ import { getGambar } from '../../../api/indexApi';
 import { UpdateProduct, UpdateTitipan, GetAllPenitip } from "../../../api/apiProduk";
 
 const EditTitipan = () => {
+    const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
     const location =useLocation();
     const titipan = location.state.titipan;
     const navigate = useNavigate();
@@ -33,6 +38,8 @@ const EditTitipan = () => {
         Harga_Beli: titipan.Harga_Beli,
         Tanggal_Stok: titipan.Tanggal_Stok
     });
+
+    const img = cld.image(data.Gambar).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(500).height(500));
 
     const handleChange = (event) => {
         setData({
@@ -205,7 +212,8 @@ const EditTitipan = () => {
                                     </Col>
                                 <Col className="d-flex flex-column align-items-end justify-content-end">
                                     <div className='uploader'>
-                                        <img src={getGambar(data?.Gambar)} alt="Gambar Produk" className='w-100 h-100' />
+                                        <AdvancedImage cldImg={img} className='w-100 h-100' />
+                                        {/* <img src={getGambar(data?.Gambar)} alt="Gambar Produk" className='w-100 h-100' /> */}
                                     </div>
                                     <Form.Group className='mb-2'>
                                             <Form.Check 

@@ -2,6 +2,10 @@ import PropTypes from 'prop-types'
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/ShoppingCartContext";
 import { Button, Row, Col, Alert, Spinner } from 'react-bootstrap';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 import { FaTrash } from 'react-icons/fa';
 import { toast } from "react-toastify";
 
@@ -13,6 +17,7 @@ import "./Cart.css";
 import { useNavigate } from 'react-router-dom';
 
 function Cart () {
+    const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [isPending, setIsPending] = useState(false);
@@ -77,7 +82,8 @@ function Cart () {
                             <tr key={item.ID_Produk} style={{ borderBottom: '1px solid #E3E3E3'}}>
                                 <td className='px-5 py-3'>
                                     <div className='d-flex flex-row justify-content-start'>
-                                        <img src={getGambar(item.Gambar)} alt={item.Nama_Produk} className="cart-image m-2" />
+                                        <AdvancedImage cldImg={cld.image(item.Gambar)} className='cart-image m-2' />
+                                        {/* <img src={getGambar(item.Gambar)} alt={item.Nama_Produk} className="cart-image m-2" /> */}
                                         <div className='p-4 text-start'>
                                             <h6><strong>{item.Nama_Produk}</strong></h6>
                                             <p style={{fontSize: 'smaller'}}>Type: </p>
