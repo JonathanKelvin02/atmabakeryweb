@@ -48,7 +48,13 @@ import ShowHistoryCustomer from "../Pages/CustomerView/HistoryView/ShowHistoryCu
 
 import TransaksiBahan from "../Pages/MOView/ShopBahanView/ListTransaksiBK";
 
+//Cusutomer View
+import ShowProductCust from "../Pages/CustomerView/ListProductView/ShowAllProduct";
+import ProductDetails from "../Pages/CustomerView/ListProductView/ProductDetails";
+import Cart from "../Pages/CustomerView/CartView/Cart";
+
 import ProtectedRoutes from "./ProtectedRoutes";
+
 
 const router = createBrowserRouter([
     {
@@ -215,6 +221,18 @@ const router = createBrowserRouter([
             {
                 path: "/customer/History",
                 element: <ShowHistoryCustomer/>
+            },
+            {
+                path: "/customer/Produk",
+                element: <ShowProductCust />
+            },
+            {
+                path: "/customer/Produk-details",
+                element: <ProductDetails />
+            },
+            {
+                path: "/customer/Cart",
+                element: <Cart />
             }
         ]
     }
