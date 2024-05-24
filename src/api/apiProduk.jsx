@@ -194,3 +194,17 @@ export const GetOneRecipe = async (id) => {
         throw error.response.data;
     }
 }
+
+export const GetRandomProductForHomepage = async () => {
+    try {
+        const response = await useAxios.get("/getRandomProduct", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        console.log(response.data.data);
+        return response.data.data;
+    } catch (e) {
+        throw error.response.data;
+    }
+}

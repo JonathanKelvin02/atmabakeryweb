@@ -1,15 +1,36 @@
-import React from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Row } from 'react-bootstrap';
 import PatternImage from '../../../assets/Pattern.svg';
 import LapisLegit from '../../../assets/Homepage/LapisLegit.svg';
 import LearnMoreImage from '../../../assets/Homepage/LearnMore.svg';
+
+import TestImageIni from '../../../assets/ImgCarousel/ImgCarousel(1).jpg';
+
+import { GetRandomProductForHomepage } from '../../../api/apiProduk';
 
 // Import CSS
 import './ContentHomepageView.css';
 
 function ContentHomepageView() {
     const navigate = useNavigate();
+    const [dataFetched, setDataFetched] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const fetchData = () => {
+        setIsLoading(true);
+        GetRandomProductForHomepage().then((response) => {
+            setDataFetched(response);
+            setIsLoading(false);
+        }).catch((err) => {
+            console.log(err);
+            setIsLoading(false);
+        })
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     const currentImageDetail = [
         { 
@@ -38,10 +59,36 @@ function ContentHomepageView() {
             link: ""
         }
     ];
+
+    const currentProductShow = [
+        {
+            image: TestImageIni,
+            title: "Brownies",
+            kategori: "Brownies"
+        },
+        {
+            image: TestImageIni,
+            title: "Brownies",
+            kategori: "Brownies"
+        },
+        {
+            image: TestImageIni,
+            title: "Brownies",
+            kategori: "Brownies"
+        },
+        {
+            image: TestImageIni,
+            title: "Brownies",
+            kategori: "Brownies"
+        }
+    ];
     
     return (
         <>
             <div className='mainSectionContent'>
+                {/* <img className="topLeftImage" src={PatternImage} alt="alt text" />
+                <img className="bottomRightImage" src={PatternImage} alt="alt text" /> */}
+
                 <div className="imageGroup">
                     <img className="heroImage" src={PatternImage} alt="alt text" />
                     <img className="bannerImage" src={PatternImage} alt="alt text" />
@@ -59,7 +106,11 @@ function ContentHomepageView() {
 
                             <div className="learnMoreGroup">
                                 <img className="iconImage" src={LearnMoreImage} alt="alt text" />
-                                <h1 className="learnMoreTitle">Learn More</h1>
+                                <h1 className="learnMoreTitle">
+                                    <a href="" style={{ textDecoration: "none", color: "black" }}>
+                                        Learn More
+                                    </a>
+                                </h1>
                             </div>
                         </div>
 
@@ -73,20 +124,44 @@ function ContentHomepageView() {
                     <div className='categoryContentHeader'>
                         What We Serve You
                     </div>
-                    
                     <Row style={{ justifyContent: "center" }}>
                         {currentImageDetail.map((data, index) => (
-                            <div key={index} className='categoryContentContent' style={{ margin: '10px' }}>
-                                <img src={data.image}/>
-                                <h4 style={{ marginTop: "12px" }}><b>{data.title}</b></h4>
+                            <a href={data.link} key={index} style={{ textDecoration: "none" }}>
+                                <div className='categoryContentContent' style={{ margin: '10px' }}>
+                                    <img src={data.image}/>
+                                    <h4 style={{ marginTop: "12px" }}><b>{data.title}</b></h4>
+                                </div>
+                            </a>
+                        ))}
+                    </Row>
+                    <div className='categoryContentButton'>
+                        <a href="" style={{ textDecoration: "none" }}>View All</a>
+                    </div>
+                </div>
+            </div>
+
+            <div className='lastShowProduct'>
+                <img className="topLeftImage" src={PatternImage} alt="alt text" />
+                <img className="bottomRightImage" src={PatternImage} alt="alt text" />
+
+                <div className="lastShowProductContent">
+                    <h3>What We Can Give To You</h3>
+
+                    <Row style={{ marginTop: "60px", justifyContent: "center" }}>                        
+                        {dataFetched.map((data, index) => (
+                            <div key={index}  className='lastShowProductContentPerBox' style={{ margin: '10px' }}>                                    
+                                <a href='' style={{ textDecoration: "none" }}>
+                                    <img src={TestImageIni} />
+                                </a>
+                                <div className='lastShowProductContentPerBoxProductName'>
+                                    {data.Nama_Produk}
+                                </div>
+                                <div className='lastShowProductContentPerBoxProductKategori'>
+                                    {data.tblkategori.Nama_Kategori}
+                                </div>
                             </div>
                         ))}
                     </Row>
-                    
-                    <div className='categoryContentButton'>
-                        <a>View All</a>
-                    </div>
-
                 </div>
             </div>
         </>

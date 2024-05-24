@@ -4,17 +4,26 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import './TopNavbar.css';
 
 function TopNavbar() {
+    // For CSS
     const navigate = useNavigate();
 
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
+    const [dataLogin, setDataLogin] = useState(
+        {
+            token: "",
+            user: "",
+            role: ""
+        }
+    );
 
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
-    useEffect(() => {
+    const handleScrollEffect = () => {
         const header = document.querySelector('.TopWrapper');
-
+    
         const handleScroll = () => {
             if (window.scrollY > 100) {
                 header.classList.add('scrolled');
@@ -22,12 +31,31 @@ function TopNavbar() {
                 header.classList.remove('scrolled');
             }
         };
-
+    
         window.addEventListener('scroll', handleScroll);
-
+    
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
+    };
+    
+    const handleSessionEffect = () => {
+        if(sessionStorage.getItem("token") !== null) {
+            setIsLogin(true);
+            setDataLogin({
+                token: sessionStorage.getItem("token"),
+                user: sessionStorage.getItem("user"),
+                role: sessionStorage.getItem("role")
+            });
+        } else {
+            setIsLogin(false);
+        }
+        console.log(isLogin);
+    };
+    
+    useEffect(() => {
+        handleScrollEffect();
+        handleSessionEffect();
     }, []);
 
     return (
@@ -35,7 +63,9 @@ function TopNavbar() {
             <div className='BigContainer BackgroundImage'>
                 <div className='TopWrapper'>
                     <div className='NavLogo'>
-                        <span className='Atma'>Atma</span> <span className='Bakery'>Bakery</span>
+                        <a href='' style={{ textDecoration: "none" }}>
+                            <span className='Atma'>Atma</span><span className='Bakery'>Bakery</span>
+                        </a>
                     </div>
 
                     <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
@@ -61,14 +91,25 @@ function TopNavbar() {
                             <li><a href='#' className='link'>Contact</a></li>
                         </ul>
                     </div>
-                    <div className='NavButton NavButtonContainer'>
-                        <div className='PerButton'>
+                    {isLogin ? (
+                        <div className='NavButton NavButtonContainer'>
+                            <div className='PerButton'>
+                            <a href='#'>Profile</a>
+                            </div>
+                            <div className='PerButton'>
+                            <a href='#'>Logout</a>
+                            </div>
+                        </div>
+                        ) : (
+                        <div className='NavButton NavButtonContainer'>
+                            <div className='PerButton'>
                             <a href='#'>Login</a>
-                        </div>
-                        <div className='PerButton'>
+                            </div>
+                            <div className='PerButton'>
                             <a href='#'>Sign Up</a>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
                 <div className='CenterContent'>
                     <div className='CenteredTitle'>
