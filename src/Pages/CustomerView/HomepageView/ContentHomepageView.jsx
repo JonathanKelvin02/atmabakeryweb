@@ -14,7 +14,7 @@ function ContentHomepageView() {
 
     return (
         <>
-            <div className={`mainSectionContent`}>
+            <div className='mainSectionContent'>
                 <div className="imageGroup">
                     <img className="heroImage" src={PatternImage} alt="alt text" />
                     <img className="bannerImage" src={PatternImage} alt="alt text" />
