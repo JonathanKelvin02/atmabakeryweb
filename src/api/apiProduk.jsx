@@ -1,7 +1,33 @@
 import useAxios from "./indexApi";
 
 export const GetAllProducts = async () => {
-    const response = await useAxios.get()
+    try {
+        const response = await useAxios.get("/produk-customer", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+    
+        return response.data.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}
+
+export const GetOneProduct = async (id) => {
+    try {
+        const response = await useAxios.get(`/produk-customer/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        console.log(response.data.data);
+        return response.data.data;
+    } catch (e) {
+        throw error.response.data;
+    }
 }
 
 export const GetAllRecipe = async () => {

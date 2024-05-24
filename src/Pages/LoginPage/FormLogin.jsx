@@ -43,6 +43,7 @@ function FormLogin() {
                 } else if (sessionStorage.getItem("role") === "Owner") {
                     navigate("/owner");
                 } else {
+                    localStorage.setItem("poin", res.user.Poin);
                     navigate("/customer");
                 }                
                 toast.success(res.message);

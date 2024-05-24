@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.page-container {
+    background-image: url('../../../assets/Background/Rectangle.png'), url('../../../assets/Background/Rectangle.png');
+    background-size: 25%;
+    background-repeat: repeat-y, repeat-y;
+    background-position: left top, right top;
+    padding: 20px;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+}
+ 
+.product-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.product-price {
+    background-color : #F6F6F6;
+    padding: 4px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.product-col {
+    padding-top: 8px;
+}
+
+.product-col:hover {
+    border-radius: 8px;
+    background-color: #E3E3E3;
+}
+
+.product-card {
+    height: 100%;
+}
+
+.product-card .product-image {
+    height: 275px;
+    width: 100%;
+    border-radius: 350px 350px 0px 0px;
+}
+
+/* Product Details */
+.details-container {
+    border: 1px solid #E3E3E3;
+    border-radius: 16px;
+    box-shadow: 4px 4px 8px #E3E3E3;
+    width: 60%;
+    height: fit-content;
+}
+
+.product-img {
+    height: 75%;
+    min-height: 350px;
+    width: 65%;
+    min-width: 300px;
+    border-radius: 8px;
+}
+
+.label-stock {
+    margin-bottom: 16px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    height: fit-content;
+    width: fit-content;
+    min-width: 100px;
+    text-align: center;
+    font-weight: 800;
+    font-size: small;
+}
+
+.stock-in {
+    border: 2px solid #C67C4E;
+    color: #C67C4E;
+}
+
+.stock-out {
+    border: 2px solid #313131;
+    color: #313131;
+}
+
+.size-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.label1, .label2 {
+    display: block;
+    width: 45px;
+    border: 2px solid #313131;
+    border-radius: 8px;
+    color: #313131;
+    margin: 2px 8px;
+    padding: 4px 8px;
+    text-align: center;
+}
+
+input:checked + label {
+    background-color: #313131;
+    color: white;
+    transition: 0.3s;
+}
+
+.size-container input[type="radio"]:disabled + label {
+    color: #d3d3d3; 
+    cursor: not-allowed;
+    background-color: #f5f5f5;
+    border: 1px solid #d3d3d3;
+}
+
+.qty-container {
+    margin: 0px 16px;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
