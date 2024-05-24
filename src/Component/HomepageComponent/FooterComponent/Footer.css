@@ -41,3 +41,7 @@
 .StationaryFooter li img:not(:last-child) {
     margin-right: 10px;
 }
+
+.icon {
+    fill: blue !important;
+}

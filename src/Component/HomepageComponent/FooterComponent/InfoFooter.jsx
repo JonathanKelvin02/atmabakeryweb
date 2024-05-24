@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
+import GooglePlayImageLocal from '../../../assets/FooterComponent/GooglePlay.png';
 import WatchOranye from '../../../assets/FooterComponent/Watch.svg';
 
 import './InfoFooter.css';
@@ -47,9 +48,8 @@ const InfoFooter = () => {
                                 <div className='WatchParagrafInfo'>Sunday - Closed</div>
                             </div>
                         </Row>
-                        
-                        {/* <h4>Icon Paling Kanan Watch</h4> */}
-                        <ul></ul>
+                        <div className='mt-3' style={{ color: "white", fontWeight: "bold" }}>Download The App</div>
+                        <img src={GooglePlayImageLocal} className='mt-3' />
                     </div>
                 </div>
             </div>

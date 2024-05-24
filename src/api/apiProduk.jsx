@@ -202,7 +202,6 @@ export const GetRandomProductForHomepage = async () => {
                 "Content-Type": "application/json",
             },
         });
-        console.log(response.data.data);
         return response.data.data;
     } catch (e) {
         throw error.response.data;
