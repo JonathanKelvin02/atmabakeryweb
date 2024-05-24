@@ -4,7 +4,6 @@ import { Row, Col } from 'react-bootstrap';
 import PatternImage from '../../../assets/Pattern.svg';
 import LapisLegit from '../../../assets/Homepage/LapisLegit.svg';
 import LearnMoreImage from '../../../assets/Homepage/LearnMore.svg';
-import PropTypes from 'prop-types';
 
 // Import CSS
 import './ContentHomepageView.css';
