@@ -1,9 +1,12 @@
 //import Component
 import TopNavbar from './TopNavbar';
+import { CartProvider } from '../../context/ShoppingCartContext';
 
 function CustomerView() {
     return (
-        <TopNavbar/>
+        <CartProvider>
+            <TopNavbar/>
+        </CartProvider>
     )
 }
 

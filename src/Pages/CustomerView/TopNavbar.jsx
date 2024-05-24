@@ -1,11 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import {Button, Container, Form, Nav, Navbar} from 'react-bootstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import {Button, Container, Form, Nav, Navbar, Spinner} from 'react-bootstrap';
 import { FaCircleUser ,FaCartShopping, FaReceipt } from 'react-icons/fa6';
+import { CartContext } from '../../context/ShoppingCartContext';
+import { LogoutCustomer } from '../../api/apiAuth';
+import { toast } from 'react-toastify';
 
 function TopNavbar({children}) {
+    const navigate = useNavigate();
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [visible, setVisible] = useState(true);
+    const {cartItems} = useContext(CartContext);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleLogout = (event) => {
+        setIsLoading(true);
+        LogoutCustomer().then((res) => {
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user");
+            sessionStorage.removeItem("role");
+            navigate("/");
+            setIsLoading(false);
+            toast.success(res.message);
+        }).catch((e) => {
+            setIsLoading(false);
+            toast.dark(e.message);
+        })
+    }
 
     const handleScroll = () => {
         const currentScrollPos = window.pageYOffset;
@@ -29,7 +50,7 @@ function TopNavbar({children}) {
                     <Navbar.Toggle aria-controls='navbarScroll' />
                     <Navbar.Collapse id='navbarScroll'>
                         <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '100px' }} navbarScroll>
-                            <Nav.Link >Produk</Nav.Link>
+                            <Nav.Link href='/customer/Produk' >Produk</Nav.Link>
                             <Nav.Link >Hampers</Nav.Link>
                         </Nav>
                         
@@ -45,9 +66,18 @@ function TopNavbar({children}) {
                         
                         <Nav className='d-flex align-items-center'>
                             <Nav.Link href='/customer/History' className="mx-2"><FaReceipt/></Nav.Link>
-                            <Nav.Link className="mx-2"><FaCartShopping /></Nav.Link>
+                            <Nav.Link href='/customer/Cart' className="mx-2">
+                                <FaCartShopping /> {cartItems.length}
+                            </Nav.Link>
                             <Nav.Link href='/customer/Profile' className="mx-2" ><FaCircleUser /></Nav.Link>
                         </Nav>
+                        <Button variant='outline-danger' disabled={isLoading} onClick={handleLogout}>
+                            {isLoading ? (
+                                <Spinner animation='border' variant='dark' size='sm' />
+                            ) : (
+                                <span>Log Out</span>
+                            )}
+                        </Button>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
