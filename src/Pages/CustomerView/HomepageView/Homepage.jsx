@@ -3,6 +3,7 @@ import TopNavbar from '../../../Component/HomepageComponent/HeaderComponent/TopN
 import InfoFooter from '../../../Component/HomepageComponent/FooterComponent/InfoFooter';
 import Footer from '../../../Component/HomepageComponent/FooterComponent/Footer';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 
 import './Homepage.css';
 

@@ -23,7 +23,7 @@ function TopNavbar() {
 
     const handleScrollEffect = () => {
         const header = document.querySelector('.TopWrapper');
-    
+
         const handleScroll = () => {
             if (window.scrollY > 100) {
                 header.classList.add('scrolled');
@@ -31,16 +31,16 @@ function TopNavbar() {
                 header.classList.remove('scrolled');
             }
         };
-    
+
         window.addEventListener('scroll', handleScroll);
-    
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     };
-    
+
     const handleSessionEffect = () => {
-        if(sessionStorage.getItem("token") !== null) {
+        if (sessionStorage.getItem("token") !== null) {
             setIsLogin(true);
             setDataLogin({
                 token: sessionStorage.getItem("token"),
@@ -52,11 +52,24 @@ function TopNavbar() {
         }
         console.log(isLogin);
     };
-    
+
     useEffect(() => {
         handleScrollEffect();
         handleSessionEffect();
     }, []);
+
+    const logoutFunction = () => {
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("role");
+        setIsLogin(false);
+        setDataLogin({
+            token: "",
+            user: "",
+            role: ""
+        });
+        navigate(`/`);
+    }
 
     return (
         <>
@@ -72,19 +85,28 @@ function TopNavbar() {
 
                     {dropdownOpen && (
                         <div className="dropdownMenu">
-                            <a href="#">Home</a>
+                            <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
                             <a href="#">Product</a>
                             <a href="#">About</a>
                             <a href="#">Shop</a>
                             <a href="#">Contact</a>
-                            <a href="#">Login</a>
-                            <a href="#">Sign Up</a>
+                            {isLogin ? (
+                                <>
+                                    <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
+                                    <a onClick={logoutFunction}>Logout</a>
+                                </>
+                            ) : (
+                                <>
+                                    <a href="#">Login</a>
+                                    <a href="#">Sign Up</a>
+                                </>
+                            )}
                         </div>
                     )}
 
                     <div className='NavMenu'>
                         <ul>
-                            <li><a href='#' className='link active'>Home</a></li>
+                            <li><a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)} className='link active'>Home</a></li>
                             <li><a href='#' className='link'>Product</a></li>
                             <li><a href='#' className='link'>About</a></li>
                             <li><a href='#' className='link'>Shop</a></li>
@@ -94,19 +116,19 @@ function TopNavbar() {
                     {isLogin ? (
                         <div className='NavButton NavButtonContainer'>
                             <div className='PerButton'>
-                            <a href='#'>Profile</a>
+                                <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
                             </div>
                             <div className='PerButton'>
-                            <a href='#'>Logout</a>
+                                <a onClick={logoutFunction}>Logout</a>
                             </div>
                         </div>
-                        ) : (
+                    ) : (
                         <div className='NavButton NavButtonContainer'>
                             <div className='PerButton'>
-                            <a href='#'>Login</a>
+                                <a onClick={() => navigate(`/`)}>Login</a>
                             </div>
                             <div className='PerButton'>
-                            <a href='#'>Sign Up</a>
+                                <a onClick={() => navigate(`/register`)}>Sign Up</a>
                             </div>
                         </div>
                     )}

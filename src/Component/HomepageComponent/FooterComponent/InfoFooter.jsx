@@ -7,6 +7,11 @@ import WatchOranye from '../../../assets/FooterComponent/Watch.svg';
 import './InfoFooter.css';
 
 const InfoFooter = () => {
+
+    const handleLinkToMobileLegend = () => {
+        window.location.href = "https://play.google.com/store/apps/details?id=com.mobile.legends&hl=en_US";
+    }
+
     return (
         <footer className="footer">
             <div className="container">
@@ -49,7 +54,9 @@ const InfoFooter = () => {
                             </div>
                         </Row>
                         <div className='mt-3' style={{ color: "white", fontWeight: "bold" }}>Download The App</div>
-                        <img src={GooglePlayImageLocal} className='mt-3' />
+                        <div className='ToMobileLegend' onClick={handleLinkToMobileLegend}>
+                            <img src={GooglePlayImageLocal} className='mt-3' />
+                        </div>
                     </div>
                 </div>
             </div>

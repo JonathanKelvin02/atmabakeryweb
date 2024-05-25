@@ -138,3 +138,12 @@ ul {
     color: #ffffff;
     font-size: small;
 }
+
+.ToMobileLegend{
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.ToMobileLegend:hover{
+    transform: scale(1.1);
+}

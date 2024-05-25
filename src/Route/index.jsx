@@ -11,7 +11,8 @@ import ForgotForm from "../Pages/ForgotPage/FormForgot";
 import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
 
 import CustomerHomeView from "../Pages/CustomerView/HomepageView/Homepage";
-import MainHomepageContent from "../Pages/CustomerView/HomepageView/ContentHomepageView"; 
+import MainHomepageContent from "../Pages/CustomerView/HomepageView/ContentHomepageView";
+import CustomerSideBarParentView from "../Pages/CustomerView/HomepageView/SideBarHomepage";
 
 // Admin Access View
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
@@ -222,6 +223,16 @@ const router = createBrowserRouter([
             {
                 path: "/customer/History",
                 element: <ShowHistoryCustomer/>
+            }
+        ]
+    },
+    {
+        path: "/AtmaBakery",
+        element: <CustomerSideBarParentView/>,
+        children: [
+            {
+                path: "/AtmaBakery/dhaiwhbaius",
+                element: <MainHomepageContent />
             }
         ]
     }
