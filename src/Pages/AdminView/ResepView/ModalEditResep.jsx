@@ -11,6 +11,7 @@ const ModalEditResep = ({dataResep, onSuccess, getProduk}) => {
     const[show, setShow] = useState(false);
     const[loading, setLoading] = useState(false);
     const[validated, setValidated] = useState(false);
+    const [valid, setValid] = useState(true);
 
     const[data, setData] = useState(dataResep);
     
@@ -26,6 +27,11 @@ const ModalEditResep = ({dataResep, onSuccess, getProduk}) => {
         fetchProduk();
         fetchBahanBaku();
     };
+
+    const handleChangeValid = () => {
+        setValid(!valid);
+    }
+
     const handleChange = (event) => {
         setData({
             ...data,
@@ -129,13 +135,21 @@ const ModalEditResep = ({dataResep, onSuccess, getProduk}) => {
                             <Form.Control type='number' name='Kuantitas' value={data.Kuantitas} onChange={handleChange} required/>
                             <Form.Control.Feedback type='invalid'>Masukan Kuantitas</Form.Control.Feedback>
                         </Form.Group>   
+
+                        <Form.Group className="ms-1">
+                            <Form.Check 
+                                    type="checkbox" 
+                                    label="I confirm the data is correct" 
+                                    onChange={handleChangeValid}
+                                />
+                        </Form.Group>
                     </Modal.Body>
 
                     <Modal.Footer>
                         <Button variant='secondary' onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant='primary' type='submit'>
+                        <Button variant='primary' type='submit' disabled={valid}>
                             {loading ? (
                                 <Spinner animation='border' variant='light' size='sm' />
                             ) : (

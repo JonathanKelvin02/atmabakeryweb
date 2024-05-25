@@ -11,6 +11,8 @@ const ModalEditKaryawan = ({ dataKaryawan, onSuccess }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [validated, setValidated] = useState(false);
 
+    const [valid, setValid] = useState(true);
+
     const [jabatan, setJabatan] = useState([]);
 
     const [data, setData] = useState(dataKaryawan);
@@ -24,6 +26,10 @@ const ModalEditKaryawan = ({ dataKaryawan, onSuccess }) => {
         console.log(data.ID_Pegawai);
         setShow(true);
         fetchJabatan();
+    }
+
+    const handleChangeValid = () => {
+        setValid(!valid);
     }
 
     const handleChange = (event) => {
@@ -106,11 +112,18 @@ const ModalEditKaryawan = ({ dataKaryawan, onSuccess }) => {
                                 <Form.Control type="text" name="Nomor_Telepon" value={data?.Nomor_Telepon} onChange={handleChange} required/>
                                 <Form.Control.Feedback type="invalid">Harap masukkan <b>Nomor Telepon</b></Form.Control.Feedback>
                         </Form.Group>
+                        <Form.Group className="mb-2">
+                        <Form.Check 
+                                type="checkbox" 
+                                label="I confirm the data is correct" 
+                                onChange={handleChangeValid}
+                            />
+                        </Form.Group>
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit">
+                            <Button variant="primary" type="submit" disabled={valid}>
                                 {isLoading ? (
                                     <Spinner animation="border" variant="light" size="sm" role="status" aria-hidden="true" />
                                 ) : (
