@@ -105,8 +105,9 @@ function TopNavbar() {
                         </a>
                     </div>
 
-                    {/* <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
-                    <div className={`sidebarMenu ${dropdownOpen ? 'open' : ''}`}>
+                    <div>
+                        <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
+                        <div className={`sidebarMenu ${dropdownOpen ? 'open' : ''}`} style={{ display: dropdownOpen ? "block" : "none" }}>
                         <div className='SideBarMenuContent'>
                             <div className='SideBarMenuContentTitle mt-2'>
                                 Atma Bakery
@@ -131,36 +132,7 @@ function TopNavbar() {
                                 )}
                             </div>
                         </div>
-                    </div> */}
-
-                    <div>
-                        <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
-                        <div className={`sidebarMenu ${dropdownOpen ? 'open' : ''}`}>
-                            <div className='SideBarMenuContent'>
-                                <div className='SideBarMenuContentTitle mt-2'>
-                                    Atma Bakery
-                                </div>
-                                <div className='SideBarMenuContentLine' />
-                                <div className='SideBarMenuContentList'>
-                                    <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
-                                    <a href="#">Product</a>
-                                    <a href="#">About</a>
-                                    <a href="#">Shop</a>
-                                    <a href="#">Contact</a>
-                                    {isLogin ? (
-                                        <>
-                                            <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
-                                            <a onClick={logoutFunction}>Logout</a>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <a href="#">Login</a>
-                                            <a href="#">Sign Up</a>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                     </div>
 
                     <div className='NavMenu'>

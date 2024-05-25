@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import PatternImage from '../../../assets/Pattern.svg';
 import LapisLegit from '../../../assets/Homepage/LapisLegit.svg';
 import LearnMoreImage from '../../../assets/Homepage/LearnMore.svg';
@@ -102,8 +102,8 @@ function ContentHomepageView() {
                 {/* <img className="topLeftImage" src={PatternImage} alt="alt text" />
                 <img className="bottomRightImage" src={PatternImage} alt="alt text" /> */}
 
-                <div className="imageGroup">
-                    {/* <img className="heroImage" src={PatternImage} alt="alt text" /> */}
+                {/* <div className="imageGroup">
+                    <img className="heroImage" src={PatternImage} alt="alt text" />
                     <img className="bannerImage" src={PatternImage} alt="alt text" />
 
                     <div className="contentRow">
@@ -129,7 +129,40 @@ function ContentHomepageView() {
 
                         <img className="decorativeImage" src={LapisLegit} alt="alt text" />
                     </div>
+                </div> */}
+
+                <div className='topMiddlePart'>
+                    <div className='topMiddleContent'>
+                        <div className='topMiddleContentImageTopLeft'><img src={PatternImage} alt="alt text" /></div>
+                        <div className='topMiddleContentImageBottomRight'><img src={PatternImage} alt="alt text" /></div>
+
+                        <div className='topMiddleContentContent'>
+                            <Row className='topMiddleContentContentRow'>
+                                <Col>
+                                    <h3>
+                                        Welcome from our greatest heart, where every pastry is crafted with passion to bring joy to your table
+                                    </h3>
+                                    <p>
+                                        Welcome to AtmaBakery! Here, we combine generations of bakery expertise with modern innovations to deliver breads and cakes that are not only 
+                                        delicious but also enticing. Every bite is the result of 
+                                        carefully selected finest ingredients and a manufacturing process full of love and precision.
+                                    </p>
+                                    <div className='topMiddleContentContentLearnMore'>
+                                        <img src={LearnMoreImage} />
+                                        <a>Learn More</a>
+                                    </div>
+                                </Col>
+                                <div>
+                                    <Col className='topMiddleContentContentRightImage'>
+                                        <img src={TestImageIni}  />
+                                    </Col>
+                                </div>
+                            </Row>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
 
             <div className='categoryPanel'>
