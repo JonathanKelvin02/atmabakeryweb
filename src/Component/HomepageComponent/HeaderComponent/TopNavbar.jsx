@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+    faHouse
+} from '@fortawesome/free-solid-svg-icons';
 
 import './TopNavbar.css';
 
 function TopNavbar() {
     const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(false);
-    const [dataLogin, setDataLogin] = useState(
-        {
-            token: "",
-            user: "",
-            role: ""
-        }
-    );
+    const [dataLogin, setDataLogin] = useState({
+        token: "",
+        user: "",
+        role: ""
+    });
 
     const [url, setUrl] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -20,22 +23,15 @@ function TopNavbar() {
         }
         return null;
     });
-    const [locationUser, setLocationUser] = useState("");
 
-    const [toUrl, setToUrl] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return null;
-        }
-        return null;
-    });
-    const [locationUserTo, setLocationUserTo] = useState("");
+    const [locationUser, setLocationUser] = useState("");
 
     const functionUserLocationRightNow = () => {
         if (url) {
             const pathname = url.pathname.slice(1);
             if (pathname === "AtmaBakery" || pathname === "customer") {
                 setLocationUser("Welcome To Atma Bakery!!");
-            }else{
+            } else {
                 setLocationUser("Welcome!!");
             }
         } else {
@@ -43,18 +39,14 @@ function TopNavbar() {
         }
     };
 
-    const functionUserLocationToNow = () => {
-
-    }
-
     const [dropdownOpen, setDropdownOpen] = useState(false);
+
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
     const handleScrollEffect = () => {
         const header = document.querySelector('.TopWrapper');
-
         const handleScroll = () => {
             if (window.scrollY > 100) {
                 header.classList.add('scrolled');
@@ -62,9 +54,7 @@ function TopNavbar() {
                 header.classList.remove('scrolled');
             }
         };
-
         window.addEventListener('scroll', handleScroll);
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -94,12 +84,11 @@ function TopNavbar() {
             role: ""
         });
         navigate(`/`);
-    }
+    };
 
     useEffect(() => {
         handleScrollEffect();
         handleSessionEffect();
-
     }, []);
 
     useEffect(() => {
@@ -116,28 +105,63 @@ function TopNavbar() {
                         </a>
                     </div>
 
-                    <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
-
-                    {dropdownOpen && (
-                        <div className="dropdownMenu">
-                            <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
-                            <a href="#">Product</a>
-                            <a href="#">About</a>
-                            <a href="#">Shop</a>
-                            <a href="#">Contact</a>
-                            {isLogin ? (
-                                <>
-                                    <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
-                                    <a onClick={logoutFunction}>Logout</a>
-                                </>
-                            ) : (
-                                <>
-                                    <a href="#">Login</a>
-                                    <a href="#">Sign Up</a>
-                                </>
-                            )}
+                    {/* <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
+                    <div className={`sidebarMenu ${dropdownOpen ? 'open' : ''}`}>
+                        <div className='SideBarMenuContent'>
+                            <div className='SideBarMenuContentTitle mt-2'>
+                                Atma Bakery
+                            </div>
+                            <div className='SideBarMenuContentLine' />
+                            <div className='SideBarMenuContentList'>
+                                <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
+                                <a href="#">Product</a>
+                                <a href="#">About</a>
+                                <a href="#">Shop</a>
+                                <a href="#">Contact</a>
+                                {isLogin ? (
+                                    <>
+                                        <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
+                                        <a onClick={logoutFunction}>Logout</a>
+                                    </>
+                                ) : (
+                                    <>
+                                        <a href="#">Login</a>
+                                        <a href="#">Sign Up</a>
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    )}
+                    </div> */}
+
+                    <div>
+                        <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
+                        <div className={`sidebarMenu ${dropdownOpen ? 'open' : ''}`}>
+                            <div className='SideBarMenuContent'>
+                                <div className='SideBarMenuContentTitle mt-2'>
+                                    Atma Bakery
+                                </div>
+                                <div className='SideBarMenuContentLine' />
+                                <div className='SideBarMenuContentList'>
+                                    <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
+                                    <a href="#">Product</a>
+                                    <a href="#">About</a>
+                                    <a href="#">Shop</a>
+                                    <a href="#">Contact</a>
+                                    {isLogin ? (
+                                        <>
+                                            <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
+                                            <a onClick={logoutFunction}>Logout</a>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <a href="#">Login</a>
+                                            <a href="#">Sign Up</a>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div className='NavMenu'>
                         <ul>
@@ -178,7 +202,7 @@ function TopNavbar() {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default TopNavbar;

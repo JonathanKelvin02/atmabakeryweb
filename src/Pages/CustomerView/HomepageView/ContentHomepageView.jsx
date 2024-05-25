@@ -103,7 +103,7 @@ function ContentHomepageView() {
                 <img className="bottomRightImage" src={PatternImage} alt="alt text" /> */}
 
                 <div className="imageGroup">
-                    <img className="heroImage" src={PatternImage} alt="alt text" />
+                    {/* <img className="heroImage" src={PatternImage} alt="alt text" /> */}
                     <img className="bannerImage" src={PatternImage} alt="alt text" />
 
                     <div className="contentRow">
