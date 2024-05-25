@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Modal } from "react-bootstrap";
+import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Badge } from "react-bootstrap";
 import { Cloudinary } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
@@ -29,7 +29,10 @@ const ShowProductCust = () => {
     }
 
     const goToDetails = (product) => {
-        navigate('/customer/Produk-details', { state: {product} })
+        if ((product.kategori.Nama_Kategori !== 'Titipan' && product.Stok > 0) ||
+            (product.kategori.Nama_Kategori === 'Titipan' && product.StokReady > 0)) {
+            navigate('/customer/Produk-details', { state: { product } });
+        }
     }
 
     useEffect(() => {
@@ -55,21 +58,40 @@ const ShowProductCust = () => {
                     products.length > 0 ? (
                         <Container className="product-list">
                             <Row className="m-3 product-row">
-                                {products.map((product, index) => (
-                                    <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4 product-col" onClick={() => goToDetails(product)}>
+                                {products.map((product, index) => {
+                                const isOutOfStock = product.kategori.Nama_Kategori !== 'Titipan' ? product.Stok === 0 : product.StokReady === 0;
+                                return (
+                                    <Col key={index} xs={12} sm={6} md={4} lg={3} className={`mb-4 product-col ${isOutOfStock ? 'out-of-stock' : ''}`} onClick={() => goToDetails(product)}>
                                         <div className="product-card">
                                             <AdvancedImage cldImg={cld.image(product.Gambar)} className='img-fluid product-image' />
                                                 {/* <img src={getGambar(product.Gambar)} alt={product.name} className="img-fluid product-image" /> */}
                                                 <div className="product-info">
                                                     <div className="product-name">
                                                         <h6 className="mt-2 m-0"><strong>{product.Nama_Produk}</strong></h6>
-                                                        <p style={{fontSize: 12}}>{product.kategori.Nama_Kategori}</p>
+                                                        <p style={{fontSize: 12}}>{product.kategori.Nama_Kategori}
+                                                            {isOutOfStock ? (
+                                                                <Badge pill text="white" bg="dark" className="ms-2">
+                                                                    Out of Stock
+                                                                </Badge>
+                                                            ) : (
+                                                                <>
+                                                                    <Badge pill text="white" bg="secondary" className="ms-2">
+                                                                        {product.Stok}
+                                                                    </Badge>
+                                                                    {product.StokReady > 0 && (
+                                                                        <Badge pill text="white" bg="warning" className="mx-2">
+                                                                            {product.StokReady}
+                                                                        </Badge>
+                                                                    )}
+                                                                </>
+                                                            )}
+                                                        </p>
                                                     </div>
                                                     <p className="product-price"><strong>Rp{product.Harga}</strong></p>
                                                 </div>
                                             </div>
                                     </Col>
-                                ))}
+                                )})}
                             </Row>
                         </Container>
                     ) : (

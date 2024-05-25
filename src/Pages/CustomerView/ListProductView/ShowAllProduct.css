@@ -30,6 +30,11 @@
     padding-top: 8px;
 }
 
+.out-of-stock {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
 .product-col:hover {
     border-radius: 8px;
     background-color: #E3E3E3;
