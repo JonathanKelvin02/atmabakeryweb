@@ -4,9 +4,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import './TopNavbar.css';
 
 function TopNavbar() {
-    // For CSS
     const navigate = useNavigate();
-
     const [isLogin, setIsLogin] = useState(false);
     const [dataLogin, setDataLogin] = useState(
         {
@@ -15,6 +13,39 @@ function TopNavbar() {
             role: ""
         }
     );
+
+    const [url, setUrl] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return new URL(window.location.href);
+        }
+        return null;
+    });
+    const [locationUser, setLocationUser] = useState("");
+
+    const [toUrl, setToUrl] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return null;
+        }
+        return null;
+    });
+    const [locationUserTo, setLocationUserTo] = useState("");
+
+    const functionUserLocationRightNow = () => {
+        if (url) {
+            const pathname = url.pathname.slice(1);
+            if (pathname === "AtmaBakery" || pathname === "customer") {
+                setLocationUser("Welcome To Atma Bakery!!");
+            }else{
+                setLocationUser("Welcome!!");
+            }
+        } else {
+            console.error("URL is not defined");
+        }
+    };
+
+    const functionUserLocationToNow = () => {
+
+    }
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggleDropdown = () => {
@@ -50,13 +81,7 @@ function TopNavbar() {
         } else {
             setIsLogin(false);
         }
-        console.log(isLogin);
     };
-
-    useEffect(() => {
-        handleScrollEffect();
-        handleSessionEffect();
-    }, []);
 
     const logoutFunction = () => {
         sessionStorage.removeItem("token");
@@ -70,6 +95,16 @@ function TopNavbar() {
         });
         navigate(`/`);
     }
+
+    useEffect(() => {
+        handleScrollEffect();
+        handleSessionEffect();
+
+    }, []);
+
+    useEffect(() => {
+        functionUserLocationRightNow();
+    }, [url]);
 
     return (
         <>
@@ -135,7 +170,7 @@ function TopNavbar() {
                 </div>
                 <div className='CenterContent'>
                     <div className='CenteredTitle'>
-                        Our Product
+                        {locationUser}
                     </div>
                     <div className='ContentNow'>
                         <a href='/'>Home</a> <span className='separator'>&gt;</span> <a style={{ color: "#FF9F0D" }} href='/'>Product</a>

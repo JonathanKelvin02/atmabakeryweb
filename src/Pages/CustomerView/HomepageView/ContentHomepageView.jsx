@@ -5,22 +5,35 @@ import PatternImage from '../../../assets/Pattern.svg';
 import LapisLegit from '../../../assets/Homepage/LapisLegit.svg';
 import LearnMoreImage from '../../../assets/Homepage/LearnMore.svg';
 
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
+
 import TestImageIni from '../../../assets/ImgCarousel/ImgCarousel(1).jpg';
 
 import { GetRandomProductForHomepage } from '../../../api/apiProduk';
 
 // Import CSS
 import './ContentHomepageView.css';
+import { MdSouth } from 'react-icons/md';
 
 function ContentHomepageView() {
     const navigate = useNavigate();
     const [dataFetched, setDataFetched] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
 
     const fetchData = () => {
         setIsLoading(true);
         GetRandomProductForHomepage().then((response) => {
-            setDataFetched(response);
+            const updatedResponse = response.map(item => {
+                return {
+                    ...item,
+                    Gambar: cld.image(item.Gambar).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(500).height(500))
+                };
+            });
+            setDataFetched(updatedResponse);
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -148,19 +161,23 @@ function ContentHomepageView() {
                     <h3>What We Can Give To You</h3>
 
                     <Row style={{ marginTop: "60px", justifyContent: "center" }}>                        
-                        {dataFetched.map((data, index) => (
-                            <div key={index}  className='lastShowProductContentPerBox' style={{ margin: '10px' }}>                                    
-                                <a href='' style={{ textDecoration: "none" }}>
-                                    <img src={TestImageIni} />
-                                </a>
-                                <div className='lastShowProductContentPerBoxProductName'>
-                                    {data.Nama_Produk}
+                        {isLoading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            dataFetched.map((data, index) => (
+                                <div key={index} className='lastShowProductContentPerBox' style={{ margin: '10px' }}>
+                                    <a href='' style={{ textDecoration: "none" }}>
+                                        <AdvancedImage cldImg={data.Gambar} className='img-fluid img-thumbnail'/>
+                                    </a>
+                                    <div className='lastShowProductContentPerBoxProductName'>
+                                        {data.Nama_Produk}
+                                    </div>
+                                    <div className='lastShowProductContentPerBoxProductKategori'>
+                                        {data.tblkategori.Nama_Kategori}
+                                    </div>
                                 </div>
-                                <div className='lastShowProductContentPerBoxProductKategori'>
-                                    {data.tblkategori.Nama_Kategori}
-                                </div>
-                            </div>
-                        ))}
+                            ))
+                        )}
                     </Row>
                 </div>
             </div>
