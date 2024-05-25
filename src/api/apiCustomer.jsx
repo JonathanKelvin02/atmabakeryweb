@@ -164,3 +164,17 @@ export const SearchHistory = async (nama) => {
         throw e.response.data;
     }
 }
+
+export const GetTransaksiSelesai = async () => {
+    try {
+        const response = await useAxios.get("/customer/transaksi-selesai", {
+            header: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

@@ -10,6 +10,7 @@ import UpdateTransaksiSelesai from './UpdateTransaksiSelesai';
 
 const ShowProcessPesanan = () => {
     const [loading, setLoading] = useState(false);
+    const [proses, setProses] = useState(false);
     const [transaksi, setTransaksi] = useState([]);
     const [pesanan, setPesanan] = useState([]);
 
@@ -21,18 +22,25 @@ const ShowProcessPesanan = () => {
         }).catch((error) => {
             console.log(error);
             setLoading(false);
+            setTransaksi([]);
         })
     }
 
     const fetchPesanan = () => {
-        setLoading(true);
+        setProses(true);
         GetTransaksiDikirim().then((response) => {
             setPesanan(response);
-            setLoading(false);
+            setProses(false);
         }).catch((error) => {
             console.log(error);
-            setLoading(false);
+            setProses(false);
+            setPesanan([]);
         })
+    }
+
+    const fetchAll = () => {
+        fetchTransaksi();
+        fetchPesanan();
     }
 
     useEffect(() => {
@@ -79,7 +87,7 @@ const ShowProcessPesanan = () => {
                                             <td><b>{data.Status}</b></td>
                                             <td>{data.Nama_Pengiriman}</td>
                                             <td>{data.Tanggal_Ambil}</td>
-                                            <td><UpdateTransaksiDikirim onSuccess={fetchTransaksi} dataTransaksi={data}/></td>
+                                            <td><UpdateTransaksiDikirim onSuccess={fetchAll} dataTransaksi={data}/></td>
                                         </tr>
                                     )
                                 })
@@ -91,7 +99,7 @@ const ShowProcessPesanan = () => {
             <hr className="my-4 mx-3" />
             <h2 className='m-3 text-center'><b>Data Transaksi 'Siap Dipick-Up' / 'Siap Dikirim'</b></h2>
             <Table className='mt-3 mx-3' style={{width : '97.4%'}} striped bordered hover responsive>
-                {loading ? (
+                {proses ? (
                     <td colSpan={6} className='text-center'>
                         <Spinner animation='border' variant='dark' />
                     </td>
@@ -118,15 +126,15 @@ const ShowProcessPesanan = () => {
                                 </td>
                             </tr>
                             ) : (
-                                pesanan.map((data, index) => {
+                                pesanan.map((order, index) => {
                                     return(
                                         <tr key={index}>
-                                            <td>{data.ID_Transaksi}</td>
-                                            <td>{data.Nama_Customer}</td>
-                                            <td><b>{data.Status}</b></td>
-                                            <td>{data.Nama_Pengiriman}</td>
-                                            <td>{data.Tanggal_Ambil}</td>
-                                            <td><UpdateTransaksiSelesai onSuccess={fetchPesanan} dataTransaksi={data}/></td>
+                                            <td>{order.ID_Transaksi}</td>
+                                            <td>{order.Nama_Customer}</td>
+                                            <td><b>{order.Status}</b></td>
+                                            <td>{order.Nama_Pengiriman}</td>
+                                            <td>{order.Tanggal_Ambil}</td>
+                                            <td><UpdateTransaksiSelesai onSuccess={fetchAll} dataTransaksi={order}/></td>
                                         </tr>
                                     )
                                 })

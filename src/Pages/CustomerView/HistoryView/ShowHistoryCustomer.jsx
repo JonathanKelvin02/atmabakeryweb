@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
-import { GetHistory, SearchHistory } from '../../../api/apiCustomer';
+import { GetHistory, SearchHistory, GetTransaksiSelesai } from '../../../api/apiCustomer';
 
 const ShowHistoryCustomer = () => {
     const [Loading, setLoading] = useState(false);
+    const [proses, setProses] = useState(false);
     const [Data, setData] = useState([]);
+    const [Transaksi, setTransaksi] = useState([])
     const [searchQuery, setSearchQuery] = useState('');
 
     const getHistory = () => {
@@ -34,8 +36,20 @@ const ShowHistoryCustomer = () => {
         })
     }
 
+    const ShowTransaksiSelesai = () => {
+        setProses(true);
+        GetTransaksiSelesai().then((response) => {
+            setTransaksi(response);
+            setProses(false);
+        }).catch((err) => {
+            console.log(err);
+            setLoading(false);
+        })
+    }
+
     useEffect(() => {
         getHistory();
+        ShowTransaksiSelesai();
     }, [])
 
     console.log(Data);
@@ -97,6 +111,12 @@ const ShowHistoryCustomer = () => {
                             </tr>
                         )}
                     </tbody>
+                </Table>
+                <hr className="my-4 mx-3" />
+                <Table striped bordered hover responsive>
+                        <thead>
+                            
+                        </thead>
                 </Table>
             </div>
         </>
