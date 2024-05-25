@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Col, Form, Row, Button, Spinner } from 'react-bootstrap';
+import { Container, Col, Form, Row, Button, Spinner, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import InputForm from '../../../Component/InputComponent/InputForm';
 import { FaUpload } from "react-icons/fa6";
@@ -15,6 +15,8 @@ const CreateResep = ( ) => {
     const navigate = useNavigate();
     const [isPending, setIsPending] = useState(false);
     const [image, setImage] = useState(null);
+    const [isConfirmed, setIsConfirmed] = useState(false);
+
     const [data, setData] = useState({
         Nama_Produk: "",
         ID_Kategori: "",
@@ -34,6 +36,10 @@ const CreateResep = ( ) => {
     
     const handleFile = (event) => {
         setImage(event.target.files[0]);
+    }
+
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
     }
 
     const submitData = (event) => {
@@ -173,8 +179,17 @@ const CreateResep = ( ) => {
                                     accept='image/'
                                 />
                             </div>
+
+                            <Form.Group className='mb-2'>
+                                <Form.Check 
+                                    type='checkbox'
+                                    label="I confirm the data is correct"
+                                    onChange={handleConfirmationChange}
+                                />
+                            </Form.Group>
+
                             <Row className="" style={{marginTop: '20px', marginRight: '8px'}}>
-                                <Button type='submit' disabled={isPending} variant='light' style={{width: '100px', marginRight: '10px', border: '2px solid #8E6F60', color: '#8E6F60', fontWeight: 'bold'}}>
+                                <Button type='submit' disabled={isPending || !isConfirmed} variant='light' style={{width: '100px', marginRight: '10px', border: '2px solid #8E6F60', color: '#8E6F60', fontWeight: 'bold'}}>
                                     {isPending ? (
                                         <>
                                             <Spinner 

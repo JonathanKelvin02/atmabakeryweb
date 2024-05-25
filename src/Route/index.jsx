@@ -10,6 +10,10 @@ import LoginForm from "../Pages/LoginPage/FormLogin";
 import ForgotForm from "../Pages/ForgotPage/FormForgot";
 import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
 
+import CustomerHomeView from "../Pages/CustomerView/HomepageView/Homepage";
+import MainHomepageContent from "../Pages/CustomerView/HomepageView/ContentHomepageView";
+import CustomerSideBarParentView from "../Pages/CustomerView/HomepageView/SideBarHomepage";
+
 // Admin Access View
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
@@ -228,10 +232,14 @@ const router = createBrowserRouter([
         path: "/customer",
         element: (
             <ProtectedRoutes roles={'Customer'}>
-                <CustomerView/>
+                <CustomerHomeView/>
             </ProtectedRoutes>
         ),
         children: [
+            {
+                path: "/customer",
+                element: <MainHomepageContent />
+            },
             {
                 path: "/customer/Profile",
                 element: <ShowProfileCustomer/>
@@ -243,6 +251,16 @@ const router = createBrowserRouter([
             {
                 path: "/customer/Alamat",
                 element: <ShowAlamat/>
+            }
+        ]
+    },
+    {
+        path: "/AtmaBakery",
+        element: <CustomerSideBarParentView/>,
+        children: [
+            {
+                path: "/AtmaBakery/dhaiwhbaius",
+                element: <MainHomepageContent />
             }
         ]
     }

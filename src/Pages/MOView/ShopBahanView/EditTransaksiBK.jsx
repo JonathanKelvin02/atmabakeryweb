@@ -11,6 +11,7 @@ const EditTransaksiBahan = ({ dataTransaksi, onSuccess }) => {
     const [show, setShow] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isPending, setIsPending] = useState(false);
+    const [isConfirmed, setIsConfirmed] = useState(false);
 
     const [listBahan, setListBahan] = useState([{
         ID_Bahan_Baku: "",
@@ -38,6 +39,10 @@ const EditTransaksiBahan = ({ dataTransaksi, onSuccess }) => {
 
     const handleShow = () => {
         setShow(true);
+    }
+
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
     }
 
     const handleValueChange = (index, event) => {
@@ -194,11 +199,18 @@ const EditTransaksiBahan = ({ dataTransaksi, onSuccess }) => {
                                         </Col>
                                     </Row>
                                 ))}
+                                <Form.Group className='mb-2'>
+                                            <Form.Check 
+                                                type='checkbox'
+                                                label="I confirm the data is correct"
+                                                onChange={handleConfirmationChange}
+                                            />
+                                        </Form.Group>
                                 <Modal.Footer>
                                     <Button variant="secondary" onClick={handleClose}>
                                         Close
                                     </Button>
-                                    <Button variant="primary" disabled={isPending} type="submit">
+                                    <Button variant="primary" disabled={isPending || !isConfirmed} type="submit">
                                         {isPending ? (
                                                     <>
                                                         <Spinner 

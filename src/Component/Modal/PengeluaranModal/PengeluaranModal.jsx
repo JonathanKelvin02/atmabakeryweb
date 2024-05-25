@@ -150,10 +150,18 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
                 <Modal.Body>
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Expenditure Name</div>
-                        <Form.Control style={{ borderColor: '#3C4242' }} type="text" name='Nama' placeholder="Enter expenditure name" onChange={handleChange} value={nama}/>
+                        <Form.Select style={{ borderColor: '#3C4242' }} name='Nama' onChange={handleChange} value={nama}>
+                            <option value="">Select expenditure name</option>
+                            <option value="Listrik">Listrik</option>
+                            <option value="Gaji Karyawan">Gaji Karyawan</option>
+                            <option value="Bahan Baku">Bahan Baku</option>
+                            <option value="Iuran RT">Iuran RT</option>
+                            <option value="Bensin">Bensin</option>
+                            <option value="Gas">Gas</option>                            
+                        </Form.Select>
                         {errors.Nama && <div style={{ color: 'red' }}>{errors.Nama}</div>}
                     </Form.Group>
-                    
+
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Price</div>
                         <Form.Control style={{ borderColor: '#3C4242' }} type="number" name='Harga' placeholder="Enter the price" onChange={handleChange} value={harga}/>
@@ -162,7 +170,15 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
 
                     <Form.Group className="mb-2">
                         <div className='roboto-bold' style={{ marginLeft: '1%' }}>Date</div>
-                        <Form.Control style={{ borderColor: '#3C4242' }} type="date" name='Tanggal' placeholder="Enter the date" onChange={handleChange} value={tanggal}/>
+                        <Form.Control 
+                            style={{ borderColor: '#3C4242' }} 
+                            type="date" 
+                            name='Tanggal' 
+                            placeholder="Enter the date" 
+                            onChange={handleChange} 
+                            value={tanggal}
+                            disabled={isUpdate}
+                        />
                         {errors.Tanggal && <div style={{ color: 'red' }}>{errors.Tanggal}</div>}
                     </Form.Group>
 
