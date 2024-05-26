@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import PatternImage from '../../../assets/Pattern.svg';
 import LapisLegit from '../../../assets/Homepage/LapisLegit.svg';
 import LearnMoreImage from '../../../assets/Homepage/LearnMore.svg';
+
+import { Cloudinary } from '@cloudinary/url-gen';
+import { auto } from '@cloudinary/url-gen/actions/resize';
+import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+import { AdvancedImage } from '@cloudinary/react';
 
 import TestImageIni from '../../../assets/ImgCarousel/ImgCarousel(1).jpg';
 
@@ -11,16 +16,24 @@ import { GetRandomProductForHomepage } from '../../../api/apiProduk';
 
 // Import CSS
 import './ContentHomepageView.css';
+import { MdSouth } from 'react-icons/md';
 
 function ContentHomepageView() {
     const navigate = useNavigate();
     const [dataFetched, setDataFetched] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
 
     const fetchData = () => {
         setIsLoading(true);
         GetRandomProductForHomepage().then((response) => {
-            setDataFetched(response);
+            const updatedResponse = response.map(item => {
+                return {
+                    ...item,
+                    Gambar: cld.image(item.Gambar).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(500).height(500))
+                };
+            });
+            setDataFetched(updatedResponse);
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -86,37 +99,38 @@ function ContentHomepageView() {
     return (
         <>
             <div className='mainSectionContent'>
-                {/* <img className="topLeftImage" src={PatternImage} alt="alt text" />
-                <img className="bottomRightImage" src={PatternImage} alt="alt text" /> */}
+                <div className='topMiddlePart'>
+                    <div className='topMiddleContent'>
+                        <div className='topMiddleContentImageTopLeft'><img src={PatternImage} alt="alt text" /></div>
+                        <div className='topMiddleContentImageBottomRight'><img src={PatternImage} alt="alt text" /></div>
 
-                <div className="imageGroup">
-                    <img className="heroImage" src={PatternImage} alt="alt text" />
-                    <img className="bannerImage" src={PatternImage} alt="alt text" />
-
-                    <div className="contentRow">
-                        <div className="contentColumn">
-                            <h1 className="mainHeaderContent">
-                                Welcome from our greatest heart, where every pastry is crafted with passion to bring joy to your table
-                            </h1>
-                            <h1 className="mainParagContent">
-                                Welcome to AtmaBakery! Here, we combine generations of bakery expertise with modern innovations to deliver
-                                breads and cakes that are not only delicious but also enticing. Every bite is the result of carefully
-                                selected finest ingredients and a manufacturing process full of love and precision.
-                            </h1>
-
-                            <div className="learnMoreGroup">
-                                <img className="iconImage" src={LearnMoreImage} alt="alt text" />
-                                <h1 className="learnMoreTitle">
-                                    <a href="" style={{ textDecoration: "none", color: "black" }}>
-                                        Learn More
-                                    </a>
-                                </h1>
-                            </div>
+                        <div className='topMiddleContentContent'>
+                            <Row className='topMiddleContentContentRow'>
+                                <Col>
+                                    <h3>
+                                        Welcome from our greatest heart, where every pastry is crafted with passion to bring joy to your table
+                                    </h3>
+                                    <p>
+                                        Welcome to AtmaBakery! Here, we combine generations of bakery expertise with modern innovations to deliver breads and cakes that are not only 
+                                        delicious but also enticing. Every bite is the result of 
+                                        carefully selected finest ingredients and a manufacturing process full of love and precision.
+                                    </p>
+                                    <div className='topMiddleContentContentLearnMore'>
+                                        <img src={LearnMoreImage} />
+                                        <a>Learn More</a>
+                                    </div>
+                                </Col>
+                                <div>
+                                    <Col className='topMiddleContentContentRightImage'>
+                                        <img src={TestImageIni}  />
+                                    </Col>
+                                </div>
+                            </Row>
                         </div>
-
-                        <img className="decorativeImage" src={LapisLegit} alt="alt text" />
                     </div>
                 </div>
+
+
             </div>
 
             <div className='categoryPanel'>
@@ -148,19 +162,23 @@ function ContentHomepageView() {
                     <h3>What We Can Give To You</h3>
 
                     <Row style={{ marginTop: "60px", justifyContent: "center" }}>                        
-                        {dataFetched.map((data, index) => (
-                            <div key={index}  className='lastShowProductContentPerBox' style={{ margin: '10px' }}>                                    
-                                <a href='' style={{ textDecoration: "none" }}>
-                                    <img src={TestImageIni} />
-                                </a>
-                                <div className='lastShowProductContentPerBoxProductName'>
-                                    {data.Nama_Produk}
+                        {isLoading ? (
+                            <div>Loading...</div>
+                        ) : (
+                            dataFetched.map((data, index) => (
+                                <div key={index} className='lastShowProductContentPerBox' style={{ margin: '10px' }}>
+                                    <a href='' style={{ textDecoration: "none" }}>
+                                        <AdvancedImage cldImg={data.Gambar} className='img-fluid img-thumbnail'/>
+                                    </a>
+                                    <div className='lastShowProductContentPerBoxProductName'>
+                                        {data.Nama_Produk}
+                                    </div>
+                                    <div className='lastShowProductContentPerBoxProductKategori'>
+                                        {data.tblkategori.Nama_Kategori}
+                                    </div>
                                 </div>
-                                <div className='lastShowProductContentPerBoxProductKategori'>
-                                    {data.tblkategori.Nama_Kategori}
-                                </div>
-                            </div>
-                        ))}
+                            ))
+                        )}
                     </Row>
                 </div>
             </div>

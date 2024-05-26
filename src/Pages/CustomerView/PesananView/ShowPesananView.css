@@ -1,0 +1,94 @@
+.areaTable{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 90vh;
+    /* padding: 10px; */
+
+    /* background-color: blue; */
+}
+
+.areaTableTopLeftPattern{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.areaTableTopLeftPattern img{
+    width: 600px;
+    height: auto;
+}
+
+.areaTableBottomRightPattern{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.areaTableBottomRightPattern img{
+    width: 600px;
+    height: auto;
+}
+
+@media (max-width: 622px) {
+    .areaTableTopLeftPattern img{
+        width: 100vw !important;
+        height: auto;
+    }
+
+    .areaTableBottomRightPattern img{
+        width: 100vw !important;
+        height: auto;
+    }
+}
+
+.areaTableContent{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+    padding: 60px;
+
+    /* background-color: red; */
+}
+
+.areaTableContentContent{
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+    /* background-color: green; */
+}
+
+.areaTableHeader{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    width: 100%;
+    height: 70px;
+
+    background-color: yellow;
+}
+
+.areaTableHeader li{
+    list-style: none;
+    padding: 10px;
+}
+
+.table, .table th, .table td {
+    background-color: transparent;
+}

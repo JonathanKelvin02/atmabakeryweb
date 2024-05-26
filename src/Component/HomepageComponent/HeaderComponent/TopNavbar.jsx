@@ -1,29 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+    faHouse
+} from '@fortawesome/free-solid-svg-icons';
 
 import './TopNavbar.css';
 
 function TopNavbar() {
-    // For CSS
     const navigate = useNavigate();
-
     const [isLogin, setIsLogin] = useState(false);
-    const [dataLogin, setDataLogin] = useState(
-        {
-            token: "",
-            user: "",
-            role: ""
+    const [dataLogin, setDataLogin] = useState({
+        token: "",
+        user: "",
+        role: ""
+    });
+
+    const [url, setUrl] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return new URL(window.location.href);
         }
-    );
+        return null;
+    });
+
+    const [locationUser, setLocationUser] = useState("");
+
+    const functionUserLocationRightNow = () => {
+        if (url) {
+            const pathname = url.pathname.slice(1);
+            if (pathname === "AtmaBakery") {
+                setLocationUser("Welcome To Atma Bakery!!");
+            } else if(pathname === "customer") {
+                const user = JSON.parse(sessionStorage.getItem("user"));
+                const name = user.Nama_Customer;
+
+                setLocationUser("Welcome Back " + name + " !!");
+            } else {
+                setLocationUser("Welcome!!");
+            }
+        } else {
+            console.error("URL is not defined");
+        }
+    };
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
+
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
     const handleScrollEffect = () => {
         const header = document.querySelector('.TopWrapper');
-
         const handleScroll = () => {
             if (window.scrollY > 100) {
                 header.classList.add('scrolled');
@@ -31,9 +59,7 @@ function TopNavbar() {
                 header.classList.remove('scrolled');
             }
         };
-
         window.addEventListener('scroll', handleScroll);
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
@@ -50,13 +76,7 @@ function TopNavbar() {
         } else {
             setIsLogin(false);
         }
-        console.log(isLogin);
     };
-
-    useEffect(() => {
-        handleScrollEffect();
-        handleSessionEffect();
-    }, []);
 
     const logoutFunction = () => {
         sessionStorage.removeItem("token");
@@ -69,7 +89,16 @@ function TopNavbar() {
             role: ""
         });
         navigate(`/`);
-    }
+    };
+
+    useEffect(() => {
+        handleScrollEffect();
+        handleSessionEffect();
+    }, []);
+
+    useEffect(() => {
+        functionUserLocationRightNow();
+    }, [url]);
 
     return (
         <>
@@ -81,28 +110,35 @@ function TopNavbar() {
                         </a>
                     </div>
 
-                    <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
-
-                    {dropdownOpen && (
-                        <div className="dropdownMenu">
-                            <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
-                            <a href="#">Product</a>
-                            <a href="#">About</a>
-                            <a href="#">Shop</a>
-                            <a href="#">Contact</a>
-                            {isLogin ? (
-                                <>
-                                    <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
-                                    <a onClick={logoutFunction}>Logout</a>
-                                </>
-                            ) : (
-                                <>
-                                    <a href="#">Login</a>
-                                    <a href="#">Sign Up</a>
-                                </>
-                            )}
+                    <div>
+                        <button className="dropdownButton" onClick={toggleDropdown}>Menu</button>
+                        <div className={`sidebarMenu ${dropdownOpen ? 'open' : ''}`} style={{ display: dropdownOpen ? "block" : "none" }}>
+                        <div className='SideBarMenuContent'>
+                            <div className='SideBarMenuContentTitle mt-2'>
+                                Atma Bakery
+                            </div>
+                            <div className='SideBarMenuContentLine' />
+                            <div className='SideBarMenuContentList'>
+                                <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
+                                <a href="#">Product</a>
+                                <a href="#">About</a>
+                                <a href="#">Shop</a>
+                                <a href="#">Contact</a>
+                                {isLogin ? (
+                                    <>
+                                        <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
+                                        <a onClick={logoutFunction}>Logout</a>
+                                    </>
+                                ) : (
+                                    <>
+                                        <a href="#">Login</a>
+                                        <a href="#">Sign Up</a>
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    )}
+                    </div>
+                    </div>
 
                     <div className='NavMenu'>
                         <ul>
@@ -135,7 +171,7 @@ function TopNavbar() {
                 </div>
                 <div className='CenterContent'>
                     <div className='CenteredTitle'>
-                        Our Product
+                        {locationUser}
                     </div>
                     <div className='ContentNow'>
                         <a href='/'>Home</a> <span className='separator'>&gt;</span> <a style={{ color: "#FF9F0D" }} href='/'>Product</a>
@@ -143,7 +179,7 @@ function TopNavbar() {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default TopNavbar;

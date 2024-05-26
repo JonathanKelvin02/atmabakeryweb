@@ -12,7 +12,7 @@ import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
 
 import CustomerHomeView from "../Pages/CustomerView/HomepageView/Homepage";
 import MainHomepageContent from "../Pages/CustomerView/HomepageView/ContentHomepageView";
-import CustomerSideBarParentView from "../Pages/CustomerView/HomepageView/SideBarHomepage";
+import ShowPesananViewCustomer from "../Pages/CustomerView/PesananView/ShowPesananView";
 
 // Admin Access View
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
@@ -251,15 +251,19 @@ const router = createBrowserRouter([
             {
                 path: "/customer/Alamat",
                 element: <ShowAlamat/>
+            },
+            {
+                path: "/customer/Pesanan",
+                element: <ShowPesananViewCustomer />
             }
         ]
     },
     {
         path: "/AtmaBakery",
-        element: <CustomerSideBarParentView/>,
+        element: <CustomerHomeView/>,
         children: [
             {
-                path: "/AtmaBakery/dhaiwhbaius",
+                path: "/AtmaBakery",
                 element: <MainHomepageContent />
             }
         ]
