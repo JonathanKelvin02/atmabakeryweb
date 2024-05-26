@@ -12,6 +12,7 @@ import ResetForm from "../Pages/ResetPasswordPage/ResetForm";
 
 import CustomerHomeView from "../Pages/CustomerView/HomepageView/Homepage";
 import MainHomepageContent from "../Pages/CustomerView/HomepageView/ContentHomepageView";
+import ShowPesananViewCustomer from "../Pages/CustomerView/PesananView/ShowPesananView";
 
 // Admin Access View
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
@@ -222,6 +223,10 @@ const router = createBrowserRouter([
             {
                 path: "/customer/History",
                 element: <ShowHistoryCustomer/>
+            },
+            {
+                path: "/customer/Pesanan",
+                element: <ShowPesananViewCustomer />
             }
         ]
     },

@@ -29,8 +29,13 @@ function TopNavbar() {
     const functionUserLocationRightNow = () => {
         if (url) {
             const pathname = url.pathname.slice(1);
-            if (pathname === "AtmaBakery" || pathname === "customer") {
+            if (pathname === "AtmaBakery") {
                 setLocationUser("Welcome To Atma Bakery!!");
+            } else if(pathname === "customer") {
+                const user = JSON.parse(sessionStorage.getItem("user"));
+                const name = user.Nama_Customer;
+
+                setLocationUser("Welcome Back " + name + " !!");
             } else {
                 setLocationUser("Welcome!!");
             }

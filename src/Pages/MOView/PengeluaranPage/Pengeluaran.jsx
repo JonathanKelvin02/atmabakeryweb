@@ -138,7 +138,6 @@ const PenitipView = () => {
                     </div>
                 ) : (
                     pengeluaran?.length > 0 ? (
-
                         <div className="table-responsive">
                             <table className="table">
                                 <thead>

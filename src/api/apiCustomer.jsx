@@ -164,3 +164,49 @@ export const SearchHistory = async (nama) => {
         throw e.response.data;
     }
 }
+
+export const GetTransaksiByIdCustomer = async (id) => {
+    try {
+        const response = await useAxios.get("/getTransaksiByIdCustomer/"+id, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+// export const SendProofPayment = async (data) => {
+//     // for (let entry of data.entries()) {
+//     //     console.log(entry[0], entry[1]);
+//     // }
+
+//     try {
+//         const response = await useAxios.post("/sendProofPayment", data, {
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+//             },
+//         });
+//         return response.data;
+//     } catch (e) {
+//         throw e.response.data;
+//     }
+// }
+
+export const SendProofPayment = async (data) => {
+    try {
+        const response = await useAxios.post("/sendProofPayment", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
