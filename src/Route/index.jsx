@@ -52,6 +52,7 @@ import TransaksiBahan from "../Pages/MOView/ShopBahanView/ListTransaksiBK";
 import ShowProductCust from "../Pages/CustomerView/ListProductView/ShowAllProduct";
 import ProductDetails from "../Pages/CustomerView/ListProductView/ProductDetails";
 import Cart from "../Pages/CustomerView/CartView/Cart";
+import ShoppingView from "../Pages/CustomerView/ShopView/Shop";
 
 import ProtectedRoutes from "./ProtectedRoutes";
 
@@ -233,6 +234,10 @@ const router = createBrowserRouter([
             {
                 path: "/customer/Cart",
                 element: <Cart />
+            },
+            {
+                path: "/customer/Shopping",
+                element: <ShoppingView />
             }
         ]
     }

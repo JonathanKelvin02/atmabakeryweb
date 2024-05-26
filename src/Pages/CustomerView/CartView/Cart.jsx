@@ -32,23 +32,30 @@ function Cart () {
     }]);
 
     const [discount, setDiscount] = useState(0);
-    const {cartItems, poin, addToCart, removeFromCart, increasePoin, decreasePoin, getCartTotal, removeItem } = useContext(CartContext);
+    const {cartItems, poin, addToCart, removeFromCart, increasePoin, decreasePoin, getCartTotal, removeItem, selectedDate } = useContext(CartContext);
     console.log("Cart Items : ", cartItems);
     const countDiscount = () => {
         setDiscount(poin * 100);
     }
 
+    console.log(selectedDate);
+
     const submitData = (event) => {
         event.preventDefault();
         setIsPending(true);
 
-        //const totalHarga = getCartTotal() - discount;
+        const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
+
         const requestData = {
+            Tanggal_Ambil: formattedDate,
             Total_Transaksi: getCartTotal() - discount,
             products: cartItems.map(item => ({
                 ID_Produk: item.ID_Produk,
-                Kuantitas: parseFloat(item.Kuantitas),
-                Sub_Total: parseInt(item.Kuantitas * item.Harga)
+                Tipe: parseInt(item.size),
+                Kuantitas: parseInt(item.Kuantitas),
+                Sub_Total: item.size === "1/2" 
+                    ? parseInt(((item.Harga + 50000) / 2) * item.Kuantitas) 
+                    : parseInt(item.Kuantitas * item.Harga)
             }))
         };
 
@@ -58,6 +65,7 @@ function Cart () {
                 navigate('/customer/Produk');
                 toast.success(response.message);
                 localStorage.removeItem('cartItems');
+                localStorage.removeItem('selectedDate');
             }).catch((e) => {
                 console.log(e);
                 setIsPending(false);
@@ -86,22 +94,27 @@ function Cart () {
                                         {/* <img src={getGambar(item.Gambar)} alt={item.Nama_Produk} className="cart-image m-2" /> */}
                                         <div className='p-4 text-start'>
                                             <h6><strong>{item.Nama_Produk}</strong></h6>
-                                            <p style={{fontSize: 'smaller'}}>Type: </p>
+                                            <p style={{fontSize: 'smaller'}}>Type: {item.size}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td><b>Rp{item.Harga}</b></td>
                                 <td>
                                     <div className="qty-container">
-                                        <Button variant="light" className="qty-button" onClick={() => removeFromCart(item)}>-</Button>
+                                        <Button variant="light" className="qty-button" onClick={() => removeFromCart(item, item.size)}>-</Button>
                                         <div className="d-flex justify-content-center align-text-center">
                                             {item.Kuantitas}
                                         </div>
-                                        <Button variant="light" className="qty-button" onClick={() => {addToCart(item)}}>+</Button>
+                                        <Button variant="light" className="qty-button" onClick={() => {addToCart(item, item.size)}}>+</Button>
                                     </div>
                                 </td>
                                 <td>
-                                    <b>Rp{item.Kuantitas * item.Harga}</b>
+                                    <b>
+                                        {item.size === "1/2"
+                                            ? `Rp${((item.Harga + 50000) / 2 * item.Kuantitas).toFixed(2)}`
+                                            : `Rp${(item.Harga * item.Kuantitas).toFixed(2)}`
+                                        }
+                                    </b>
                                 </td>
                                 <td>
                                     <Button variant='outline-light' onClick={() => removeItem(item)}>
@@ -134,17 +147,29 @@ function Cart () {
                             </Col>
                             <Col className='d-flex justify-content-center'>
                                 {cartItems.length > 0 ? (
-                                        <div className='d-flex flex-column justify-content-center align-items-center p-4' style={{width: '75%', height: '100%', backgroundColor: '#E3E3E3'}}>
-                                            <h6 className="text-lg font-bold">Sub Total: Rp{getCartTotal()}</h6>
-                                            <h6 className="text-lg font-bold">Discount: Rp{discount}</h6>
-                                            
-                                            <h6 ><b>Total: Rp{getCartTotal() - discount}</b></h6>
+                                        <div className='d-flex flex-column justify-content-center align-items-center p-5' style={{width: '70%', height: '100%', backgroundColor: '#E3E3E3'}}>
+                                            <div className='d-flex justify-content-between w-100'>
+                                                <h6>Order for:</h6>
+                                                <h6>{new Date(selectedDate).toDateString()}</h6>
+                                            </div>
+                                            <div className='d-flex justify-content-between w-100'>
+                                                <h6 className="text-lg font-bold">Sub Total:</h6>
+                                                <h6 className="text-lg font-bold">Rp{getCartTotal()}</h6>
+                                            </div>
+                                            <div className='d-flex justify-content-between w-100'>
+                                                <h6 className="text-lg font-bold">Discount:</h6>
+                                                <h6 className="text-lg font-bold">Rp{discount}</h6>
+                                            </div>
+                                            <div className='d-flex justify-content-between w-100'>
+                                                <h6><b>Total:</b></h6>
+                                                <h6><b>Rp{getCartTotal() - discount}</b></h6>
+                                            </div>
                                             <hr style={{width: '100%'}} />
                                             <Button variant='light' className='mx-4' style={{backgroundColor: '#C67C4E', color: "white"}} onClick={submitData}>Proceed To Checkout</Button>
                                         </div>
                                         
                                     ) : (
-                                    <h6 className="text-lg font-bold">Your cart is empty</h6>
+                                        <h6 className="text-lg font-bold">Your cart is empty</h6>
                                     )
                                 }
                             </Col>

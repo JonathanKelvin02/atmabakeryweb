@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 import './ShowAllProduct.css';
 
-import { getGambar } from '../../../api/indexApi';
 import { GetAllProducts } from "../../../api/apiProduk";
 
 const ShowProductCust = () => {
@@ -26,13 +25,6 @@ const ShowProductCust = () => {
             console.log(err);
             setIsLoading(false);
         })
-    }
-
-    const goToDetails = (product) => {
-        if ((product.kategori.Nama_Kategori !== 'Titipan' && product.Stok > 0) ||
-            (product.kategori.Nama_Kategori === 'Titipan' && product.StokReady > 0)) {
-            navigate('/customer/Produk-details', { state: { product } });
-        }
     }
 
     useEffect(() => {
@@ -61,7 +53,7 @@ const ShowProductCust = () => {
                                 {products.map((product, index) => {
                                 const isOutOfStock = product.kategori.Nama_Kategori !== 'Titipan' ? product.Stok === 0 : product.StokReady === 0;
                                 return (
-                                    <Col key={index} xs={12} sm={6} md={4} lg={3} className={`mb-4 product-col ${isOutOfStock ? 'out-of-stock' : ''}`} onClick={() => goToDetails(product)}>
+                                    <Col key={index} xs={12} sm={6} md={4} lg={3} className={`mb-4 product-col ${isOutOfStock ? 'out-of-stock' : ''}`}>
                                         <div className="product-card">
                                             <AdvancedImage cldImg={cld.image(product.Gambar)} className='img-fluid product-image' />
                                                 {/* <img src={getGambar(product.Gambar)} alt={product.name} className="img-fluid product-image" /> */}

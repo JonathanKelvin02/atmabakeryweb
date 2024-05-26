@@ -6,34 +6,38 @@ export const CartContext = createContext();
 export const CartProvider = ({children}) => {
     const [cartItems, setCartItems] = useState(localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []);
     const [poin, setDataUser] = useState(localStorage.getItem('poin') ? JSON.parse(localStorage.getItem("poin")) : 0);
+
     const initialPoin = localStorage.getItem('poin') ? JSON.parse(localStorage.getItem("poin")) : 0;
 
-    const addToCart = (item) => {
-        const isItemInCart = cartItems.find((cartItem) => cartItem.ID_Produk === item.ID_Produk);
+    const initialDate = new Date();
+
+    const [selectedDate, setSelectedDate] = useState(localStorage.getItem('selectedDate') ? new Date(JSON.parse(localStorage.getItem('selectedDate'))) : initialDate.setDate(initialDate.getDate() + 2));
+
+    const addToCart = (item, size) => {
+        const isItemInCart = cartItems.find((cartItem) => cartItem.ID_Produk === item.ID_Produk && cartItem.size === size);
 
         if (isItemInCart) {
             setCartItems(
                 cartItems.map((cartItem) =>
-                    cartItem.ID_Produk === item.ID_Produk
-                    ? { ...cartItem, Kuantitas: cartItem.Kuantitas + 1}
+                    cartItem.ID_Produk === item.ID_Produk && cartItem.size === size
+                    ? { ...cartItem, Kuantitas: Math.min(cartItem.Kuantitas + 1, item.Stok)}
                     : cartItem
                 )
             );
         } else {
-            setCartItems([...cartItems, { ...item, Kuantitas: 1 }]);
+            setCartItems([...cartItems, { ...item, size, Kuantitas: 1 }]);
         }
     };
 
-    const removeFromCart = (item) => {
-        console.log(item);
-        const isItemInCart = cartItems.find((cartItem) => cartItem.ID_Produk === item.ID_Produk);
+    const removeFromCart = (item, size) => {
+        const isItemInCart = cartItems.find((cartItem) => cartItem.ID_Produk === item.ID_Produk && cartItem.size === size);
 
         if (isItemInCart.Kuantitas === 1) {
-            setCartItems(cartItems.filter((cartItem) => cartItem.ID_Produk !== item.ID_Produk));
+            setCartItems(cartItems.filter((cartItem) => !(cartItem.ID_Produk === item.ID_Produk && cartItem.size === size)));
         } else {
             setCartItems(
                 cartItems.map((cartItem) =>
-                    cartItem.ID_Produk === item.ID_Produk
+                    cartItem.ID_Produk === item.ID_Produk && cartItem.size === size
                     ? { ...cartItem, Kuantitas: cartItem.Kuantitas - 1}
                     : cartItem
                 )
@@ -50,7 +54,7 @@ export const CartProvider = ({children}) => {
     }
 
     const removeItem = (item) => {
-        setCartItems(cartItems.filter((cartItem) => cartItem.ID_Produk !== item.ID_Produk));
+        setCartItems(cartItems.filter((cartItem) => !(cartItem.ID_Produk === item.ID_Produk && cartItem.size === item.size)));
     }
 
     const clearCart = () => {
@@ -58,20 +62,35 @@ export const CartProvider = ({children}) => {
     };
 
     const getCartTotal = () => {
-        return cartItems.reduce((total, item) => total + item.Harga * item.Kuantitas, 0);
+        return cartItems.reduce((total, item) => {
+            const itemTotal = item.size === "1/2" 
+                ? (item.Harga + 50000) / 2 * item.Kuantitas 
+                : item.Harga * item.Kuantitas;
+            return total + itemTotal;
+        }, 0);
     };
 
-    const getItemQty = (item) => {
-        const isItemInCart = cartItems.find((cartItem) => cartItem.ID_Produk === item.ID_Produk);
+    const getItemQty = (item, size) => {
+        const isItemInCart = cartItems.find((cartItem) => cartItem.ID_Produk === item.ID_Produk && cartItem.size === size);
         return isItemInCart ? isItemInCart.Kuantitas : 0;
-    }
+    };
 
     useEffect(() => {
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }, [cartItems]);
 
     useEffect(() => {
+        localStorage.setItem("selectedDate", JSON.stringify(selectedDate));
+    }, [selectedDate]);
 
+    useEffect(() => {
+        const selectedDate = localStorage.getItem("selectedDate");
+        if (selectedDate) {
+            setSelectedDate(JSON.parse(selectedDate));
+        }
+    }, [initialDate.setDate(initialDate.getDate() + 2)])
+
+    useEffect(() => {
         const cartItems = localStorage.getItem("cartItems");
         if (cartItems) {
             setCartItems(JSON.parse(cartItems));
@@ -83,6 +102,7 @@ export const CartProvider = ({children}) => {
             value={{
                 cartItems,
                 poin,
+                selectedDate,
                 increasePoin,
                 decreasePoin,
                 addToCart,
@@ -90,7 +110,8 @@ export const CartProvider = ({children}) => {
                 clearCart,
                 getCartTotal,
                 getItemQty,
-                removeItem
+                removeItem,
+                setSelectedDate
             }}
         >
             {children}

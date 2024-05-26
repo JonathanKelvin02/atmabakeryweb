@@ -52,6 +52,7 @@ function TopNavbar({children}) {
                         <Nav className='me-auto my-2 my-lg-0' style={{ maxHeight: '100px' }} navbarScroll>
                             <Nav.Link href='/customer/Produk' >Produk</Nav.Link>
                             <Nav.Link >Hampers</Nav.Link>
+                            <Nav.Link href='/customer/Shopping'>Shop</Nav.Link>
                         </Nav>
                         
                         <Form className="d-flex">

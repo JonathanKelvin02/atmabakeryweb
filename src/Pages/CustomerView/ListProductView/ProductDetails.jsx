@@ -6,22 +6,16 @@ import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { AdvancedImage } from '@cloudinary/react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { CartContext } from "../../../context/ShoppingCartContext";
-import Cart from "../CartView/Cart";
 
 import './ShowAllProduct.css';
 
-import { getGambar } from '../../../api/indexApi';
 import { GetOneProduct } from "../../../api/apiProduk"; 
 
 const ProductDetails = () => {
     const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
     const location = useLocation();
     const product = location.state.product;
-    const navigate = useNavigate();
-    const quantity = 0;
-    const [produk, setProduk] = useState([]);
     const { addToCart, removeFromCart, getItemQty } = useContext(CartContext);
-    const [isLoading, setIsLoading] = useState(false);
     const [selectedSize, setSelectedSize] = useState("1");
     const [showModal, setShowModal] = useState(false);
 
@@ -35,23 +29,8 @@ const ProductDetails = () => {
     const styleLabelBorder = product.Stok > 0 ? "stock-in" : "stock-out";
     const styleLabelText = product.Stok > 0 ? "In Stock" : "Out of Stock";
 
-    const fetchProducts = (id) => {
-        setIsLoading(true);
-        GetOneProduct(id).then((response) => {
-            setProduk(response);
-            setIsLoading(false);
-        }).catch((err) => {
-            console.log(err);
-            setIsLoading(false);
-        })
-    }
-
     const handleSizeChange = (event) => {
         setSelectedSize(event.target.value);
-    }
-
-    const toggle = () => {
-        setShowModal(!showModal);
     }
 
     return (
@@ -96,20 +75,24 @@ const ProductDetails = () => {
                             </div>
                             <div className="d-flex flex-row justify-content-start align-items-center">
                                 <div className="label-stock p-2 m-0" style={{border: '1px solid #313131', color: '#313131'}}>
-                                    Rp{product.Harga}
+                                    {selectedSize === '1' ? (
+                                        <p className="m-0 p-0">Rp{product.Harga}</p>
+                                    ) : (
+                                        <p className="m-0 p-0">Rp{(product.Harga + 50000)/2}</p>
+                                    )}
                                 </div>
                                 
-                                {getItemQty(product) > 0 ?
+                                {getItemQty(product, selectedSize) > 0 ?
                                     <div className="qty-container">
-                                            <Button variant="light" className="qty-button" onClick={() => removeFromCart(product)}>-</Button>
+                                            <Button variant="light" className="qty-button" onClick={() => removeFromCart(product, selectedSize)}>-</Button>
                                             <div className="d-flex justify-content-center align-text-center">
-                                                {getItemQty(product)}
+                                                {getItemQty(product, selectedSize)}
                                             </div>
-                                            <Button variant="light" className="qty-button" onClick={() => {addToCart(product)}}>+</Button>
+                                            <Button variant="light" className="qty-button" onClick={() => {addToCart(product, selectedSize)}}>+</Button>
                                     </div>
                                     : <Button variant="dark" className="border-0 mx-3" style={{backgroundColor: "#C67C4E"}}
                                         onClick={() => {
-                                            addToCart(product)
+                                            addToCart(product, selectedSize)
                                         }}
                                     >
                                         Add to Cart
