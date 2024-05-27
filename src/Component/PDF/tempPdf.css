@@ -1,0 +1,141 @@
+
+.MainBackGroundFiller {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 100vh;
+    width: 100vw;
+    padding-left: 400px;
+    padding-right: 400px;
+
+    background-color: black;
+    font-family: 'Times New Roman';
+}
+
+.MainPdfPageArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+
+    background-color: white;
+}
+
+.MainPdfPageAreaMainBorder{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    height: 100%;
+    width: 100%;
+
+    border: 2px solid black;
+    /* background-color: blue; */
+}
+
+.MainPdfPageAreaMainBorderMainTitle{
+    width: 100% !important;
+
+    /* background-color: red; */
+
+}
+
+.MainPdfPageAreaMainBorderMainTitle b{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 20px;
+    width: 100% !important;
+    margin-top: 6px;
+
+    font-size: 22px;
+    font-weight: bolder !important;
+    font-family: 'Times New Roman', Times, serif;   
+
+    /* background-color: red; */
+}
+
+.MainPdfPageAreaMainBorderMainTitle a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 20px;
+    width: 100%;
+    margin-top: 6px;
+
+    font-size: 22px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.verticalLineToFull{
+    height: 100%;
+    width: 100%;
+
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+.horizontalLineToFull {
+    margin-top: 10px;
+    border-top: 1px solid black;
+    width: 100%;
+}
+
+.firstRowData{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+
+    height: fit-content;
+    width: 100%;
+    border-bottom: 1px solid black;
+
+    /* background-color: red; */
+}
+
+.firstRowDataPerSide{
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    width: 50%;
+    padding: 10px;
+
+    border-right: 1px solid black;
+    /* background-color: green; */
+}
+
+.firstRowDataPerSideRight{
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    width: 50%;
+    padding: 10px;
+
+    /* background-color: green; */
+
+}
+
+.firstRowDataPerSideMainTitle{
+    /* font-size: 22px; */
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif !important;
+}
+
+.firstRowDataPerSideMainContent{
+    font-size: 12px !important;
+    font-family: 'Times New Roman', Times, serif !important;
+}
