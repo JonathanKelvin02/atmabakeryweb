@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/ShoppingCartContext";
-import { Button, Row, Col, Alert, Spinner, Modal } from 'react-bootstrap';
+import { Button, Row, Col, Alert, Spinner, Modal, Form } from 'react-bootstrap';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
@@ -16,16 +16,32 @@ import { formatRupiah } from '../../../Component/Currency/FormatCurency';
 import "./Cart.css";
 import { useNavigate } from 'react-router-dom';
 
+import { GetProfile, GetAlamatUser } from '../../../api/apiCustomer';
+
 function Cart () {
     const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [isPending, setIsPending] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [discount, setDiscount] = useState(0);
+    const [addresses, setAddressess] = useState([]);
+    const [alamat, setAlamat] = useState(0);
+    const [jenis, setJenis] = useState(0);
     const {cartItems, poin, addToCart, removeFromCart, increasePoin, decreasePoin, getCartTotal, removeItem, selectedDate } = useContext(CartContext);
     console.log("Cart Items : ", cartItems);
     const countDiscount = () => {
         setDiscount(poin * 100);
+    }
+
+    const fetchAlamat = () => {
+        setIsLoading(true);
+        GetAlamatUser().then((res) => {
+            setAddressess(res);
+            setIsLoading(false);
+        }).catch((e) => {
+            setIsLoading(false);
+        })
     }
 
     //Cek StokReady cukup ndak
@@ -41,6 +57,15 @@ function Cart () {
             }
     }
 
+    const handleAlamatChange = (event) => {
+        setAlamat(event.target.value);
+    }
+
+    const handleJenisChange = (event) => {
+        setJenis(event.target.value);
+    }
+
+
     const submitData = (event) => {
         event.preventDefault();
         setIsPending(true);
@@ -48,9 +73,12 @@ function Cart () {
         const discountPoin = discount > 0 ? poin : 0;
         console.log("Discout : " , discountPoin);
         const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
-
+        console.log("Alamat", alamat);
+        console.log("Jenis", jenis);
         const requestData = {
             Poin: discountPoin,
+            ID_Alamat: alamat,
+            ID_JenisPengiriman: jenis,
             Tanggal_Ambil: formattedDate,
             Total_Transaksi: getCartTotal() - discount,
             products: cartItems.map(item => ({
@@ -88,6 +116,8 @@ function Cart () {
 
         const requestData = {
             Poin: discountPoin,
+            ID_Alamat: alamat,
+            ID_JenisPengiriman: jenis,
             Total_Transaksi: getCartTotal() - discount,
             products: cartItems.map(item => ({
                 ID_Produk: item.ID_Produk,
@@ -113,6 +143,12 @@ function Cart () {
                 toast.dark(JSON.stringify(e.message));
             })
     }
+
+    useEffect(() => {
+        fetchAlamat();
+    }, []);
+
+    console.log(addresses);
 
     return (
             <div className='cart-items'>
@@ -166,6 +202,61 @@ function Cart () {
                         ))}
                     </tbody>
                 </table>
+                        <Row className='p-4'>
+                            <Col>
+                                {isLoading ? (
+                                    <div className="text-center">
+                                        <Spinner
+                                            as="span"
+                                            animation="border"
+                                            variant="dark"
+                                            size="lg"
+                                            role="status"
+                                            aria-hidden="true"
+                                        />
+                                        <h6 className="mt-2 mb-0">Loading...</h6>
+                                    </div>
+                                ) : (
+                                    addresses?.length > 0 ? (
+                                        <Form.Group className="mb-3" controlId="kategori">
+                                            <Form.Label className="fw-bold text-dark">Choose Address</Form.Label>
+                                            <Form.Select
+                                                className="text-dark bg-transparent border-secondary" 
+                                                name="ID_Alamat" 
+                                                onChange={handleAlamatChange}
+                                                required
+                                            >
+                                                <option value="">Select Address</option>
+                                                {addresses?.map((alamat, index) => (
+                                                    <option key={index} value={alamat.ID_Alamat}>{alamat.Alamat}</option>
+                                                ))}
+                                            </Form.Select>
+                                        </Form.Group>
+                                    ) : (
+                                        <Alert variant="dark" className="mt-3 text-center">
+                                            No Address Yet
+                                        </Alert>
+                                    )
+                                )}
+                            </Col>
+
+                            <Col>
+                                <Form.Group className="mb-3" controlId="kategori">
+                                            <Form.Label className="fw-bold text-dark">Shipping Method</Form.Label>
+                                            <Form.Select
+                                                className="text-dark bg-transparent border-secondary" 
+                                                name="ID_JenisPengiriman" 
+                                                onChange={handleJenisChange}
+                                                required
+                                            >
+                                                <option value="">Select Method</option>
+                                                <option value="1">Pick Up</option>
+                                                <option value="2">Gosend</option>
+                                                <option value="3">Kurir Atma Kitchen</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                            </Col>
+                        </Row>
                         <Row className='bg-light w-100'>
                             <Col className='text-start'>
                                 <div className='m-5'>
