@@ -111,3 +111,59 @@ export const PutTransaksiSelesai = async (data) => {
         throw e.response.data;
     }
 }
+
+export const PutTransaksiSelesaiCustomer = async (data) => {
+    try {
+        const response = await useAxios.put("/customer/confirm-transaksi-selesai/"+data.ID_Transaksi, data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetTransaksiTelatBayar = async () => {
+    try {
+        const response = await useAxios.get("/transaksi-telat-bayar", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const PutTransaksiTelatBayar = async (data) => {
+    try {
+        const response = await useAxios.put("/transaksi-telat-bayar/"+data.ID_Transaksi, data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetDetailTransaksiBatal = async (id) => {
+    try {
+        const response = await useAxios.get("/detail-transaksi/"+id, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

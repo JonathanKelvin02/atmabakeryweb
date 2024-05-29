@@ -123,6 +123,7 @@ function TopNavbar() {
                                 <a href="#">Product</a>
                                 <a href="#">About</a>
                                 <a href="#">Shop</a>
+                                <a onClick={() => navigate(`/customer/History`)}>History</a>
                                 <a href="#">Contact</a>
                                 {isLogin ? (
                                     <>

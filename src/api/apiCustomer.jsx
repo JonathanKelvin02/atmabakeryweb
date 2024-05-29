@@ -168,7 +168,21 @@ export const SearchHistory = async (nama) => {
 export const GetTransaksiSelesai = async () => {
     try {
         const response = await useAxios.get("/customer/transaksi-selesai", {
-            header: {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetDetailTransaksiSelesai = async (id) => {
+    try {
+        const response = await useAxios.get("/customer/detail-transaksi/"+id, {
+            headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },

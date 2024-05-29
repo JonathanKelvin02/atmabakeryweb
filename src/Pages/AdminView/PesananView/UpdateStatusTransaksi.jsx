@@ -35,7 +35,7 @@ const UpdateStatusTransaksi = ({onSuccess, dataTransaksi}) => {
 
     return(
         <>
-            <Button variant='primary' onClick={handleShow}>Update Status</Button>
+            <Button variant='primary' size='sm' onClick={handleShow}>Update Status</Button>
             <Modal show={show} size='lg' onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Update Status Transaksi</Modal.Title>
