@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Form, Button, Modal, Spinner, Badge  } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-import { GetAllBahanBakuWithTransaksi, MOAccept } from '../../../api/apiBahanBaku';
+import { GetAllBahanBakuWithTransaksi, MOAccept, MOReject } from '../../../api/apiBahanBaku';
 
-const ListBahanBakuMOPesanan = ({ show, onClose, onRefresh, initialData }) => {
+const RejectTransaction = ({ show, onClose, onRefresh, initialData }) => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -29,18 +29,16 @@ const ListBahanBakuMOPesanan = ({ show, onClose, onRefresh, initialData }) => {
             });
     };
 
-    const MOGas = () => {
-
-        MOAccept(initialData.ID_Transaksi)  
-            .then(() => {
-                toast.success("Transaction has been accepted!");
-                onRefresh();
-                onClose();
-            })
-            .catch((err) => {
-                toast.error("Failed to accept transaction!");
-                console.error("Error accepting transaction:", err);
-            });
+    const MORejectTransaction = () => {
+        MOReject(initialData.ID_Transaksi).then(() => {
+            toast.success("Transaction has been rejected!");
+            onRefresh();
+            onClose();
+        })
+        .catch((err) => {
+            toast.error("Failed to reject transaction!");
+            console.error("Error rejecting transaction:", err);
+        });
     }
 
     const handleConfirmationChange = (event) => {
@@ -64,7 +62,7 @@ const ListBahanBakuMOPesanan = ({ show, onClose, onRefresh, initialData }) => {
                 >
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            Accept Transaction Data {initialData.ID_Transaksi}
+                           Reject Transaction Data {initialData.ID_Transaksi}
                         </Modal.Title>
                     </Modal.Header>
 
@@ -109,7 +107,7 @@ const ListBahanBakuMOPesanan = ({ show, onClose, onRefresh, initialData }) => {
                         <Form.Group className="mb-2">
                             <Form.Check 
                                 type="checkbox" 
-                                label="I want to accept this transaction" 
+                                label="I want to reject this transaction" 
                                 onChange={handleConfirmationChange}
                             />
                         </Form.Group>
@@ -117,7 +115,7 @@ const ListBahanBakuMOPesanan = ({ show, onClose, onRefresh, initialData }) => {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="outline-success" type="submit" disabled={!isConfirmed} onClick={MOGas}>Save</Button>
+                        <Button variant="outline-success" type="submit" disabled={!isConfirmed} onClick={MORejectTransaction}>Save</Button>
                         <Button variant="danger" onClick={onClose}>Cancel</Button>
                     </Modal.Footer>
 
@@ -127,4 +125,4 @@ const ListBahanBakuMOPesanan = ({ show, onClose, onRefresh, initialData }) => {
     );
 }
 
-export default ListBahanBakuMOPesanan;
+export default RejectTransaction;

@@ -103,8 +103,7 @@ export const GetAllBahanBakuWithTransaksi = async (id) => {
 
 export const MOAccept = async (id) => {
     try {
-        const response = await useAxios.put(
-            `/MOAcceptTransaction/${id}`,
+        const response = await useAxios.put(`/MOAcceptTransaction/${id}`,
             {},
             {
                 headers: {
@@ -119,3 +118,21 @@ export const MOAccept = async (id) => {
         throw e.response ? e.response.data : e;
     }
 };
+
+export const MOReject = async (id) => {
+    try {
+        const response = await useAxios.put(`/MORejectTransaction/${id}`,
+            {},
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error('Full error response:', e);
+        throw e.response ? e.response.data : e;
+    }
+}

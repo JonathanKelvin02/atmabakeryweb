@@ -6,6 +6,7 @@ import MyDocument from "../../../Component/PDF/ingredientsMOPDF";
 import { pdf } from '@react-pdf/renderer';
 
 import ListBahanBakuMOPesanan from "../../../Component/Modal/MOShowPesanan/ListBahanBaku";
+import ListToRejectMOPesanan from "../../../Component/Modal/MOShowPesanan/RejectTransaction";
 
 const KonfirmasiPesananView = () => {
     const [data, setData] = useState([]);
@@ -58,6 +59,7 @@ const KonfirmasiPesananView = () => {
     return (
         <>
             {showModalFirst && <ListBahanBakuMOPesanan show={showModalFirst} onClose={() => setShowModalFirst(false)} onRefresh={() => setRefresh(!refresh)} initialData={initialSendedData} />}
+            {showModalSecond && <ListToRejectMOPesanan show={showModalSecond} onClose={() => setShowModalSecond(false)} onRefresh={() => setRefresh(!refresh)} initialData={initialSendedData} />}
 
             <Container className="top-container">
                 <Row>
@@ -107,7 +109,10 @@ const KonfirmasiPesananView = () => {
                                                         setShowModalFirst(!showModalFirst);
                                                         setInitialSendedData(data);
                                                     }}>Accept</Button>
-                                                    <Button style={{ width: '68px' }} variant="danger">Reject</Button>
+                                                    <Button style={{ width: '68px' }} variant="danger" onClick={() => {
+                                                        setShowModalSecond(!showModalSecond);
+                                                        setInitialSendedData(data);
+                                                    }}>Reject</Button>
                                                 </Row>
                                             </td>
                                         </tr>
