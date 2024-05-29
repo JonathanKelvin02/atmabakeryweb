@@ -164,3 +164,17 @@ export const SearchHistory = async (nama) => {
         throw e.response.data;
     }
 }
+
+export const ReducePoin = async (values) => {
+    try {
+        const response = await useAxios.put(`/reduce-poin`, values, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};

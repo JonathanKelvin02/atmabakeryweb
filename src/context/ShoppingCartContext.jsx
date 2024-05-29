@@ -20,7 +20,7 @@ export const CartProvider = ({children}) => {
             setCartItems(
                 cartItems.map((cartItem) =>
                     cartItem.ID_Produk === item.ID_Produk && cartItem.size === size
-                    ? { ...cartItem, Kuantitas: Math.min(cartItem.Kuantitas + 1, item.Stok)}
+                    ? { ...cartItem, Kuantitas: Math.min(cartItem.Kuantitas + 1, item.ID_Kategori === 4 ? item.StokReady : item.Stok)}
                     : cartItem
                 )
             );
@@ -63,7 +63,7 @@ export const CartProvider = ({children}) => {
 
     const getCartTotal = () => {
         return cartItems.reduce((total, item) => {
-            const itemTotal = item.size === "1/2" 
+            const itemTotal = item.size === "0.5" 
                 ? (item.Harga + 50000) / 2 * item.Kuantitas 
                 : item.Harga * item.Kuantitas;
             return total + itemTotal;

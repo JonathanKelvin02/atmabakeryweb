@@ -7,6 +7,7 @@ import { AdvancedImage } from '@cloudinary/react';
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../../context/ShoppingCartContext";
 import InputForm from "../../../Component/InputComponent/InputForm";
+import { formatRupiah } from "../../../Component/Currency/FormatCurency";
 
 import { GetAllProducts, GetProductByDate, GetAllKategori } from "../../../api/apiProduk";
 
@@ -24,8 +25,10 @@ const ShoppingView = () => {
 
     const fetchProducts = (date) => {
         setIsLoading(true);
-        GetProductByDate(date).then((response) => {
+        const formattedDate = new Date(date).toISOString().split('T')[0];
+        GetProductByDate(formattedDate).then((response) => {
             setProducts(response);
+            console.log("Fetch for", formattedDate, "with ", response);
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -55,15 +58,17 @@ const ShoppingView = () => {
         }
     }
 
+    console.log(selectedDate);
+
     useEffect(() => {
-        fetchProducts(selectedDate);
+        if (!selectedDate) {
+            setSelectedDate(new Date());
+        } else {
+            fetchProducts(selectedDate);
+        }
     }, [selectedDate]);
 
-    useEffect(() => {
-        fetchProducts(selectedDate);
-    }, []);
-
-    console.log(products);
+    
 
     return (
         <div className="page-container">
@@ -93,12 +98,6 @@ const ShoppingView = () => {
                                         min={lusa}
                                     />
                                 </div>
-                                {/* <input
-                                    type="date"
-                                    value={new Date(selectedDate).toISOString().split('T')[0]}
-                                    onChange={handleChangeDate}
-                                    min={lusa}
-                                /> */}
                             </Row>
                             <Row className="m-3 product-row">
                                 {products.map((product, index) => {
@@ -130,7 +129,7 @@ const ShoppingView = () => {
                                                             )}
                                                         </p>
                                                     </div>
-                                                    <p className="product-price"><strong>Rp{product.Harga}</strong></p>
+                                                    <p className="product-price"><strong>{formatRupiah(product.Harga)}</strong></p>
                                                 </div>
                                             </div>
                                     </Col>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/ShoppingCartContext";
-import { Button, Row, Col, Alert, Spinner } from 'react-bootstrap';
+import { Button, Row, Col, Alert, Spinner, Modal } from 'react-bootstrap';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
@@ -10,8 +10,8 @@ import { FaTrash } from 'react-icons/fa';
 import { toast } from "react-toastify";
 
 import { getGambar } from '../../../api/indexApi';
-import { CreateTransCust } from '../../../api/apiTransCust';
-
+import { CreateTransCust, CreateReady } from '../../../api/apiTransCust';
+import { formatRupiah } from '../../../Component/Currency/FormatCurency';
 
 import "./Cart.css";
 import { useNavigate } from 'react-router-dom';
@@ -19,18 +19,8 @@ import { useNavigate } from 'react-router-dom';
 function Cart () {
     const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [isPending, setIsPending] = useState(false);
-    const [data, setData] = useState({
-        'Total_Transaksi': ""
-    });
-
-    const [products, setProducts] = useState([{
-        ID_Produk: "",
-        Kuantitas: "",
-        Sub_Total: ""
-    }]);
-
     const [discount, setDiscount] = useState(0);
     const {cartItems, poin, addToCart, removeFromCart, increasePoin, decreasePoin, getCartTotal, removeItem, selectedDate } = useContext(CartContext);
     console.log("Cart Items : ", cartItems);
@@ -38,22 +28,36 @@ function Cart () {
         setDiscount(poin * 100);
     }
 
-    console.log(selectedDate);
+    //Cek StokReady cukup ndak
+    const checkStockReady = () => {
+        return cartItems.every(item => item.Kuantitas <= item.StokReady);
+    };
+
+    const handleCheckout = (event) => {
+            if (checkStockReady()) {
+                setShowModal(true);
+            } else {
+                submitData(event);
+            }
+    }
 
     const submitData = (event) => {
         event.preventDefault();
         setIsPending(true);
-
+        
+        const discountPoin = discount > 0 ? poin : 0;
+        console.log("Discout : " , discountPoin);
         const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
 
         const requestData = {
+            Poin: discountPoin,
             Tanggal_Ambil: formattedDate,
             Total_Transaksi: getCartTotal() - discount,
             products: cartItems.map(item => ({
                 ID_Produk: item.ID_Produk,
-                Tipe: parseInt(item.size),
+                Tipe: parseFloat(item.size),
                 Kuantitas: parseInt(item.Kuantitas),
-                Sub_Total: item.size === "1/2" 
+                Sub_Total: item.size === "0.5" 
                     ? parseInt(((item.Harga + 50000) / 2) * item.Kuantitas) 
                     : parseInt(item.Kuantitas * item.Harga)
             }))
@@ -61,9 +65,46 @@ function Cart () {
 
         CreateTransCust(requestData)
             .then((response) => {
+                navigate('/customer/Produk');
+                toast.success(response.message);
+                console.log(response);
+                setIsPending(false);
+                setShowModal(false);
+                localStorage.removeItem('cartItems');
+                localStorage.removeItem('selectedDate');
+                localStorage.setItem('poin', response.poin);
+            }).catch((e) => {
+                console.log(e);
+                setIsPending(false);
+                toast.dark(JSON.stringify(e.message));
+            })
+    }
+    
+    const submitDataReady = (event) => {
+        event.preventDefault();
+        setIsPending(true);
+
+        const discountPoin = discount > 0 ? poin : 0;
+
+        const requestData = {
+            Poin: discountPoin,
+            Total_Transaksi: getCartTotal() - discount,
+            products: cartItems.map(item => ({
+                ID_Produk: item.ID_Produk,
+                Tipe: parseFloat(item.size),
+                Kuantitas: parseInt(item.Kuantitas),
+                Sub_Total: item.size === "0.5" 
+                    ? parseInt(((item.Harga + 50000) / 2) * item.Kuantitas) 
+                    : parseInt(item.Kuantitas * item.Harga)
+            }))
+        };
+
+        CreateReady(requestData)
+            .then((response) => {
                 setIsPending(false);
                 navigate('/customer/Produk');
                 toast.success(response.message);
+                setShowModal(false);
                 localStorage.removeItem('cartItems');
                 localStorage.removeItem('selectedDate');
             }).catch((e) => {
@@ -110,9 +151,9 @@ function Cart () {
                                 </td>
                                 <td>
                                     <b>
-                                        {item.size === "1/2"
-                                            ? `Rp${((item.Harga + 50000) / 2 * item.Kuantitas).toFixed(2)}`
-                                            : `Rp${(item.Harga * item.Kuantitas).toFixed(2)}`
+                                        {item.size === "0.5"
+                                            ? formatRupiah(((item.Harga + 50000) / 2 * item.Kuantitas))
+                                            : formatRupiah((item.Harga * item.Kuantitas))
                                         }
                                     </b>
                                 </td>
@@ -154,18 +195,18 @@ function Cart () {
                                             </div>
                                             <div className='d-flex justify-content-between w-100'>
                                                 <h6 className="text-lg font-bold">Sub Total:</h6>
-                                                <h6 className="text-lg font-bold">Rp{getCartTotal()}</h6>
+                                                <h6 className="text-lg font-bold">{formatRupiah(getCartTotal())}</h6>
                                             </div>
                                             <div className='d-flex justify-content-between w-100'>
                                                 <h6 className="text-lg font-bold">Discount:</h6>
-                                                <h6 className="text-lg font-bold">Rp{discount}</h6>
+                                                <h6 className="text-lg font-bold">{formatRupiah(discount)}</h6>
                                             </div>
                                             <div className='d-flex justify-content-between w-100'>
                                                 <h6><b>Total:</b></h6>
-                                                <h6><b>Rp{getCartTotal() - discount}</b></h6>
+                                                <h6><b>{formatRupiah(getCartTotal() - discount)}</b></h6>
                                             </div>
                                             <hr style={{width: '100%'}} />
-                                            <Button variant='light' className='mx-4' style={{backgroundColor: '#C67C4E', color: "white"}} onClick={submitData}>Proceed To Checkout</Button>
+                                            <Button variant='light' className='mx-4' style={{backgroundColor: '#C67C4E', color: "white"}} onClick={handleCheckout} disabled={isPending}>Proceed To Checkout</Button>
                                         </div>
                                         
                                     ) : (
@@ -174,10 +215,23 @@ function Cart () {
                                 }
                             </Col>
                         </Row>
-                
-                
+                        <Modal show={showModal} onHide={() => setShowModal(false)}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Stock Availability</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <p>There is enough stock available for a direct transaction. Would you like to proceed with a direct transaction or a pre-order?</p>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant='secondary' onClick={(event) => { submitData(event); }}>
+                                    Pre-Order
+                                </Button>
+                                <Button variant='primary' onClick={(event) => { submitDataReady(event); }}>
+                                    Direct Transaction
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>            
             </div>
-        
     )
 }
 

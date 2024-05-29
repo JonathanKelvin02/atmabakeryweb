@@ -146,8 +146,8 @@ const CreateTitipan = ( ) => {
                                                 required
                                             >
                                                 <option value="">Select Category</option>
-                                                <option value="1">Roti</option>
-                                                <option value="2">Cake</option>
+                                                <option value="1">Cake</option>
+                                                <option value="2">Roti</option>
                                                 <option value="3">Minuman</option>
                                                 <option value="4">Titipan</option>
                                                 <option value="5">Hampers</option>

@@ -1,5 +1,20 @@
 import useAxios from "./indexApi";
 
+export const GetProductToday = async () => {
+    try {
+        const response = await useAxios.get("/produk-today", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            }
+        });
+
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
 export const GetProductByDate = async (date) => {
     try {
         const response = await useAxios.get(`/produk/on-date/${date}`, {

@@ -21,6 +21,8 @@
     "antd": "^5.16.1",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "or": "^0.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",

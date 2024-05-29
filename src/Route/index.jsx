@@ -53,6 +53,7 @@ import ShowProductCust from "../Pages/CustomerView/ListProductView/ShowAllProduc
 import ProductDetails from "../Pages/CustomerView/ListProductView/ProductDetails";
 import Cart from "../Pages/CustomerView/CartView/Cart";
 import ShoppingView from "../Pages/CustomerView/ShopView/Shop";
+import YourOrderView from "../Pages/CustomerView/CompleteOrderView/YourOrder";
 
 import ProtectedRoutes from "./ProtectedRoutes";
 
@@ -238,6 +239,10 @@ const router = createBrowserRouter([
             {
                 path: "/customer/Shopping",
                 element: <ShoppingView />
+            },
+            {
+                path: "/customer/Nota",
+                element: <YourOrderView />
             }
         ]
     }

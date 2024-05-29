@@ -6,6 +6,7 @@ import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { AdvancedImage } from '@cloudinary/react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { CartContext } from "../../../context/ShoppingCartContext";
+import { formatRupiah } from "../../../Component/Currency/FormatCurency";
 
 import './ShowAllProduct.css';
 
@@ -23,7 +24,7 @@ const ProductDetails = () => {
     const img = cld.image(product.Gambar).format('auto').quality('auto').resize(auto().gravity(autoGravity()).width(500).height(500));
 
     //Size Disable
-    const isDisabled = product.kategori.Nama_Kategori === "Titipan"  ? true : product.kategori.Nama_Kategori === "Hampers" ? true : false;
+    const isDisabled = product.kategori.Nama_Kategori === "Cake"  ? false : true ;
 
     //Styling label
     const styleLabelBorder = product.Stok > 0 ? "stock-in" : "stock-out";
@@ -53,7 +54,7 @@ const ProductDetails = () => {
                                     type="radio" 
                                     name="radio" 
                                     id="opt1" 
-                                    value="1"
+                                    value= "1"
                                     checked={selectedSize === "1"}
                                     onChange={handleSizeChange} 
                                 />
@@ -64,8 +65,8 @@ const ProductDetails = () => {
                                     type="radio" 
                                     name="radio" 
                                     id="opt2"
-                                    value="1/2"
-                                    checked={selectedSize === "1/2"}
+                                    value= "0.5"
+                                    checked={selectedSize === "0.5"}
                                     onChange={handleSizeChange}
                                     disabled={isDisabled}
                                 />
@@ -75,10 +76,10 @@ const ProductDetails = () => {
                             </div>
                             <div className="d-flex flex-row justify-content-start align-items-center">
                                 <div className="label-stock p-2 m-0" style={{border: '1px solid #313131', color: '#313131'}}>
-                                    {selectedSize === '1' ? (
-                                        <p className="m-0 p-0">Rp{product.Harga}</p>
+                                    {selectedSize === "1" ? (
+                                        <p className="m-0 p-0">{formatRupiah(product.Harga)}</p>
                                     ) : (
-                                        <p className="m-0 p-0">Rp{(product.Harga + 50000)/2}</p>
+                                        <p className="m-0 p-0">{formatRupiah((product.Harga + 50000)/2)}</p>
                                     )}
                                 </div>
                                 

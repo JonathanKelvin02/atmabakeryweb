@@ -1,24 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Container, Table, Spinner, Button, Row, Col, InputGroup, Alert, Badge } from "react-bootstrap";
 import { Cloudinary } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 import { AdvancedImage } from '@cloudinary/react';
 import { useNavigate } from "react-router-dom";
+import { formatRupiah } from "../../../Component/Currency/FormatCurency";
+import { CartContext } from "../../../context/ShoppingCartContext";
 
 import './ShowAllProduct.css';
 
-import { GetAllProducts } from "../../../api/apiProduk";
+import { GetAllProducts, GetProductToday } from "../../../api/apiProduk";
 
 const ShowProductCust = () => {
     const cld = new Cloudinary({cloud: {cloudName: 'dui6wroks'}});
+    const { selectedDate, setSelectedDate } = useContext(CartContext);
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const fetchProducts = () => {
         setIsLoading(true);
-        GetAllProducts().then((response) => {
+        GetProductToday().then((response) => {
             setProducts(response);
             setIsLoading(false);
         }).catch((err) => {
@@ -26,6 +29,8 @@ const ShowProductCust = () => {
             setIsLoading(false);
         })
     }
+
+    console.log("select date di show product", selectedDate);
 
     useEffect(() => {
         fetchProducts();
@@ -79,7 +84,7 @@ const ShowProductCust = () => {
                                                             )}
                                                         </p>
                                                     </div>
-                                                    <p className="product-price"><strong>Rp{product.Harga}</strong></p>
+                                                    <p className="product-price"><strong>{formatRupiah(product.Harga)}</strong></p>
                                                 </div>
                                             </div>
                                     </Col>
