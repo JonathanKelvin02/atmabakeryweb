@@ -153,9 +153,9 @@ const ConfirmPesanan = () => {
                                             <td>{data?.Status}</td>
                                             <td>{data?.tbljenispengiriman.Nama_Pengiriman}</td>
                                             <td>{data?.Tanggal_Ambil}</td>
-                                            <td>{data?.Total_Transaksi}</td>
+                                            <td>{data?.Total_Bayar}</td>
                                             <td>{data?.Total_pembayaran}</td>
-                                            <td>{data?.Total_pembayaran - data?.Total_Transaksi}</td>
+                                            <td>{data?.Total_pembayaran - data?.Total_Bayar}</td>
                                             <td>
                                                 <ShowBuktiPembayaran dataTransaksi={data} />
                                             </td>
