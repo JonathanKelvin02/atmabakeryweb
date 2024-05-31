@@ -167,3 +167,17 @@ export const GetDetailTransaksiBatal = async (id) => {
         throw e.response.data;
     }
 }
+
+export const LaporanPenjualanTahunan = async (tahun) => {
+    try {
+        const response = await useAxios.get("/laporan-penjualan-tahunan/"+tahun, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

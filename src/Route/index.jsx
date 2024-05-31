@@ -47,6 +47,8 @@ import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
 import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 
 import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
+import LaporanPBBView from "../Pages/MOView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBView";
+import LaporanPKView from "../Pages/MOView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKView";
 
 // Owner Access View
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
@@ -210,6 +212,14 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Penitip",
                 element: <PenitipView />
+            },
+            {
+                path : "/MO/Penjualan Keseluruhan",
+                element: <LaporanPKView />
+            },
+            {
+                path :"/MO/Penggunaan Bahan Baku",
+                element: <LaporanPBBView />
             },
         ]
     },
