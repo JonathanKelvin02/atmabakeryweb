@@ -3,12 +3,12 @@ import {Button, Form, InputGroup, Spinner} from 'react-bootstrap';
 import {toast} from 'react-toastify';
 
 //Import API
-import { LaporanPenggunaanBahanBaku } from '../../../../api/apiBahanBaku';
+import { LaporanPenggunaanBahanBakuOwner } from '../../../../api/apiBahanBaku';
 
 //Import Component
-import LaporanPBBPDF from './LaporanPBBPDF';
+import LaporanPBBPDF from '../../../MOView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBPDF';
 
-const LaporanPBBView = () => {
+const LaporanPBBOwnerView = () => {
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [data, setData] = useState([]);
@@ -36,7 +36,7 @@ const LaporanPBBView = () => {
             toast.error('Tanggal awal tidak boleh lebih besar dari tanggal akhir!');
         } else {
             setLoading(true);
-            LaporanPenggunaanBahanBaku(tanggal).then((response) => {
+            LaporanPenggunaanBahanBakuOwner(tanggal).then((response) => {
                 setLoading(false);
                 setData(response);
                 setDisabled(false);
@@ -67,4 +67,4 @@ const LaporanPBBView = () => {
     )
 }
 
-export default LaporanPBBView;
+export default LaporanPBBOwnerView;

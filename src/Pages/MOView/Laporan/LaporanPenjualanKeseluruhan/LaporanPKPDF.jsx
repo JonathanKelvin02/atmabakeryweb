@@ -1,77 +1,7 @@
-// import jsPDF from 'jspdf';
-// import 'jspdf-autotable';
-
-// const LaporanPKPDF = ({laporan}) => {
-//     const pdf = new jsPDF();
-
-//     const shopData = {
-//         shopName: "Atma Kitchen",
-//         shopAddress: "Jl. CentralPark No.10 Yogyakarta"
-//     };
-
-//     const tableColumn = [
-//         { title: "Bulan", dataKey: "Bulan" },
-//         { title: "Total Penjualan", dataKey: "Total Penjualan" },
-//         { title: "Total Pendapatan", dataKey: "Total Pendapatan"},
-//     ];
-
-//     const tableRows = laporan.data.map((item) => ({
-//         "Bulan": item.bulan == 1 ? "Januari" : item.bulan == 2 ? "Februari" : item.bulan == 3 ? "Maret" : item.bulan == 4 ? "April" : item.bulan == 5 ? "Mei" : item.bulan == 6 ? "Juni" : item.bulan == 7 ? "Juli" : item.bulan == 8 ? "Agustus" : item.bulan == 9 ? "September" : item.bulan == 10 ? "Oktober" : item.bulan == 11 ? "November" : "Desember",
-//         "Total Penjualan": item.total_penjualan || "0",
-//         "Total Pendapatan": item.total_pendapatan || "0",
-//     }));
-
-//     pdf.setProperties({
-//         title: "Laporan Penjualan Keseluruhan",
-//     });
-
-//     // HEADER
-//     pdf.setFontSize(20);
-//     pdf.setFont('helvetica', 'bold');
-//     pdf.text(shopData.shopName, 14, 20);
-//     pdf.setFontSize(12);
-//     pdf.setFont('helvetica', 'normal');
-//     pdf.text(shopData.shopAddress, 14, 28);
-
-//     // TITLE
-//     pdf.setFontSize(20);
-//     pdf.setFont('helvetica', 'bold');
-//     pdf.text("Laporan Penjualan Keseluruhan", 14, 40);
-//     pdf.setFontSize(12);
-//     pdf.setFont('helvetica', 'normal');
-//     pdf.text(`Periode: ${laporan.Tahun}`, 14, 50);
-//     pdf.text(`Tanggal Cetak: ${laporan.Tanggal_Cetak}`, 14, 58);
-
-//     // TABLE
-//     pdf.autoTable({
-//         columns: tableColumn,
-//         body: [...tableRows, { "Bulan": "Total", "Total Penjualan": {content: laporan.Total_Penjualan || "0", colSpan: 2}, "Total Pendapatan": "" }],
-//         startY: 65,
-//         theme: 'grid',
-//         styles: {
-//             cellPadding: 2,
-//             fontSize: 10,
-//         },
-//         headStyles: {
-//             fillColor: [22, 160, 133],
-//         },
-//     });
-
-//     // CHART
-//     // pdf.addImage(chart, 'PNG', 14, 65, 180, 100);
-
-//     //SAVE PDF
-//     const pdfDataUri = pdf.output('datauristring');
-//     const newTab = window.open();
-//     newTab.document.write(`<iframe width='100%' height='100%' src='${pdfDataUri}'></iframe>`);
-// }
-
-// export default LaporanPKPDF;
-
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-const LaporanPKPDF = ({ laporan }) => {
+const LaporanPKPDF = ({ laporan, chartImage }) => {
     const pdf = new jsPDF();
 
     const shopData = {
@@ -123,10 +53,11 @@ const LaporanPKPDF = ({ laporan }) => {
     pdf.text(`Tanggal Cetak: ${laporan.Tanggal_Cetak}`, 14, 58);
 
     // TABLE
+    const tableY = 65;
     pdf.autoTable({
         columns: tableColumn,
         body: tableRows,
-        startY: 65,
+        startY: tableY,
         theme: 'grid',
         styles: {
             cellPadding: 2,
@@ -150,6 +81,11 @@ const LaporanPKPDF = ({ laporan }) => {
             }
         }
     });
+
+    const finalY = pdf.autoTable.previous.finalY + 10; // Add 10 units of space after the table
+
+    // CHART
+    pdf.addImage(chartImage, 'PNG', 14, finalY, 180, 100);
 
     // SAVE PDF
     const pdfDataUri = pdf.output('datauristring');

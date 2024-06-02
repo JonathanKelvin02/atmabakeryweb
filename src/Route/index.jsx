@@ -53,6 +53,8 @@ import LaporanPKView from "../Pages/MOView/Laporan/LaporanPenjualanKeseluruhan/L
 // Owner Access View
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
+import LaporanPBBOwnerView from "../Pages/OwnerView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBOwnerView";
+import LaporanPKOwnerView from "../Pages/OwnerView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKOwnerView";
 
 //Customer View
 import CustomerView from "../Pages/CustomerView/CustomerView";
@@ -235,6 +237,14 @@ const router = createBrowserRouter([
                 path: "/owner/Gaji & Bonus",
                 element: <ViewGajiBonus />,
                 // element: <Dashboard Owner />
+            },
+            {
+                path: "/owner/Penjualan Keseluruhan",
+                element: <LaporanPKOwnerView/>
+            },
+            {
+                path: "/owner/Penggunaan Bahan Baku",
+                element: <LaporanPBBOwnerView/>
             }
         ]
     },

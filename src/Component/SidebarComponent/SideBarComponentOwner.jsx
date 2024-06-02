@@ -30,7 +30,8 @@ const menu = [
     },
     {
         nama:'Laporan',
-        pil1: null,
+        pil1: 'Penjualan Keseluruhan',
+        pil2: 'Penggunaan Bahan Baku',
         icon: faFile,
         path: '/owner'
     }

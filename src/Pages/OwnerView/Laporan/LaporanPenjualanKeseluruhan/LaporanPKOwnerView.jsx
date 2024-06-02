@@ -4,13 +4,13 @@ import { toast } from 'react-toastify';
 import html2canvas from 'html2canvas';
 
 // Import API
-import { LaporanPenjualanTahunan } from '../../../../api/apiTransaksi';
+import { LaporanPenjualanTahunanOwner } from '../../../../api/apiTransaksi';
 
 // Import Component
-import BarChart from './BarChart';
-import LaporanPKPDF from './LaporanPKPDF';
+import BarChart from '../../../MOView/Laporan/LaporanPenjualanKeseluruhan/BarChart';
+import LaporanPKPDF from '../../../MOView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKPDF';
 
-const LaporanPKView = () => {
+const LaporanPKOwnerView = () => {
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(true);
     const [tahun, setTahun] = useState(0);
@@ -45,7 +45,7 @@ const LaporanPKView = () => {
         } else {
             setLoading(true);
             try {
-                const response = await LaporanPenjualanTahunan(tahun);
+                const response = await LaporanPenjualanTahunanOwner(tahun);
                 setLoading(false);
                 setHeader(response);
                 const temp = response.data;
@@ -124,4 +124,4 @@ const LaporanPKView = () => {
     );
 };
 
-export default LaporanPKView;
+export default LaporanPKOwnerView;
