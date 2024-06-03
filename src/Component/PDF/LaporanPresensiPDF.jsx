@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const LaporanPresensi = ({ bulan, tahun, tanggalCetak, data }) => {
+const LaporanPresensi = ({ bulan, tahun, tanggalCetak, data, total }) => {
     
     return (
         <Document>
@@ -123,7 +123,7 @@ const LaporanPresensi = ({ bulan, tahun, tanggalCetak, data }) => {
 
                     <View style={styles.tableRow}>
                         <View style={styles.tableCol}>
-                            <Text style={styles.tableCell}>Nama</Text>
+                            <Text style={styles.tableCell}>Total : {total}</Text>
                         </View>
                     </View>
                 </View>

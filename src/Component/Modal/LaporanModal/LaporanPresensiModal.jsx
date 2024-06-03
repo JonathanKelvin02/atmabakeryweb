@@ -15,6 +15,7 @@ const LaporanPresensiModal = ({ show, onClose }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [showPDF, setShowPDF] = useState(false);
     const [data, setData] = useState({});
+    const [totalGajiPegawai, setTotalGajiPegawai] = useState(0);
 
     const months = [
         { name: 'January', value: '1' },
@@ -47,6 +48,12 @@ const LaporanPresensiModal = ({ show, onClose }) => {
                 setData(res);
                 setIsLoading(false);
                 setShowPDF(true);
+                
+                const totalGaji = res.data.reduce((total, pegawai) => {
+                    return total + parseInt(pegawai.total);
+                }, 0);
+                
+                setTotalGajiPegawai(totalGaji);
             })
             .catch((error) => {
                 console.log(error);
@@ -117,7 +124,8 @@ const LaporanPresensiModal = ({ show, onClose }) => {
                                     bulan={data.bulan} 
                                     tahun={data.tahun} 
                                     tanggalCetak={data.tgl_cetak} 
-                                    data={data.data} 
+                                    data={data.data}
+                                    total={totalGajiPegawai}
                                 />
                             </PDFViewer>
                         )}
