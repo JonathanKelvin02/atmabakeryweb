@@ -7,6 +7,7 @@ import { pdf } from '@react-pdf/renderer';
 
 import ListBahanBakuMOPesanan from "../../../Component/Modal/MOShowPesanan/ListBahanBaku";
 import ListToRejectMOPesanan from "../../../Component/Modal/MOShowPesanan/RejectTransaction";
+import ListDiprosesMOPesanan from "../../../Component/Modal/MOShowPesanan/DiprosesPesananModal";
 
 const KonfirmasiPesananView = () => {
     const [data, setData] = useState([]);
@@ -22,6 +23,7 @@ const KonfirmasiPesananView = () => {
     const [initialSendedData, setInitialSendedData] = useState();
     const [showModalFirst, setShowModalFirst] = useState(false);
     const [showModalSecond, setShowModalSecond] = useState(false);
+    const [showModalThird, setShowModalThird] = useState(false);
 
     const fetchData = () => {
         setIsLoading(true);
@@ -60,6 +62,7 @@ const KonfirmasiPesananView = () => {
         <>
             {showModalFirst && <ListBahanBakuMOPesanan show={showModalFirst} onClose={() => setShowModalFirst(false)} onRefresh={() => setRefresh(!refresh)} initialData={initialSendedData} />}
             {showModalSecond && <ListToRejectMOPesanan show={showModalSecond} onClose={() => setShowModalSecond(false)} onRefresh={() => setRefresh(!refresh)} initialData={initialSendedData} />}
+            {showModalThird && <ListDiprosesMOPesanan show={showModalThird} onClose={() => setShowModalThird(false)} onRefresh={() => setRefresh(!refresh)} initialData={initialSendedData} />}
 
             <Container className="top-container">
                 <Row>
@@ -88,7 +91,6 @@ const KonfirmasiPesananView = () => {
                                         <th>Transaction ID</th>
                                         <th>Transaction Date</th>
                                         <th>Customer Name</th>
-                                        <th>Total Transaction</th>
                                         <th>Ingredients Receipt</th>
                                         <th>Action</th>
                                     </tr>
@@ -99,22 +101,35 @@ const KonfirmasiPesananView = () => {
                                             <td>{data.ID_Transaksi}</td>
                                             <td>{data.Total_Transaksi}</td>
                                             <td>{data.tblcustomer.Nama_Customer}</td>
-                                            <td>dsadad</td>
                                             <td>
                                                 <Button style={{ width: '68px', marginRight: '10px' }} variant="outline-success" onClick={handlePrint}>Print</Button>
                                             </td>
                                             <td style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                <Row>
-                                                    <Button style={{ width: '68px', marginRight: '10px' }} variant="outline-success" onClick={() => {
-                                                        setShowModalFirst(!showModalFirst);
+                                            <Row>
+                                                {data.Status === 'diterima' ? (
+                                                    <Button style={{ width: '68px' }} variant="outline-success" onClick={() => {
+                                                        setShowModalThird(!showModalThird);
                                                         setInitialSendedData(data);
-                                                    }}>Accept</Button>
-                                                    <Button style={{ width: '68px' }} variant="danger" onClick={() => {
-                                                        setShowModalSecond(!showModalSecond);
-                                                        setInitialSendedData(data);
-                                                    }}>Reject</Button>
-                                                </Row>
-                                            </td>
+                                                    }}>Diproses Button</Button>
+                                                    // <div>sss</div>
+                                                ) : (
+                                                    <>
+                                                        <Button style={{ width: '68px', marginRight: '10px' }} variant="outline-success" onClick={() => {
+                                                            setShowModalFirst(!showModalFirst);
+                                                            setInitialSendedData(data);
+                                                        }}>Accept</Button>
+                                                        <Button style={{ width: '68px' }} variant="danger" onClick={() => {
+                                                            setShowModalSecond(!showModalSecond);
+                                                            setInitialSendedData(data);
+                                                        }}>Reject</Button>
+                                                        {/* <Button style={{ width: '68px' }} variant="outline-success" onClick={() => {
+                                                            setShowModalThird(!showModalThird);
+                                                            setInitialSendedData(data);   
+                                                        }}>Diproses Button</Button> */}
+                                                    </>
+                                                )}
+                                            </Row>
+                                        </td>
                                         </tr>
                                     ))}
                                 </tbody>

@@ -41,6 +41,16 @@ const ShowPesananModal = ({ show, onClose, onRefresh, initialData }) => {
             return;
         }
 
+        if(initialData.Total_Bayar === null || initialData.Total_Bayar === 0){
+            toast.error("Please wait for the admin!");
+            return;
+        }
+
+        if(totalPayment < initialData.Total_Bayar) {
+            toast.error("Your total payment must be equal or more than the total payment from admin");
+            return;
+        }
+
         const formData = new FormData();
         formData.append('ID_Transaksi', initialData.ID_Transaksi);
         formData.append('ID_Customer', initialData.ID_Customer);
@@ -57,6 +67,7 @@ const ShowPesananModal = ({ show, onClose, onRefresh, initialData }) => {
                 toast.error("Proof of Payment Failed!");
             });
 
+        onRefresh();
         onClose();
     }
 
@@ -111,6 +122,18 @@ const ShowPesananModal = ({ show, onClose, onRefresh, initialData }) => {
                                 <a>DELETE PICTURE</a>
                             </div>
                         </div>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3 mt-3" controlId="formBasicRekening">
+                        <Form.Label>Dari Admin</Form.Label>
+                        <Form.Control 
+                            type="text" 
+                            placeholder="You must pay this amout" 
+                            name="Dari Admin" 
+                            value={initialData.Total_Bayar}
+                            disabled={true}
+                        />
+                        <Form.Control.Feedback type="invalid">Please Input Your Total Payment</Form.Control.Feedback>
                     </Form.Group>
 
                     <Form.Group className="mb-3 mt-3" controlId="formBasicRekening">

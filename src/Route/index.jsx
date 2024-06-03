@@ -44,6 +44,7 @@ import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 
 import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
 import KonfirmasiPesananView from "../Pages/MOView/KonfirmasiPesananPage/KonfirmasiPesanan";
+import ListLaporanView from "../Pages/MOView/LaporanPage/Laporan";
 
 // Owner Access View
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
@@ -200,6 +201,10 @@ const router = createBrowserRouter([
                 path: "/MO/Pesanan",
                 element: <KonfirmasiPesananView />
             },
+            {
+                path: "/MO/Laporan",
+                element: <ListLaporanView />
+            }
         ]
     },
     {
