@@ -14,3 +14,18 @@ export const GetLaporanPresensi = async (data) => {
         throw error.response.data;
     }
 }
+
+export const GetLaporanPemasukanPengeluaran = async (data) => {
+    try {
+        const response = await useAxios.post("/laporanPemasukanPengeluaran", data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        console.log(e);
+        throw error.response.data;
+    }
+}
