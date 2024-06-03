@@ -64,7 +64,7 @@
 }
 
 .NavMenu ul{
-    padding: 0 12%;
+    /* padding: 0 12%; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -198,4 +198,80 @@
     .dropdownButton {
         display: block;
     }
+}
+
+.sidebarMenu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    padding: 0;
+    background-color: #313131;
+    border-radius: 22px !important;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-color: white !important;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: width 0.5s ease, padding 0.5s ease;
+}
+
+.SideBarMenuContent {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.SideBarMenuContentTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.SideBarMenuContentLine {
+    width: 100% !important;
+    height: 1px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+.sidebarMenu.open {
+    width: 200px;
+    padding: 5px;
+}
+
+.SideBarMenuContentList {
+    width: 100%;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+.SideBarMenuContentList a {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 10px;
+    color: rgba(255, 255, 255, 0.5) !important;
+    padding: 10px;
+    transition: color 0.5s ease, background-color 0.5s ease;
+    border-radius: 10px;
+}
+
+.SideBarMenuContentList a:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.5);
 }

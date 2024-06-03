@@ -86,3 +86,31 @@ export const SearchBahanBaku = async (data) => {
         throw e.response.data;
     }
 }
+
+export const LaporanPenggunaanBahanBaku = async (data) => {
+    try {
+        const response = await useAxios.get('/laporan-penggunaan-bahan-baku/'+data.tglAwal+'/'+data.tglAkhir, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const LaporanPenggunaanBahanBakuOwner = async (data) => {
+    try {
+        const response = await useAxios.get('/owner/laporan-penggunaan-bahan-baku/'+data.tglAwal+'/'+data.tglAkhir, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

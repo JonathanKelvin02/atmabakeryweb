@@ -13,7 +13,10 @@ import {
     faUsers, 
     faFile,
     faListUl,
-    faReceipt
+    faReceipt,
+    faMapLocation,
+    faCartShopping,
+    faBookOpen,
 } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
@@ -30,11 +33,19 @@ const menu = [
         path : '/admin'
     },
     {
+        nama : 'Alamat',
+        pil1 : 'Tampil Alamat',
+        pil2 : 'Jarak dan Biaya',
+        pil3 : 'Konfirmasi Pesanan',
+        icon : faMapLocation,
+        path : '/admin',
+    },
+    {
         nama : 'Resep',
         pil1 : null,
         pil2 : null,
         pil3 : null,
-        icon : faListUl,
+        icon : faBookOpen,
         path : '/admin'
     }, 
     {
@@ -52,7 +63,15 @@ const menu = [
         pil3 : null,
         icon : faUsers,
         path : '/admin'
-    },  
+    }, 
+    {
+        nama : 'Pesanan',
+        pil1 : 'Ubah Status',
+        pil2 : 'Tampil Pesanan',
+        pil3 : null,
+        icon : faCartShopping,
+        path : '/admin'
+    }, 
     {
         nama : 'Karyawan',
         pil1 : null,

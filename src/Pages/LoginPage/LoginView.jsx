@@ -22,7 +22,7 @@ function LoginView({ children }) {
         <Col className='d-none d-md-block'>
           <PicCarousel Images={images} />
         </Col>
-        <Col>
+        <Col >
           {/* <FormLogin /> */}
           {children ? children : <Outlet />}
         </Col>
