@@ -29,3 +29,18 @@ export const GetLaporanPemasukanPengeluaran = async (data) => {
         throw error.response.data;
     }
 }
+
+export const GetLaporanTransaksiPenitip = async (data) => {
+    try {
+        const response = await useAxios.post("/laporanPenitipan", data, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        console.log(e);
+        throw error.response.data;
+    }
+}

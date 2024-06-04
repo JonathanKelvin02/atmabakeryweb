@@ -10,6 +10,7 @@ import DeleteModal from "../../../Component/Modal/DeleteConfirmationModal";
 
 import LaporanPresensiModal from "../../../Component/Modal/LaporanModal/LaporanPresensiModal";
 import LaporanPemasukanPengeluaranModal from "../../../Component/Modal/LaporanModal/LaporanPemasukanPengeluaranModal";
+import LaporanRekapTransaksiPenitipModal from "../../../Component/Modal/LaporanModal/LaporanRekapPenitipModal";
 
 // Import Css
 import '../../AdminView/ProductView/Product.css';
@@ -52,6 +53,7 @@ const LaporanViewMO = () => {
         <>
             {showValueModal1 && <LaporanPresensiModal show={showValueModal1} onClose={() => setShowValueModal1(false)} />}
             {showValueModal2 && <LaporanPemasukanPengeluaranModal show={showValueModal2} onClose={() => setShowValueModal2(false)} />}
+            {showValueModal3 && <LaporanRekapTransaksiPenitipModal show={showValueModal3} onClose={() => setShowValueModal3(false)} />}
 
             <Container className="top-container">
                 <Row>
