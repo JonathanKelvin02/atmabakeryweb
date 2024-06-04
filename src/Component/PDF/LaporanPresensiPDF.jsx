@@ -54,7 +54,19 @@ const styles = StyleSheet.create({
 });
 
 const LaporanPresensi = ({ bulan, tahun, tanggalCetak, data, total }) => {
-    
+
+    if (!data || data.length === 0) {
+        return (
+            <Document>
+                <Page size="A4" style={styles.page}>
+                    <View style={styles.mainAtmaText}>
+                        <Text>Error: Data not available</Text>
+                    </View>
+                </Page>
+            </Document>
+        );
+    }
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>

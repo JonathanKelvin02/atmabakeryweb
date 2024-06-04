@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     tableCol: {
-        width: "25%",
+        width: "33%",
         borderStyle: "solid",
         borderWidth: 1,
         borderColor: "#000000",
@@ -54,8 +54,21 @@ const styles = StyleSheet.create({
 });
 
 const LaporanPemasukanPengeluaran = ({ bulan, tahun, tanggalCetak, data, total }) => {
-    console.log(data);
-    
+    console.log(data[0]);
+    const firstArray = data[0];
+
+    if (!data) {
+        return (
+            <Document>
+                <Page size="A4" style={styles.page}>
+                    <View style={styles.mainAtmaText}>
+                        <Text>Error: Data not available</Text>
+                    </View>
+                </Page>
+            </Document>
+        );
+    }
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -67,7 +80,7 @@ const LaporanPemasukanPengeluaran = ({ bulan, tahun, tanggalCetak, data, total }
                 </View>
 
                 <View style={{ ...styles.mainAtmaText, marginTop: "20px" }}>
-                    <Text>LAPORAN Presensi Karyawan</Text>
+                    <Text>LAPORAN PEMASUKAN DAN PENGELUARAN</Text>
                 </View>
                 <View style={styles.subAtmaText}>
                     <Text>Bulan : {bulan}</Text>
@@ -79,7 +92,7 @@ const LaporanPemasukanPengeluaran = ({ bulan, tahun, tanggalCetak, data, total }
                     {/* Table Header */}
                     <View style={styles.tableRow}>
                         <View style={styles.tableCol}>
-                            <Text style={styles.tableCell}></Text>
+                            <Text style={styles.tableCell}>Kategori</Text>
                         </View>
                         <View style={styles.tableCol}>
                             <Text style={styles.tableCell}>Pemasukan</Text>
@@ -87,40 +100,22 @@ const LaporanPemasukanPengeluaran = ({ bulan, tahun, tanggalCetak, data, total }
                         <View style={styles.tableCol}>
                             <Text style={styles.tableCell}>Pengeluaran</Text>
                         </View>
-                        <View style={styles.tableCol}>
-                            <Text style={styles.tableCell}></Text>
-                        </View>
                     </View>
 
                     {/* Table Rows */}
-                    {/* {data.map((row, index) => (
-                        <View style={styles.tableRow} key={index}>
+                    {Object.entries(firstArray).map(([category, details]) => (
+                        <View key={category} style={styles.tableRow}>
                             <View style={styles.tableCol}>
-                                <Text style={styles.tableCell}>{row.Nama_Pegawai}</Text>
+                                <Text style={styles.tableCell}>{category}</Text>
                             </View>
                             <View style={styles.tableCol}>
-                                <Text style={styles.tableCell}>{row.jumlahHadir}</Text>
+                                <Text style={styles.tableCell}>{details.Pemasukan}</Text>
                             </View>
                             <View style={styles.tableCol}>
-                                <Text style={styles.tableCell}>{row.jumlahBolos}</Text>
-                            </View>
-                            <View style={styles.tableCol}>
-                                <Text style={styles.tableCell}>{row.honorHarian}</Text>
-                            </View>
-                            <View style={styles.tableCol}>
-                                <Text style={styles.tableCell}>{row.bonusRajin}</Text>
-                            </View>
-                            <View style={styles.tableCol}>
-                                <Text style={styles.tableCell}>{row.total}</Text>
+                                <Text style={styles.tableCell}>{details.Pengeluaran}</Text>
                             </View>
                         </View>
-                    ))} */}
-
-                    {/* <View style={styles.tableRow}>
-                        <View style={styles.tableCol}>
-                            <Text style={styles.tableCell}>Total : {total}</Text>
-                        </View>
-                    </View> */}
+                    ))}
                 </View>
             </Page>
         </Document>
