@@ -28,6 +28,7 @@ const ShoppingView = () => {
         const formattedDate = new Date(date).toISOString().split('T')[0];
         GetProductByDate(formattedDate).then((response) => {
             setProducts(response);
+            console.log(response);
             console.log("Fetch for", formattedDate, "with ", response);
             setIsLoading(false);
         }).catch((err) => {

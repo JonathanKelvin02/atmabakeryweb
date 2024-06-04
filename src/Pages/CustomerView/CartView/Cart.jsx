@@ -45,8 +45,21 @@ function Cart () {
     }
 
     //Cek StokReady cukup ndak
+    // const checkStockReady = () => {
+    //     return cartItems.every(item => {
+    //         const kuantitas = item.size === 0.5 ? item.Kuantitas * 0.5 : item.Kuantitas;
+    //         console.log("Item size", item.size);
+    //         return kuantitas <= item.StokReady;
+    //     });
+    // };
+
     const checkStockReady = () => {
-        return cartItems.every(item => item.Kuantitas <= item.StokReady);
+        //const epsilon = 0.00001;     
+        return cartItems.every(item => {
+            const kuantitas = item.size === 0.5 ? item.Kuantitas * 0.5 : item.Kuantitas;
+            return kuantitas <= item.StokReady;
+            //|| Math.abs(kuantitas - item.StokReady) < epsilon
+        });
     };
 
     const handleCheckout = (event) => {
@@ -134,6 +147,7 @@ function Cart () {
                 setIsPending(false);
                 navigate('/customer/Produk');
                 toast.success(response.message);
+                console.log(response);
                 setShowModal(false);
                 localStorage.removeItem('cartItems');
                 localStorage.removeItem('selectedDate');
@@ -148,7 +162,9 @@ function Cart () {
         fetchAlamat();
     }, []);
 
-    console.log(addresses);
+    cartItems.forEach(item => {
+        console.log(item.StokReady);
+    });
 
     return (
             <div className='cart-items'>

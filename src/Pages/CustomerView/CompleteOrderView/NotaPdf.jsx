@@ -45,6 +45,11 @@ const PdfGenerator = (trans) => {
         shopAddress: "Jl. CentralPark No.10 Yogyakarta"
     }
 
+    // const calculateDaysBetween = (date1, date2) => {
+    //     const oneDay = 23 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    //     return Math.round(Math.abs((date1 - date2) / oneDay));
+    // };
+
     pdf.setProperties({
         title: "Nota",
     })
@@ -140,6 +145,21 @@ const PdfGenerator = (trans) => {
     pdf.text(`Total                                                                                             ${trans.Total_Bayar}`, 13, pdf.previousAutoTable.finalY + 39);
     
     const points = calculatePoints(trans.Total_Transaksi);
+
+    // if (trans.tblcustomer.Tanggal_Lahir) {
+    //     const currentDate = new Date(trans.Tanggal_Transaksi);
+    //     const birthDate = new Date(trans.tblcustomer.Tanggal_Lahir);
+
+    //     // Set the birth date year to the current year for comparison
+    //     birthDate.setFullYear(currentDate.getFullYear());
+
+    //     const daysDiff = calculateDaysBetween(currentDate, birthDate);
+
+    //     if (daysDiff <= 3 && daysDiff >= -3) {
+    //         points *= 2; // Double the points if within the birthday range
+    //     }
+    // }
+
     pdf.text(`Poin dari pesanan ini: ${points}`, 13, pdf.previousAutoTable.finalY + 50);
     pdf.text(`Total poin customer : ${trans.tblcustomer.Poin + points}`, 13, pdf.previousAutoTable.finalY + 57);
 
