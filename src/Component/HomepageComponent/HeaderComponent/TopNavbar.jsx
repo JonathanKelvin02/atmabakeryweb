@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCartShopping } from 'react-icons/fa6';
+import { CartContext } from '../../../context/ShoppingCartContext';
 import { Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -10,6 +12,7 @@ import './TopNavbar.css';
 
 function TopNavbar() {
     const navigate = useNavigate();
+    const {cartItems} = useContext(CartContext);
     const [isLogin, setIsLogin] = useState(false);
     const [dataLogin, setDataLogin] = useState({
         token: "",
@@ -120,9 +123,9 @@ function TopNavbar() {
                             <div className='SideBarMenuContentLine' />
                             <div className='SideBarMenuContentList'>
                                 <a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)}>Home</a>
-                                <a href="#">Product</a>
+                                <a href="/customer/Produk">Product</a>
                                 <a href="#">About</a>
-                                <a href="#">Shop</a>
+                                <a href="/customer/Shopping">Shop</a>
                                 <a onClick={() => navigate(`/customer/History`)}>History</a>
                                 <a href="#">Contact</a>
                                 {isLogin ? (
@@ -144,14 +147,17 @@ function TopNavbar() {
                     <div className='NavMenu'>
                         <ul>
                             <li><a onClick={() => navigate(isLogin ? `/customer` : `/AtmaBakery`)} className='link active'>Home</a></li>
-                            <li><a href='#' className='link'>Product</a></li>
+                            <li><a href='/customer/Produk' className='link'>Product</a></li>
                             <li><a href='#' className='link'>About</a></li>
-                            <li><a href='#' className='link'>Shop</a></li>
+                            <li><a href='/customer/Shopping' className='link'>Shop</a></li>
                             <li><a href='#' className='link'>Contact</a></li>
                         </ul>
                     </div>
                     {isLogin ? (
                         <div className='NavButton NavButtonContainer'>
+                            <div className='PerButton'>
+                                <a onClick={() => navigate(`/customer/Cart`)}><FaCartShopping /> {cartItems.length}</a>
+                            </div>
                             <div className='PerButton'>
                                 <a onClick={() => navigate(`/customer/Profile`)}>Profile</a>
                             </div>

@@ -41,6 +41,7 @@ const ShowProfileCustomer = () => {
     GetProfile()
       .then((response) => {
         setData(response);
+        console.log(response);
         setLoading(false);
       })
       .catch((err) => {

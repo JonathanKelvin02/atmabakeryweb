@@ -38,7 +38,7 @@ const ShowProductCust = () => {
 
     return (
         <div className="page-container">
-            <Container>
+            <Container className="">
                 {isLoading ? (
                     <div className="text-center">
                         <Spinner
