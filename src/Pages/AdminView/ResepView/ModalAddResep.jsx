@@ -12,6 +12,7 @@ const ModalAddResep = ({onSuccess}) => {
     const[isLoading, setIsLoading] = useState(false);
     const[show, setShow] = useState(false);
     const[validated, setValidated] = useState(false);
+    const [valid, setValid] = useState(true);
 
     const[produk, setProduk] = useState([]);
     const[bahanBaku, setBahanBaku] = useState([]);
@@ -34,6 +35,10 @@ const ModalAddResep = ({onSuccess}) => {
     };
 
     const handleShow = () => setShow(true);
+
+    const handleChangeValid = () => {
+        setValid(!valid);
+    }
 
     const handleChange = (e, index) => {
         e.preventDefault();
@@ -204,6 +209,14 @@ const ModalAddResep = ({onSuccess}) => {
                                 </>
                             )
                         })}
+
+                        <Form.Group className="ms-4">
+                            <Form.Check 
+                                    type="checkbox" 
+                                    label="I confirm the data is correct" 
+                                    onChange={handleChangeValid}
+                                />
+                        </Form.Group>
                     </Modal.Body>
                     
                     <Modal.Footer>
@@ -211,7 +224,7 @@ const ModalAddResep = ({onSuccess}) => {
                             Close
                         </Button>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" disabled={valid}>
                             {isLoading ? (
                                 <Spinner animation="border" variant="light" size="sm" role="status" aria-hidden="true" />
                             ) : (

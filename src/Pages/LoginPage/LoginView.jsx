@@ -14,7 +14,6 @@ import img7 from '../../assets/ImgCarousel/ImgCarousel(7).jpg'
 
 const images = [img1, img2, img3, img4, img5, img6, img7];
 
-
 function LoginView({ children }) {
 
   return (
@@ -23,7 +22,7 @@ function LoginView({ children }) {
         <Col className='d-none d-md-block'>
           <PicCarousel Images={images} />
         </Col>
-        <Col>
+        <Col >
           {/* <FormLogin /> */}
           {children ? children : <Outlet />}
         </Col>

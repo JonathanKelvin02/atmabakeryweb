@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import {Button, Container, Form, Nav, Navbar, Spinner} from 'react-bootstrap';
-import { FaCircleUser ,FaCartShopping, FaReceipt, FaPrint } from 'react-icons/fa6';
+import { FaCircleUser ,FaCartShopping, FaReceipt, FaHouseChimney, FaPrint } from 'react-icons/fa6';
 import { CartContext } from '../../context/ShoppingCartContext';
 import { LogoutCustomer } from '../../api/apiAuth';
 import { toast } from 'react-toastify';
@@ -66,6 +66,7 @@ function TopNavbar({children}) {
                         </Form>
                         
                         <Nav className='d-flex align-items-center'>
+                            <Nav.Link href='/customer/alamat' className='mx-2'><FaHouseChimney/></Nav.Link>
                             <Nav.Link href='/customer/History' className="mx-2"><FaReceipt/></Nav.Link>
                             <Nav.Link href='/customer/Cart' className="mx-2">
                                 <FaCartShopping /> {cartItems.length}

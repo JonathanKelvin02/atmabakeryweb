@@ -1,0 +1,8 @@
+.blackBox {
+    background-color: blueviolet;
+    color: #fff;
+    padding: 20px;
+    margin: 20px;
+    min-height: calc(200vh - 60px - 80px);
+    box-sizing: border-box;
+}

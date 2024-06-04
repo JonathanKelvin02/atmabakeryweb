@@ -137,9 +137,9 @@ export const UpdateProfileImage = async (data) => {
     }
 }
 
-export const UpdateProfile = async (data, id) => {
+export const UpdateProfile = async (data) => {
     try {
-        const response = await useAxios.put("/customer/"+id, data, {
+        const response = await useAxios.put("/update-customer", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -174,6 +174,80 @@ export const SearchHistory = async (nama) => {
             },
         });
         return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetTransaksiSelesai = async () => {
+    try {
+        const response = await useAxios.get("/customer/transaksi-selesai", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetDetailTransaksiSelesai = async (id) => {
+    try {
+        const response = await useAxios.get("/customer/detail-transaksi/"+id, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetTransaksiByIdCustomer = async (id) => {
+    try {
+        const response = await useAxios.get("/getTransaksiByIdCustomer/"+id, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+// export const SendProofPayment = async (data) => {
+//     // for (let entry of data.entries()) {
+//     //     console.log(entry[0], entry[1]);
+//     // }
+
+//     try {
+//         const response = await useAxios.post("/sendProofPayment", data, {
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+//             },
+//         });
+//         return response.data;
+//     } catch (e) {
+//         throw e.response.data;
+//     }
+// }
+
+export const SendProofPayment = async (data) => {
+    try {
+        const response = await useAxios.post("/sendProofPayment", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
     } catch (e) {
         throw e.response.data;
     }
