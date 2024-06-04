@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Layout, Button, theme } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { GiConfirmed } from "react-icons/gi";
 import { Outlet, useNavigate } from 'react-router-dom';
 import { MdLogout } from "react-icons/md";
 import { toast } from 'react-toastify';
@@ -14,7 +15,8 @@ import {
     faUsers, 
     faFile,
     faBagShopping,
-    faTruck 
+    faTruck,
+    faClipboardCheck
 } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
@@ -37,11 +39,11 @@ const menu = [
         path : '/MO'
     },
     {
-        nama : 'Pemesanan',
+        nama : 'Processing',
         pil1 : null,
         pil2 : null,
         pil3 : null,
-        icon : faBagShopping,
+        icon : faClipboardCheck,
         path : '/MO'
     },
     {
