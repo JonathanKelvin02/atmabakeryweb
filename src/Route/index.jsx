@@ -46,6 +46,8 @@ import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
 import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 
+import ProcessingPesananView from "../Pages/MOView/ProcessingPage/ProcessingView";
+
 import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
 import LaporanPBBView from "../Pages/MOView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBView";
 import LaporanPKView from "../Pages/MOView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKView";
@@ -64,7 +66,6 @@ import ShowAlamat from "../Pages/CustomerView/AlamatView/ShowAlamat";
 
 import TransaksiBahan from "../Pages/MOView/ShopBahanView/ListTransaksiBK";
 
-//Cusutomer View
 import ShowProductCust from "../Pages/CustomerView/ListProductView/ShowAllProduct";
 import ProductDetails from "../Pages/CustomerView/ListProductView/ProductDetails";
 import Cart from "../Pages/CustomerView/CartView/Cart";
@@ -230,6 +231,10 @@ const router = createBrowserRouter([
             {
                 path :"/MO/Penggunaan Bahan Baku",
                 element: <LaporanPBBView />
+            },
+            {
+                path :"/MO/Processing",
+                element: <ProcessingPesananView />
             },
         ]
     },
