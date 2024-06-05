@@ -41,3 +41,31 @@ export const ShowCompleteOrder = async () => {
         throw e.response.data;
     }
 };
+
+export const ShowAcceptedOrder = async () => {
+    try {
+        const response = await useAxios.get("/getTransactionAccepted", {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+};
+
+export const UpdateTransToProceed = async (values) => {
+    try {
+        const response = await useAxios.put(`/processing-product/${values.ID_Transaksi}`, values, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
