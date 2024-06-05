@@ -36,6 +36,7 @@ import ResepView from "../Pages/AdminView/ResepView/ResepView";
 
 import CustomerAdminView from "../Pages/AdminView/CustomerView/Customer";
 import OrderHistoryView from "../Pages/AdminView/CustomerView/OrderHistory";
+import SaldoView from "../Pages/AdminView/SaldoView/SaldoView";
 
 // MO Access View
 import MOMainView from "../Pages/MOView/MOMainView";
@@ -162,6 +163,10 @@ const router = createBrowserRouter([
             {
                 path: "/admin/Customer/OrderHistory",
                 element: <OrderHistoryView />
+            },
+            {
+                path: "/admin/Saldo",
+                element: <SaldoView />
             }
         ]
     },
