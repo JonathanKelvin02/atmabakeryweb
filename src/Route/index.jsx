@@ -60,6 +60,7 @@ import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 import LaporanPBBOwnerView from "../Pages/OwnerView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBOwnerView";
 import LaporanPKOwnerView from "../Pages/OwnerView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKOwnerView";
+import ListLaporanOwnerView from "../Pages/OwnerView/LaporanLPage/Laporan";
 
 //Customer View
 import CustomerView from "../Pages/CustomerView/CustomerView";
@@ -268,7 +269,11 @@ const router = createBrowserRouter([
             {
                 path: "/owner/Penggunaan Bahan Baku",
                 element: <LaporanPBBOwnerView/>
-            }
+            },
+            {
+                path: "/owner/LaporanL",
+                element: <ListLaporanOwnerView />
+            },
         ]
     },
     {

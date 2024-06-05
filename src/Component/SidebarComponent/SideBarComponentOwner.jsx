@@ -34,6 +34,13 @@ const menu = [
         pil2: 'Penggunaan Bahan Baku',
         icon: faFile,
         path: '/owner'
+    },
+    {
+        nama:'LaporanL',
+        pil1: null,
+        pil2: null,
+        icon: faFile,
+        path: '/owner'
     }
 ]
 
