@@ -14,6 +14,8 @@ import CustomerHomeView from "../Pages/CustomerView/HomepageView/Homepage";
 import MainHomepageContent from "../Pages/CustomerView/HomepageView/ContentHomepageView";
 import ShowPesananViewCustomer from "../Pages/CustomerView/PesananView/ShowPesananView";
 
+import TempPDF from "../Component/PDF/tempPdf";
+
 // Admin Access View
 import HomecookView from "../Pages/AdminView/ProductView/HomecookView";
 import SideBarAdmin from "../Component/SidebarComponent/SideBarComponentAdmin";
@@ -34,6 +36,7 @@ import ResepView from "../Pages/AdminView/ResepView/ResepView";
 
 import CustomerAdminView from "../Pages/AdminView/CustomerView/Customer";
 import OrderHistoryView from "../Pages/AdminView/CustomerView/OrderHistory";
+import SaldoView from "../Pages/AdminView/SaldoView/SaldoView";
 
 import ShowAlamatCustomer from "../Pages/AdminView/AlamatView/ShowAllAlamatCustomer";
 import ShowAllAlamatNoJarak from "../Pages/AdminView/AlamatView/ShowAllAlamatNoJarak";
@@ -49,6 +52,8 @@ import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 import ProcessingPesananView from "../Pages/MOView/ProcessingPage/ProcessingView";
 
 import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
+import KonfirmasiPesananView from "../Pages/MOView/KonfirmasiPesananPage/KonfirmasiPesanan";
+import ListLaporanView from "../Pages/MOView/LaporanPage/Laporan";
 import LaporanPBBView from "../Pages/MOView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBView";
 import LaporanPKView from "../Pages/MOView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKView";
 
@@ -79,6 +84,12 @@ const router = createBrowserRouter([
     {
         path: "*",
         element: <div>Routes Not Found!</div>
+    },
+    {
+        path: "/tempPdf",
+        element: (
+            <TempPDF />
+        )
     },
     {
         path: "/",
@@ -175,6 +186,10 @@ const router = createBrowserRouter([
                 element: <OrderHistoryView />
             },
             {
+                path: "/admin/Saldo",
+                element: <SaldoView />
+            },
+            {
                 path:"/admin/Tampil Alamat",
                 element: <ShowAlamatCustomer />
             },
@@ -223,6 +238,14 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Penitip",
                 element: <PenitipView />
+            },
+            {
+                path: "/MO/Pesanan",
+                element: <KonfirmasiPesananView />
+            },
+            {
+                path: "/MO/Laporan",
+                element: <ListLaporanView />
             },
             {
                 path : "/MO/Penjualan Keseluruhan",

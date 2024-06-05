@@ -87,6 +87,56 @@ export const SearchBahanBaku = async (data) => {
     }
 }
 
+export const GetAllBahanBakuWithTransaksi = async (id) => {
+    try {
+        const response = await useAxios.get("/getAllIngredientsAndProduct/" + id, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const MOAccept = async (id) => {
+    try {
+        const response = await useAxios.put(`/MOAcceptTransaction/${id}`,
+            {},
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error('Full error response:', e);
+        throw e.response ? e.response.data : e;
+    }
+};
+
+export const MOReject = async (id) => {
+    try {
+        const response = await useAxios.put(`/MORejectTransaction/${id}`,
+            {},
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                },
+            }
+        );
+        return response.data;
+    } catch (e) {
+        console.error('Full error response:', e);
+        throw e.response ? e.response.data : e;
+    }
+}
+
 export const LaporanPenggunaanBahanBaku = async (data) => {
     try {
         const response = await useAxios.get('/laporan-penggunaan-bahan-baku/'+data.tglAwal+'/'+data.tglAkhir, {

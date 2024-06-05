@@ -17,6 +17,7 @@ import {
     faMapLocation,
     faCartShopping,
     faBookOpen,
+    faMoneyBill
 } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
@@ -72,6 +73,14 @@ const menu = [
         icon : faCartShopping,
         path : '/admin'
     }, 
+    {
+        nama : 'Saldo',
+        pil1 : null,
+        pil2 : null,
+        pil3 : null,
+        icon : faMoneyBill,
+        path : '/admin'
+    },
     {
         nama : 'Karyawan',
         pil1 : null,
