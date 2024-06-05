@@ -102,27 +102,23 @@ const ShowProfileCustomer = () => {
     return (
         <Container>
             {loading || data.length == 0 ? (
-                <Col>
-                    <Row>
-                    <div className='d-flex justify-content-center align-item-center mt-5'>
-                        <Spinner animation="border" role="status" style={{width:'10rem', height:'10rem'}}/>
-                    </div>
-                    </Row>
-                    <Row>
-                        <p className='d-flex justify-content-center align-item-center mt-3'><b>Loading...</b></p>
-                    </Row>
-                </Col>
+                
+                    <Col className='d-flex justify-content-center align-item-center'>
+                        <Row>
+                        <div className='mt-5'>
+                            <Spinner animation="border" role="status" style={{width:'10rem', height:'10rem'}}/>
+                            <p className='my-3 text-center'><b>Loading...</b></p>
+                        </div>
+                        </Row>
+                    </Col>
+                
+                
             ) : (
-                <Row>
-                    <Col md={6}>
+                <Row className='my-3'>
+                    <Col>
                         <div className="img-preview text-center position-relative mb-3 me-3" style={{ aspectRatio: '1/1' }}>
                             <Form onSubmit={updateImageProfile}>
                             {data?.Profile !== null ? (
-                                // <img
-                                //     src={Profile === null ? getProfile(data?.Profile) : URL.createObjectURL(Profile)}
-                                //     alt={data?.Profile}
-                                //     className='img-fluid img-thumbnail'
-                                // />
                                 <AdvancedImage cldImg={img} className='img-fluid img-thumbnail'/>
                             ) : (
                                 <img
@@ -171,7 +167,7 @@ const ShowProfileCustomer = () => {
                         </div>
                     </Col>
 
-                    <Col md={6}>
+                    <Col>
                         <Form onSubmit={updateProfileUser}>
                             <Form.Group className='mb-3'>
                                 <Form.Label>Nama Pengguna</Form.Label>

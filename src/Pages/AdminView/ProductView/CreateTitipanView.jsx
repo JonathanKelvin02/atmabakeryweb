@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Col, Form, Row, Button, Spinner, Alert } from 'react-bootstrap';
+import { Container, Col, Form, Row, Button, Spinner, Alert, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import InputForm from '../../../Component/InputComponent/InputForm';
 import { FaUpload } from "react-icons/fa6";
@@ -17,6 +17,8 @@ const CreateTitipan = ( ) => {
     const [isLoading, setIsLoading] = useState(false);
     const [penitip, setPenitip] = useState([]);
     const [image, setImage] = useState(null);
+    const [isConfirmed, setIsConfirmed] = useState(false);
+
     const [data, setData] = useState({
         Nama_Produk: "",
         ID_Kategori: "",
@@ -54,6 +56,12 @@ const CreateTitipan = ( ) => {
         event.preventDefault();
         setIsPending(true);
 
+        if(data.StokReady == 0) {
+            toast.dark("Stok Ready must not be 0");
+            setIsPending(false); 
+            return; 
+        }
+
         if (!image) { 
             toast.dark("Image is required");
             setIsPending(false); 
@@ -86,6 +94,10 @@ const CreateTitipan = ( ) => {
                 setIsPending(false);
                 toast.dark(JSON.stringify(err.message));
             })
+    }
+
+    const handleConfirmationChange = (event) => {
+        setIsConfirmed(event.target.checked);
     }
 
     useEffect(() => {
@@ -223,8 +235,15 @@ const CreateTitipan = ( ) => {
                                             accept='image/'
                                         />
                                     </div>
+                                    <Form.Group className='mb-2'>
+                                            <Form.Check 
+                                                type='checkbox'
+                                                label="I confirm the data is correct"
+                                                onChange={handleConfirmationChange}
+                                            />
+                                        </Form.Group>
                                     <Row className="" style={{marginTop: '20px', marginRight: '8px'}}>
-                                        <Button type='submit' disabled={isPending} variant='light' style={{width: '100px', marginRight: '10px', border: '2px solid #8E6F60', color: '#8E6F60', fontWeight: 'bold'}}>
+                                        <Button type='submit' disabled={isPending || !isConfirmed} variant='light' style={{width: '100px', marginRight: '10px', border: '2px solid #8E6F60', color: '#8E6F60', fontWeight: 'bold'}}>
                                             {isPending ? (
                                                 <>
                                                     <Spinner 

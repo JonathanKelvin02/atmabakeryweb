@@ -123,9 +123,9 @@ export const UpdateProfileImage = async (data) => {
     }
 }
 
-export const UpdateProfile = async (data, id) => {
+export const UpdateProfile = async (data) => {
     try {
-        const response = await useAxios.put("/customer/"+id, data, {
+        const response = await useAxios.put("/update-customer", data, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -154,6 +154,34 @@ export const GetHistory = async () => {
 export const SearchHistory = async (nama) => {
     try {
         const response = await useAxios.get("/customer/history/"+nama, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetTransaksiSelesai = async () => {
+    try {
+        const response = await useAxios.get("/customer/transaksi-selesai", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}
+
+export const GetDetailTransaksiSelesai = async (id) => {
+    try {
+        const response = await useAxios.get("/customer/detail-transaksi/"+id, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${sessionStorage.getItem("token")}`,

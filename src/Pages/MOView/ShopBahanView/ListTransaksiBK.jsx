@@ -49,7 +49,7 @@ const TransaksiBahan = () => {
     const sumSubTotal = (trans) => {
         let total = 0;
         trans.bahanbaku.forEach((mytrans) => {
-            total += mytrans.pivot.Sub_Total;
+            total += (mytrans.pivot.Sub_Total * mytrans.pivot.Kuantitas);
         });
         return total;
     }

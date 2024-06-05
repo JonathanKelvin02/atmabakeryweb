@@ -21,6 +21,7 @@ function FormRegister() {
         email: "",
         Password: "",
         Nomor_telepon: "",
+        Tanggal_Lahir: "",
     })
 
     const handleChange = (event) => {
@@ -103,6 +104,11 @@ function FormRegister() {
                             <Form.Group className="form-group-password">
                                 <div className='form-label-password'>Validasi Password</div>
                                 <Form.Control className="form-control-password" type="password" name='valPassword' placeholder="Password" onChange={handleChangePassword}/>
+                            </Form.Group>
+
+                            <Form.Group className='form-group-Tanggal_Lahir'>
+                                <div className='form-label-Tanggal_Lahir'>Tanggal Lahir</div>
+                                <Form.Control className='form-control-Tanggal_Lahir' type='date' name='Tanggal_Lahir' placeholder='Tanggal Lahir' onChange={handleChange} required/>
                             </Form.Group>
 
                             <Form.Group className='form-group-Nomor_Telepon'>

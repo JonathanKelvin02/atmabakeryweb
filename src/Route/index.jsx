@@ -38,6 +38,12 @@ import CustomerAdminView from "../Pages/AdminView/CustomerView/Customer";
 import OrderHistoryView from "../Pages/AdminView/CustomerView/OrderHistory";
 import SaldoView from "../Pages/AdminView/SaldoView/SaldoView";
 
+import ShowAlamatCustomer from "../Pages/AdminView/AlamatView/ShowAllAlamatCustomer";
+import ShowAllAlamatNoJarak from "../Pages/AdminView/AlamatView/ShowAllAlamatNoJarak";
+
+import ConfirmPesanan from "../Pages/AdminView/PesananView/ConfirmPesanan";
+import ShowProcessPesanan from "../Pages/AdminView/PesananView/ShowProcessPesanan";
+
 // MO Access View
 import MOMainView from "../Pages/MOView/MOMainView";
 import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
@@ -46,14 +52,20 @@ import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
 import KonfirmasiPesananView from "../Pages/MOView/KonfirmasiPesananPage/KonfirmasiPesanan";
 import ListLaporanView from "../Pages/MOView/LaporanPage/Laporan";
+import LaporanPBBView from "../Pages/MOView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBView";
+import LaporanPKView from "../Pages/MOView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKView";
 
 // Owner Access View
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
+import LaporanPBBOwnerView from "../Pages/OwnerView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBOwnerView";
+import LaporanPKOwnerView from "../Pages/OwnerView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKOwnerView";
 
+//Customer View
 import CustomerView from "../Pages/CustomerView/CustomerView";
 import ShowProfileCustomer from "../Pages/CustomerView/ProfileView/ShowProfileCustomer";
 import ShowHistoryCustomer from "../Pages/CustomerView/HistoryView/ShowHistoryCustomer";
+import ShowAlamat from "../Pages/CustomerView/AlamatView/ShowAlamat";
 
 import TransaksiBahan from "../Pages/MOView/ShopBahanView/ListTransaksiBK";
 
@@ -167,6 +179,22 @@ const router = createBrowserRouter([
             {
                 path: "/admin/Saldo",
                 element: <SaldoView />
+            },
+            {
+                path:"/admin/Tampil Alamat",
+                element: <ShowAlamatCustomer />
+            },
+            {
+                path: "/admin/Jarak dan Biaya",
+                element: <ShowAllAlamatNoJarak />
+            },
+            {
+                path: "/admin/Ubah Status",
+                element: <ConfirmPesanan />
+            },
+            {
+                path: "/admin/Tampil Pesanan",
+                element: <ShowProcessPesanan />
             }
         ]
     },
@@ -209,7 +237,15 @@ const router = createBrowserRouter([
             {
                 path: "/MO/Laporan",
                 element: <ListLaporanView />
-            }
+            },
+            {
+                path: "/MO/Penjualan Keseluruhan",
+                element: <LaporanPKView />
+            },
+            {
+                path :"/MO/Penggunaan Bahan Baku",
+                element: <LaporanPBBView />
+            },
         ]
     },
     {
@@ -224,6 +260,14 @@ const router = createBrowserRouter([
                 path: "/owner/Gaji & Bonus",
                 element: <ViewGajiBonus />,
                 // element: <Dashboard Owner />
+            },
+            {
+                path: "/owner/Penjualan Keseluruhan",
+                element: <LaporanPKOwnerView/>
+            },
+            {
+                path: "/owner/Penggunaan Bahan Baku",
+                element: <LaporanPBBOwnerView/>
             }
         ]
     },
@@ -246,6 +290,10 @@ const router = createBrowserRouter([
             {
                 path: "/customer/History",
                 element: <ShowHistoryCustomer/>
+            },
+            {
+                path: "/customer/Alamat",
+                element: <ShowAlamat/>
             },
             {
                 path: "/customer/Pesanan",

@@ -71,8 +71,8 @@ const menu = [
     },
     {
         nama : 'Laporan',
-        pil1 : null,
-        pil2 : null,
+        pil1 : 'Penjualan Keseluruhan',
+        pil2 : 'Penggunaan Bahan Baku',
         pil3 : null,
         icon : faFile,
         path : '/MO'
