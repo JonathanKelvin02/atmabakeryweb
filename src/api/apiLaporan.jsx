@@ -2,6 +2,8 @@ import useAxios from "./indexApi";
 
 export const GetLaporanPresensi = async (data) => {
     try {
+        console.log(data);
+
         const response = await useAxios.post("/laporanPresensiKaryawanByBulanTahun", data, {
             headers: {
                 "Content-Type": "application/json",

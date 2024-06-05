@@ -155,8 +155,8 @@ const PenitipView = () => {
                                             <td>{data.Harga}</td>
                                             <td>{data.Tanggal}</td>
                                             <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                                <Button style={{width:'68px', marginRight: '10px'}} variant="outline-success" onClick={() => { setShowModal(true); setIsUpdate(true); setEditData(data) }}>Edit</Button>
-                                                <Button style={{width:'68px'}} variant="danger" onClick={() => { setShowDeleteModal(true); setEditData(data); setDeletedData(data); }}>Delete</Button>
+                                                <Button style={{marginRight: '10px'}} variant="outline-success" onClick={() => { setShowModal(true); setIsUpdate(true); setEditData(data) }}>Edit</Button>
+                                                <Button variant="danger" onClick={() => { setShowDeleteModal(true); setEditData(data); setDeletedData(data); }}>Delete</Button>
                                             </td>
                                         </tr> 
                                     ))}
