@@ -12,7 +12,7 @@ export const GetAllTransaction = async () => {
     } catch (e) {
         throw e.response.data;
     }
-};import useAxios from "./indexApi";
+};
 
 export const GetTransaksiCustomer = async () => {
     try {

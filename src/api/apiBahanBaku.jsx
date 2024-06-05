@@ -164,3 +164,17 @@ export const LaporanPenggunaanBahanBakuOwner = async (data) => {
         throw e.response.data;
     }
 }
+
+export const GetAllMaterialUse = async () => {
+    try {
+        const response = await useAxios.get("/penggunaan-bahanbaku", {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }    
+}

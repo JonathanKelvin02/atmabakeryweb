@@ -3,7 +3,6 @@ import { Container, Row, Col, InputGroup, Modal, Alert, Button, Spinner, Badge }
 import { FaShopify, FaCookie } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { BahanContext } from "../../../context/StokBahanBakuContext";
 
 import { ShowAcceptedOrder } from "../../../api/apiTransCust";
 import { UpdateTransToProceed } from "../../../api/apiTransCust";
@@ -14,9 +13,7 @@ const ProcessingPesananView = () => {
     const [isPending, setIsPending] = useState(true);
     const [selectedOrders, setSelectedOrders] = useState([]);
     const [transaksi, setTransaksi] = useState([]);
-    const [order, setOrder] = useState([]);
-
-    const { stokBahan, addCheck, removeCheck } = useContext(BahanContext);
+    const [showModal, setShowModal] = useState(false); 
 
     const fetchTransaksi = () => {
         setIsLoading(true);
@@ -56,40 +53,31 @@ const ProcessingPesananView = () => {
     const handleCheckboxChange = (trans) => {
         if (selectedOrders.includes(trans)) {
             setSelectedOrders(selectedOrders.filter(order => order !== trans));
-            removeCheck(trans);
+            
         } else {
             setSelectedOrders([...selectedOrders, trans]);
-            addCheck(trans);
+            
         }
         setIsPending(false);
     };
 
-    const getIngredientsFromTransaction = (transaksi) => {
-        let ingredients = [];
-    
-            transaksi.products.forEach(product => {
-                product.tblresep.tbldetailresep.forEach(detail => {
-                    const existingIngredient = ingredients.find(ingredient => ingredient.Nama_Bahan === detail.Nama_Bahan);
-                    if (existingIngredient) {
-                        existingIngredient.quantity += detail.Quantity;
-                    } else {
-                        ingredients.push({ Nama_Bahan: detail.Nama_Bahan, quantity: detail.Quantity });
-                    }
-                });
-            });
-    
-        setOrder(ingredients);
-    };
+    const handleShowModal = (productId) => {
+        //setProductIdToDelete(productId);
+        setShowModal(true);
+    }
+
+    const handleCloseModal = () => {
+        //setProductIdToDelete(null);
+        setShowModal(false);
+    }
 
     useEffect(() => {
         fetchTransaksi();
     }, []);
 
-    console.log("Stok Bahan", stokBahan);
-
     return (
         <>
-            <Container className="top-container w-50">
+            {/* <Container className="top-container w-50">
                 <div className="d-flex justify-content-start align-items-center">
                     <h6>Ingredients</h6>
                 </div>
@@ -104,16 +92,11 @@ const ProcessingPesananView = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {stokBahan.map((item) => (
-                                <tr key={item.ID_Bahan_Baku}>
-                                    <td>{item.Nama_Bahan}</td>
-                                    <td>{item.Kuantitas}</td>
-                                </tr>
-                            ))} */}
+                            
                         </tbody>
                     </table>
                 </Container>
-            </Container>
+            </Container> */}
             <Container className="top-container">
                 <Row>
                     <Col  className="d-flex justify-content-start align-items-center">
@@ -168,13 +151,18 @@ const ProcessingPesananView = () => {
                                                 </td>
                                                 <td>
                                                     <ul className="m-0 p-0" style={{listStyleType: 'none'}}>
-                                                        {/* //panggil getingredients disini */}
+                                                        {trans.Status === "diterima" ? (
+                                                            <Badge bg="warning" >Safe</Badge>
+                                                        ) : (
+                                                            <Badge bg="secondary">Yet ACC</Badge>
+                                                        )}
                                                     </ul>
                                                 </td>
                                                 <td>
                                                     <input 
                                                         type="checkbox" 
-                                                        checked={selectedOrders.includes(trans)} 
+                                                        checked={selectedOrders.includes(trans)}
+                                                        disabled={trans.Status === "diterima" ? false : true} 
                                                         onChange={() => handleCheckboxChange(trans)}
                                                     />
                                                 </td>
@@ -192,8 +180,8 @@ const ProcessingPesananView = () => {
                     )
                 )}
             </Container>
-            {/* Modal Confirmation Delete
-            <Modal show={showModal} onHide={handleCloseModal}>
+            {/* Modal Confirmation Delete */}
+            {/* <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Update Status</Modal.Title>
                 </Modal.Header>

@@ -17,7 +17,8 @@ import {
     faBagShopping,
     faTruck,
     faClipboardCheck,
-    faCartShopping
+    faCartShopping,
+    faChartBar
 } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
@@ -48,11 +49,11 @@ const menu = [
         path : '/MO'
     },
     {
-        nama : 'Pemesanan',
+        nama : 'Material',
         pil1 : null,
         pil2 : null,
         pil3 : null,
-        icon : faClipboardCheck,
+        icon : faChartBar,
         path : '/MO'
     },
     {

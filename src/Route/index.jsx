@@ -50,6 +50,7 @@ import RUDSKaryawan from "../Pages/MOView/RUDSKaryawan";
 import ModalAddKaryawan from "../Pages/MOView/ModalAddKaryawan";
 
 import ProcessingPesananView from "../Pages/MOView/ProcessingPage/ProcessingView";
+import MaterialView from "../Pages/MOView/MaterialPage/MaterialView";
 
 import PengeluaranView from "../Pages/MOView/PengeluaranPage/Pengeluaran";
 import KonfirmasiPesananView from "../Pages/MOView/KonfirmasiPesananPage/KonfirmasiPesanan";
@@ -258,6 +259,10 @@ const router = createBrowserRouter([
             {
                 path :"/MO/Processing",
                 element: <ProcessingPesananView />
+            },
+            {
+                path :"/MO/Material",
+                element: <MaterialView />
             },
         ]
     },
