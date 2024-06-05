@@ -209,3 +209,17 @@ export const LaporanPenjualanTahunanOwner = async (tahun) => {
         throw e.response.data;
     }
 }
+
+export const LaporanPenjualanBulanan = async (data) => {
+    try {
+        const response = await useAxios.get('/laporan-penjualan-bulanan/'+data.bulan+'/'+data.tahun, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

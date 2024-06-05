@@ -57,6 +57,7 @@ import KonfirmasiPesananView from "../Pages/MOView/KonfirmasiPesananPage/Konfirm
 import ListLaporanView from "../Pages/MOView/LaporanPage/Laporan";
 import LaporanPBBView from "../Pages/MOView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBView";
 import LaporanPKView from "../Pages/MOView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKView";
+import LaporanBulananView from "../Pages/MOView/Laporan/LaporanPenjualanProdukPerBulan/LaporanBulananView";
 
 // Owner Access View
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
@@ -263,6 +264,10 @@ const router = createBrowserRouter([
             {
                 path :"/MO/Material",
                 element: <MaterialView />
+            },
+            {
+                path :"/MO/Laporan Bulanan",
+                element: <LaporanBulananView />
             },
         ]
     },

@@ -30,6 +30,7 @@ const menu = [
         pil1 : 'Tambah Karyawan',
         pil2 : 'Presensi Karyawan',
         pil3 : 'List Karyawan',
+        pil4 : null,
         path : '/MO' 
     },
     {
@@ -37,6 +38,7 @@ const menu = [
         pil1 : 'Pengeluaran',
         pil2 : 'Bahan Baku',
         pil3 : 'Titipan',
+        pil4 : null,
         icon : faUsers,
         path : '/MO'
     },
@@ -84,7 +86,7 @@ const menu = [
         nama : 'Laporan',
         pil1 : 'Penjualan Keseluruhan',
         pil2 : 'Penggunaan Bahan Baku',
-        pil3 : null,
+        pil3 : 'Laporan Bulanan',
         icon : faFile,
         path : '/MO'
     }
