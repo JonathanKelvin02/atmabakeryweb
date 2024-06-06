@@ -62,11 +62,11 @@ const ShowHistoryCustomer = () => {
     }
 
     const DibawaKurir = () => {
-        setStatusDibawaKurir(transaksi.filter((item) => item.Status === 'Dibawa Kurir'));
+        setStatusDibawaKurir(transaksi.filter((item) => item.Status == 'Dibawa Kurir'));
     }
 
     const Selesai = () => {
-        setStatusSelesai(transaksi.filter((item) => item.Status === 'Selesai'));
+        setStatusSelesai(transaksi.filter((item) => item.Status == 'Selesai'));
     }
 
     const getHistory = () => {
@@ -97,6 +97,8 @@ const ShowHistoryCustomer = () => {
         GetTransaksiSelesai().then((response) => {
             setTransaksi(response);
             setProses(false);
+            setStatusDibawaKurir(transaksi.filter((item) => item.Status == 'Dibawa Kurir'));
+            setStatusSelesai(transaksi.filter((item) => item.Status == 'Selesai'));
         }).catch((err) => {
             console.log(err);
             setLoading(false);
@@ -117,8 +119,6 @@ const ShowHistoryCustomer = () => {
     useEffect(() => {
         getHistory();
         showTransaksiSelesai();
-        DibawaKurir();
-        Selesai();
     }, []);
 
     return (
