@@ -16,10 +16,7 @@ const MaterialView = () => {
     const fetchMaterial = () => {
         setIsLoading(true);
         GetAllMaterialUse().then((response) => {
-            const filter = Object.entries(response).filter(([date, materials]) => {
-                return Object.keys(date);
-            })
-            setMaterial(filter);
+            setMaterial(response);
             console.log(filter);
             setIsLoading(false);
         }).catch((err) => {
@@ -72,15 +69,15 @@ const MaterialView = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {Object.entries(material)?.filter((item) => {
+                                        {material?.filter((item) => {
                                             return search.toLowerCase() === '' 
                                             ? item
                                             : item.tblbahanbaku.Nama_Bahan.toLowerCase().includes(search.toLowerCase());
-                                        }).map(([Tanggal, item], index) => (
-                                            <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                                <td>{Tanggal}</td>
-                                                {/* <td>{raw.tblbahanbaku.Nama_Bahan}</td>
-                                                <td>{raw.Kuantitas}</td> */}
+                                        }).map((raw) => (
+                                            <tr key={raw.ID_Penggunaan} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                                <td>{raw.Tanggal}</td>
+                                                <td>{raw.tblbahanbaku.Nama_Bahan}</td>
+                                                <td>{raw.Kuantitas}</td>
                                             </tr> 
                                         ))}
                                         
