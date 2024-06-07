@@ -17,7 +17,6 @@ const ShowHistoryCustomer = () => {
     const [proses, setProses] = useState(false);
     const [muter, setMuter] = useState(false);
     const [data, setData] = useState([]);
-    const [transaksi, setTransaksi] = useState([]);
     const [detailTransaksi, setDetailTransaksi] = useState([]);
     const [statusDibawaKurir, setStatusDibawaKurir] = useState([]);
     const [statusSelesai, setStatusSelesai] = useState([]);
@@ -61,14 +60,6 @@ const ShowHistoryCustomer = () => {
         setDetailTransaksi([]);
     }
 
-    const DibawaKurir = () => {
-        setStatusDibawaKurir(transaksi.filter((item) => item.Status === 'Dibawa Kurir'));
-    }
-
-    const Selesai = () => {
-        setStatusSelesai(transaksi.filter((item) => item.Status === 'Selesai'));
-    }
-
     const getHistory = () => {
         setLoading(true);
         GetHistory().then((response) => {
@@ -95,8 +86,11 @@ const ShowHistoryCustomer = () => {
     const showTransaksiSelesai = () => {
         setProses(true);
         GetTransaksiSelesai().then((response) => {
-            setTransaksi(response);
             setProses(false);
+            const tempKurir = response.filter((item) => item.Status == 'Dibawa Kurir');
+            const tempSelesai = response.filter((item) => item.Status == 'Selesai');
+            setStatusDibawaKurir(tempKurir);
+            setStatusSelesai(tempSelesai);
         }).catch((err) => {
             console.log(err);
             setLoading(false);
@@ -117,8 +111,6 @@ const ShowHistoryCustomer = () => {
     useEffect(() => {
         getHistory();
         showTransaksiSelesai();
-        DibawaKurir();
-        Selesai();
     }, []);
 
     return (
@@ -235,7 +227,7 @@ const ShowHistoryCustomer = () => {
                                     </Col>
                                 ))
                             ) : (
-                                <p>Data Kosong</p>
+                                <p className='my-3 text-center'>Data Kosong</p>
                             )
                         )}
                     </Row>
