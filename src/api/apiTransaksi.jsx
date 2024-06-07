@@ -223,3 +223,17 @@ export const LaporanPenjualanBulanan = async (data) => {
         throw e.response.data;
     }
 }
+
+export const OwnerLaporanPenjualanBulanan = async (data) => {
+    try {
+        const response = await useAxios.get('/owner/laporan-penjualan-bulanan/'+data.bulan+'/'+data.tahun, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
+        });
+        return response.data.data;
+    } catch (e) {
+        throw e.response.data;
+    }
+}

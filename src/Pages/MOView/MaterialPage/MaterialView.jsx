@@ -16,7 +16,11 @@ const MaterialView = () => {
     const fetchMaterial = () => {
         setIsLoading(true);
         GetAllMaterialUse().then((response) => {
-            setMaterial(response);
+            const filter = Object.entries(response).filter(([date, materials]) => {
+                return Object.keys(date);
+            })
+            setMaterial(filter);
+            console.log(filter);
             setIsLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -68,15 +72,15 @@ const MaterialView = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {material?.filter((item) => {
+                                        {Object.entries(material)?.filter((item) => {
                                             return search.toLowerCase() === '' 
-                                            ? item 
+                                            ? item
                                             : item.tblbahanbaku.Nama_Bahan.toLowerCase().includes(search.toLowerCase());
-                                        }).map((raw) => (
-                                            <tr key={raw.ID_Produk} style={{ borderBottom: '1px solid #EDEEF2' }}>
-                                                <td>{raw.Tanggal}</td>
-                                                <td>{raw.tblbahanbaku.Nama_Bahan}</td>
-                                                <td>{raw.Kuantitas}</td>
+                                        }).map(([Tanggal, item], index) => (
+                                            <tr key={index} style={{ borderBottom: '1px solid #EDEEF2' }}>
+                                                <td>{Tanggal}</td>
+                                                {/* <td>{raw.tblbahanbaku.Nama_Bahan}</td>
+                                                <td>{raw.Kuantitas}</td> */}
                                             </tr> 
                                         ))}
                                         

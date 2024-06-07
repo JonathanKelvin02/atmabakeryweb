@@ -2,11 +2,18 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { toast } from "react-toastify";
 
-const LaporanBulananPDF = (laporan) => {
+const LaporanStokBahanPDF = (laporan) => {
   if (laporan == null) {
     toast.success("Data Kosong");
     return;
   }
+  const today = new Date();
+  const monthNames = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+  const formattedDate = `${today.getDate()} ${monthNames[today.getMonth()]} ${today.getFullYear()}`;
+
   const pdf = new jsPDF();
 
   const shopData = {
@@ -15,21 +22,19 @@ const LaporanBulananPDF = (laporan) => {
   };
 
   const tableColumn = [
-    { title: "Nama Produk", dataKey: "Nama Produk" },
-    { title: "Jumlah Terjual", dataKey: "Jumlah Terjual" },
-    { title: "Harga", dataKey: "Harga"},
-    { title: "Pendapatan", dataKey: "Pendapatan" },
+    { title: "Nama Bahan", dataKey: "Nama Bahan" },
+    { title: "Stok", dataKey: "Stok" },
+    { title: "Unit", dataKey: "Unit" },
   ];
 
-  const tableRows = Object.entries(laporan.data).map(([productName, item]) => ({
-    "Nama Produk": productName,
-    "Jumlah Terjual": item.total_terjual || "",
-    "Harga": item.harga || "",
-    "Pendapatan": item.total_pendapatan || "",
+  const tableRows = laporan.map((item) => ({
+    "Nama Bahan": item.Nama_Bahan,
+    Stok: item.Stok || "",
+    Unit: item.Satuan || "",
   }));
 
   pdf.setProperties({
-    title: "Laporan Perjualan Bulanan",
+    title: "Laporan Stok Bahan Baku",
   });
 
   // HEADER
@@ -43,18 +48,16 @@ const LaporanBulananPDF = (laporan) => {
   // TITLE
   pdf.setFontSize(20);
   pdf.setFont("helvetica", "bold");
-  pdf.text("Laporan Penjualan Bulanan", 14, 40);
+  pdf.text("Laporan Stok Bahan Baku", 14, 40);
   pdf.setFontSize(12);
   pdf.setFont("helvetica", "normal");
-  pdf.text(`Bulan/Tahun: ${laporan.Bulan}/${laporan.Tahun}`, 14, 50);
-  pdf.text(`Tanggal Cetak: ${laporan.Tanggal_Cetak}`, 14, 58);
-  pdf.text(`Total Pendapatan : ${laporan.Total_Penjualan}`, 14, 66);
+  pdf.text(`Tanggal Cetak: ${formattedDate}`, 14, 48);
 
   // TABLE
   pdf.autoTable({
     columns: tableColumn,
     body: tableRows,
-    startY: 72,
+    startY: 56,
     theme: "grid",
     styles: {
       cellPadding: 2,
@@ -73,4 +76,4 @@ const LaporanBulananPDF = (laporan) => {
   );
 };
 
-export default LaporanBulananPDF;
+export default LaporanStokBahanPDF;

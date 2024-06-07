@@ -58,12 +58,16 @@ import ListLaporanView from "../Pages/MOView/LaporanPage/Laporan";
 import LaporanPBBView from "../Pages/MOView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBView";
 import LaporanPKView from "../Pages/MOView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKView";
 import LaporanBulananView from "../Pages/MOView/Laporan/LaporanPenjualanProdukPerBulan/LaporanBulananView";
+import LaporanStokBahan from "../Pages/MOView/Laporan/LaporanStokBahan/LaporanStokBahanView";
 
 // Owner Access View
 import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 import LaporanPBBOwnerView from "../Pages/OwnerView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBOwnerView";
 import LaporanPKOwnerView from "../Pages/OwnerView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKOwnerView";
+
+import OwnerLaporanBulananView from "../Pages/OwnerView/Laporan/LaporanPenjualanProdukPerBulan/LaporanBulananView";
+import OwnerLaporanStokBahan from "../Pages/OwnerView/Laporan/LaporanStokBahan/LaporanStokBahanView";
 
 //Customer View
 import CustomerView from "../Pages/CustomerView/CustomerView";
@@ -80,6 +84,8 @@ import ShoppingView from "../Pages/CustomerView/ShopView/Shop";
 import YourOrderView from "../Pages/CustomerView/CompleteOrderView/YourOrder";
 
 import ProtectedRoutes from "./ProtectedRoutes";
+
+
 
 
 const router = createBrowserRouter([
@@ -269,6 +275,10 @@ const router = createBrowserRouter([
                 path :"/MO/Laporan Bulanan",
                 element: <LaporanBulananView />
             },
+            {
+                path :"/MO/Laporan Stok Bahan",
+                element: <LaporanStokBahan />
+            },
         ]
     },
     {
@@ -291,7 +301,15 @@ const router = createBrowserRouter([
             {
                 path: "/owner/Penggunaan Bahan Baku",
                 element: <LaporanPBBOwnerView/>
-            }
+            },
+            {
+                path :"/owner/Laporan Bulanan",
+                element: <OwnerLaporanBulananView />
+            },
+            {
+                path :"/owner/Laporan Stok Bahan",
+                element: <OwnerLaporanStokBahan />
+            },
         ]
     },
     {

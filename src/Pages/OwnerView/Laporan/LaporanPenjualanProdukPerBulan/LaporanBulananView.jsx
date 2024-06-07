@@ -9,10 +9,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 // Import API
-import { LaporanPenjualanBulanan } from "../../../../api/apiTransaksi";
+import { OwnerLaporanPenjualanBulanan } from "../../../../api/apiTransaksi";
 import LaporanBulananPDF from "./LaporanBulananPDF";
 
-const LaporanBulananView = () => {
+const OwnerLaporanBulananView = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [startDate, setStartDate] = useState(null);
@@ -46,7 +46,7 @@ const LaporanBulananView = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    LaporanPenjualanBulanan(date)
+    OwnerLaporanPenjualanBulanan(date)
       .then((response) => {
         setIsLoading(false);
         setTransaksi(response);
@@ -99,4 +99,4 @@ const LaporanBulananView = () => {
   );
 };
 
-export default LaporanBulananView;
+export default OwnerLaporanBulananView;

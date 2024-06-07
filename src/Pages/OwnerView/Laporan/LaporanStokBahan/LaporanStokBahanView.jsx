@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { GetBahanBaku } from "../../../../api/apiBahanBaku";
 import LaporanStokBahanPDF from "./LaporanStokBahanPDF.";
 
-const LaporanStokBahan = () => {
+const OwnerLaporanStokBahan = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [bahanbaku, setBahanBaku] = useState([]);
@@ -99,4 +99,4 @@ const LaporanStokBahan = () => {
   );
 };
 
-export default LaporanStokBahan;
+export default OwnerLaporanStokBahan;

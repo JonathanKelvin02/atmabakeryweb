@@ -32,6 +32,8 @@ const menu = [
         nama:'Laporan',
         pil1: 'Penjualan Keseluruhan',
         pil2: 'Penggunaan Bahan Baku',
+        pil3: 'Laporan Bulanan',
+        pil4: 'Laporan Stok Bahan',
         icon: faFile,
         path: '/owner'
     }
