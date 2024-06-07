@@ -15,7 +15,7 @@ import {
     faFile,
     faBagShopping,
     faTruck,
-    faCartShopping
+    faCartShopping,
 } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
@@ -27,6 +27,7 @@ const menu = [
         pil1 : 'Tambah Karyawan',
         pil2 : 'Presensi Karyawan',
         pil3 : 'List Karyawan',
+        icon : faUsers,
         path : '/MO' 
     },
     {
