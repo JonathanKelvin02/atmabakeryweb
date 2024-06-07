@@ -31,6 +31,7 @@ const menu = [
         pil2 : 'Presensi Karyawan',
         pil3 : 'List Karyawan',
         pil4 : null,
+        icon : faUsers,
         path : '/MO' 
     },
     {

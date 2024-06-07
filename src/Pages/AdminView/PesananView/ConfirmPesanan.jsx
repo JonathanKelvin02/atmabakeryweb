@@ -17,6 +17,12 @@ const ConfirmPesanan = () => {
     const [proses, setProses] = useState(false);
     const [muter, setMuter] = useState(false);
 
+    const date = new Date();
+
+    const formattedDate = date.getFullYear() + '-' + 
+                      ('0' + (date.getMonth() + 1)).slice(-2) + '-' + 
+                      ('0' + date.getDate()).slice(-2);
+
     const popover = (
         <Popover>
             <Popover.Header as='h3'>Data Produk</Popover.Header>
@@ -218,7 +224,7 @@ const ConfirmPesanan = () => {
                                             <td>{data.Tanggal_Pelunasan}</td>
                                             <td>{hitungTelatBayar(data.Tanggal_Ambil, data.Tanggal_Pelunasan)}</td>
                                             <td>
-                                                <UpdateTransaksiBatal dataTransaksi={data} onSuccess={fetchOrderTelatBayar} />
+                                                {data.Tanggal_Ambil < formattedDate ? (<UpdateTransaksiBatal dataTransaksi={data} onSuccess={fetchOrderTelatBayar} />) : null}
                                             </td>
                                         </tr>
                                     )

@@ -65,6 +65,7 @@ import OwnerMainView from "../Pages/OwnerView/OwnerMainView";
 import ViewGajiBonus from "../Pages/OwnerView/ViewGajiBonus";
 import LaporanPBBOwnerView from "../Pages/OwnerView/Laporan/LaporanPenggunaanBahanBaku/LaporanPBBOwnerView";
 import LaporanPKOwnerView from "../Pages/OwnerView/Laporan/LaporanPenjualanKeseluruhan/LaporanPKOwnerView";
+import ListLaporanOwnerView from "../Pages/OwnerView/LaporanLPage/Laporan";
 
 import OwnerLaporanBulananView from "../Pages/OwnerView/Laporan/LaporanPenjualanProdukPerBulan/LaporanBulananView";
 import OwnerLaporanStokBahan from "../Pages/OwnerView/Laporan/LaporanStokBahan/LaporanStokBahanView";
@@ -268,6 +269,18 @@ const router = createBrowserRouter([
                 element: <ProcessingPesananView />
             },
             {
+                path: "/MO/Laporan",
+                element: <ListLaporanView />
+            },
+            {
+                path: "/MO/Penjualan Keseluruhan",
+                element: <LaporanPKView />
+            },
+            {
+                path :"/MO/Penggunaan Bahan Baku",
+                element: <LaporanPBBView />
+            },
+            {
                 path :"/MO/Material",
                 element: <MaterialView />
             },
@@ -301,6 +314,10 @@ const router = createBrowserRouter([
             {
                 path: "/owner/Penggunaan Bahan Baku",
                 element: <LaporanPBBOwnerView/>
+            },
+            {
+                path: "/owner/LaporanL",
+                element: <ListLaporanOwnerView />
             },
             {
                 path :"/owner/Laporan Bulanan",

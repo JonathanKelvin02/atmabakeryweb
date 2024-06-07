@@ -7,6 +7,8 @@ import Popup from 'reactjs-popup';
 import { toast } from 'react-toastify';
 
 import PopUpShowRelated from '../../../Component/PopUp/PopUpForCustomerAlamat/PopUpContent.jsx';
+import ApproveModal from "../../../Component/Modal/AdminSaldoModal/ApproveModal.jsx";
+import RejectModal from "../../../Component/Modal/AdminSaldoModal/RejectModal.jsx";
 
 // Import Css
 import '../ProductView/Product.css';
@@ -17,6 +19,9 @@ import { GetAllHistorySaldo, AcceptSaldo, RejectSaldo } from "../../../api/apiHi
 
 const SaldoView = () => {
     const navigate = useNavigate();
+    const[showFirstModal, setShowFirstModal] = useState(false);
+    const[showSecondModal, setShowSecondModal] = useState(false);
+    const[initialData, setInitialData] = useState({});
 
     // Fetch, Show, and Loading Purpose
     const [dataFetch, setData] = useState([]);
@@ -101,6 +106,9 @@ const SaldoView = () => {
 
     return(
         <>
+            {showFirstModal && <ApproveModal show={showFirstModal} onClose={() => setShowFirstModal(false)} initialData={initialData} />}
+            {showSecondModal && <RejectModal show={showSecondModal} onClose={() => setShowSecondModal(false)} initialData={initialData} />}
+
             <Container className="top-container">
                 <Row>
                     <Col xs={12} md={8}>
@@ -145,8 +153,14 @@ const SaldoView = () => {
                                             <td>{data.Tanggal}</td>
                                             <td>{data.Total}</td>
                                             <td style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                                                <Button style={{marginRight: '10px'}} variant="outline-success" onClick={() => {AdminAcceptSaldo(data.ID_History)}}>Approve</Button>
-                                                <Button variant="danger" onClick={() => {AdminRejectSaldo(data.ID_History)}}>Reject</Button>
+                                                <Button style={{marginRight: '10px'}} variant="outline-success" onClick={() => {
+                                                    setShowFirstModal(true);
+                                                    setInitialData(data);
+                                                }}>Approve</Button>
+                                                <Button variant="danger" onClick={() => {
+                                                    setShowSecondModal(true);
+                                                    setInitialData(data);
+                                                }}>Reject</Button>
                                             </td>
                                         </tr> 
                                     ))}                                

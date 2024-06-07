@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, Button, Modal } from 'react-bootstrap';
+import { Form, Button, Modal, Row, Col, } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { PDFViewer } from '@react-pdf/renderer';
 
@@ -14,7 +14,7 @@ const LaporanRekapPenitip = ({ show, onClose }) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [showPDF, setShowPDF] = useState(false);
-    const [data, setData] = useState({});
+    const [dataFetched, setData] = useState({});
     const [totalGajiPegawai, setTotalGajiPegawai] = useState(0);
 
     const months = [
@@ -46,14 +46,13 @@ const LaporanRekapPenitip = ({ show, onClose }) => {
             setIsLoading(true);
             GetLaporanTransaksiPenitip(toData).then((res) => {
                 setData(res);
-                console.log(data);
                 setIsLoading(false);
                 setShowPDF(true);
             })
-            .catch((error) => {
-                console.log(error);
-                setIsLoading(false);
-            });
+                .catch((error) => {
+                    console.log(error);
+                    setIsLoading(false);
+                });
         }
     }
 
@@ -69,64 +68,101 @@ const LaporanRekapPenitip = ({ show, onClose }) => {
                     backdrop="static"
                 >
 
-                <Modal.Header closeButton>                    
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        Depositor Transaction Recap Report
-                    </Modal.Title>
-                </Modal.Header>
-                
-                <Modal.Body>
-                    <Form.Group controlId="formMonth">
-                        <Form.Label>Bulan</Form.Label>
-                        <Form.Select
-                            value={selectedMonth}
-                            onChange={(e) => setSelectedMonth(e.target.value)}
-                        >
-                            <option value="">Pilih Bulan</option>
-                            {months.map((month) => (
-                                <option key={month.value} value={month.value}>
-                                    {month.name}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Depositor Transaction Recap Report
+                        </Modal.Title>
+                    </Modal.Header>
 
-                    <Form.Group controlId="formYear" className="mt-3">
-                        <Form.Label>Tahun</Form.Label>
-                        <Form.Select
-                            value={selectedYear}
-                            onChange={(e) => setSelectedYear(e.target.value)}
-                        >
-                            <option value="">Pilih Tahun</option>
-                            {years.map((year) => (
-                                <option key={year} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </Form.Group>
+                    <Modal.Body>
+                        <Form.Group controlId="formMonth">
+                            <Form.Label>Bulan</Form.Label>
+                            <Form.Select
+                                value={selectedMonth}
+                                onChange={(e) => setSelectedMonth(e.target.value)}
+                            >
+                                <option value="">Pilih Bulan</option>
+                                {months.map((month) => (
+                                    <option key={month.value} value={month.value}>
+                                        {month.name}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
 
-                    <Form.Group controlId="buttonAccept" className="mt-3">
-                        <Button variant="outline-success" className="w-100" onClick={generetingDataToPDF} disabled={isLoading}>
-                            {isLoading ? 'Loading...' : 'Create PDF'}
-                        </Button>
-                    </Form.Group>
+                        <Form.Group controlId="formYear" className="mt-3">
+                            <Form.Label>Tahun</Form.Label>
+                            <Form.Select
+                                value={selectedYear}
+                                onChange={(e) => setSelectedYear(e.target.value)}
+                            >
+                                <option value="">Pilih Tahun</option>
+                                {years.map((year) => (
+                                    <option key={year} value={year}>
+                                        {year}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
 
-                    <div className="pdf-modal-body mt-4">
+                        <Form.Group controlId="buttonAccept" className="mt-3">
+                            <Button variant="outline-success" className="w-100" onClick={generetingDataToPDF} disabled={isLoading}>
+                                {isLoading ? 'Loading...' : 'Create PDF'}
+                            </Button>
+                        </Form.Group>
+
+                        {/* {showPDF && (
+                        // {data.data.map((penitip, index) => (
+                            
+                        // ))}
+
+                        <div className="pdf-modal-body mt-4">
+                            {showPDF && (
+                                <PDFViewer className="pdf-viewer">
+                                    <LaporanPresensi 
+                                        initialData={dataFetched}
+                                    />
+                                </PDFViewer>
+                            )}
+                        </div>
+                    )} */}
+
                         {showPDF && (
-                            <PDFViewer className="pdf-viewer">
-                                <LaporanPresensi 
-                                    initialData={data}
-                                />
-                            </PDFViewer>
-                        )}
-                    </div>
-                </Modal.Body>
+                                <div className="pdf-modal-body mt-4">
+                                    {dataFetched.data.map((penitip, index) => (
+                                        <PDFViewer className="pdf-viewer" key={index}>
+                                            <LaporanPresensi
+                                                dataPenitip={penitip}
+                                                bulan={dataFetched.bulan}
+                                                tahun={dataFetched.tahun}
+                                                tgl_cetak={dataFetched.tgl_cetak}
+                                            />
+                                        </PDFViewer>
+                                    ))}
+                                </div>
 
-                <Modal.Footer>
-                    <Button variant="outline-success" type="submit">Save</Button>
-                    <Button variant="danger" onClick={onClose}>Cancel</Button>
-                </Modal.Footer>
+                        )}
+
+
+
+                        {/* <div className="pdf-modal-body mt-4">
+    {showPDF && Array.isArray(data) && data.map((penitipData, index) => (
+        <PDFViewer key={index} className="pdf-viewer">
+            <LaporanPresensi 
+                initialData={penitipData}
+            />
+        </PDFViewer>
+    ))}
+</div> */}
+
+
+
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button variant="outline-success" type="submit">Save</Button>
+                        <Button variant="danger" onClick={onClose}>Cancel</Button>
+                    </Modal.Footer>
 
                 </Modal>
             </Form>

@@ -14,10 +14,10 @@ import {
     faFile,
     faListUl,
     faReceipt,
+    faMoneyBill,
     faMapLocation,
     faCartShopping,
-    faBookOpen,
-    faMoneyBill
+    faBookOpen
 } from '@fortawesome/free-solid-svg-icons';
 
 //Import API
@@ -64,7 +64,7 @@ const menu = [
         pil3 : null,
         icon : faUsers,
         path : '/admin'
-    }, 
+    },
     {
         nama : 'Pesanan',
         pil1 : 'Ubah Status',

@@ -26,7 +26,7 @@ export const GetTransaksiCustomer = async () => {
     } catch (e) {
         throw e.response.data;
     }
-}
+};
 
 export const UpdateStatus = async (data) => {
     try {

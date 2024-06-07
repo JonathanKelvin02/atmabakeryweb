@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     }
 });
 
-const LaporanTransaksiPenitip = ({ initialData }) => {
+const LaporanTransaksiPenitip = ({ dataPenitip, bulan, tahun, tgl_cetak }) => {
 
-    if (!initialData || initialData.length === 0) {
+    if (!dataPenitip) {
         return (
             <Document>
                 <Page size="A4" style={styles.page}>
@@ -77,79 +77,73 @@ const LaporanTransaksiPenitip = ({ initialData }) => {
                     <Text>Jl. Centralpark No. 10 Yogyakarta</Text>
                 </View>
 
-                {initialData.data.map((penitip, index) => (
-                    <React.Fragment key={index}>
+                <View style={{ ...styles.mainAtmaText, marginTop: "20px" }}>
+                    <Text>LAPORAN TRANSAKSI PENITIP</Text>
+                </View>
 
-                        <View style={{ ...styles.mainAtmaText, marginTop: "20px" }}>
-                            <Text>LAPORAN TRANSAKSI PENITIP</Text>
-                        </View>
+                <View>
+                    <View style={styles.subAtmaText}>
+                        <Text>ID Penitip : {dataPenitip.ID_Penitip}</Text>
+                        <Text>Nama Penitip : {dataPenitip.Nama_Penitip}</Text>
+                        <Text>Bulan : {bulan}</Text>
+                        <Text>Tahun : {tahun}</Text>
+                        <Text>Tanggal Cetak : {tgl_cetak}</Text>
+                    </View>
 
-
-                        <View key={index}>
-                            <View style={styles.subAtmaText}>
-                                <Text>ID Penitip : {penitip.ID_Penitip}</Text>
-                                <Text>Nama Penitip : {penitip.Nama_Penitip}</Text>
-                                <Text>Bulan : {initialData.bulan}</Text>
-                                <Text>Tahun : {initialData.tahun}</Text>
-                                <Text>Tanggal Cetak : {initialData.tgl_cetak}</Text>
+                    <View style={{ ...styles.table, marginTop: "20px" }}>
+                        {/* Table Header */}
+                        <View style={styles.tableRow}>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Nama</Text>
                             </View>
-
-                            <View style={{ ...styles.table, marginTop: "20px" }}>
-                                {/* Table Header */}
-                                <View style={styles.tableRow}>
-                                    <View style={styles.tableCol}>
-                                        <Text style={styles.tableCell}>Nama</Text>
-                                    </View>
-                                    <View style={styles.tableCol}>
-                                        <Text style={styles.tableCell}>Qty</Text>
-                                    </View>
-                                    <View style={styles.tableCol}>
-                                        <Text style={styles.tableCell}>Harga Jual</Text>
-                                    </View>
-                                    <View style={styles.tableCol}>
-                                        <Text style={styles.tableCell}>Total</Text>
-                                    </View>
-                                    <View style={styles.tableCol}>
-                                        <Text style={styles.tableCell}>20% Komisi</Text>
-                                    </View>
-                                    <View style={styles.tableCol}>
-                                        <Text style={styles.tableCell}>Yang Diterima</Text>
-                                    </View>
-                                </View>
-
-                                {penitip.dataTable.map((row, index) => (
-                                    <React.Fragment key={index}>
-                                        <View style={styles.tableRow}>
-                                            <View style={styles.tableCol}>
-                                                <Text style={styles.tableCell}>{row.Nama_Produk}</Text>
-                                            </View>
-                                            <View style={styles.tableCol}>
-                                                <Text style={styles.tableCell}>{row.Total_Kuantitas}</Text>
-                                            </View>
-                                            <View style={styles.tableCol}>
-                                                <Text style={styles.tableCell}>{row.Harga_Jual}</Text>
-                                            </View>
-                                            <View style={styles.tableCol}>
-                                                <Text style={styles.tableCell}>{row.Total_Perolehan}</Text>
-                                            </View>
-                                            <View style={styles.tableCol}>
-                                                <Text style={styles.tableCell}>{row.Komisi}</Text>
-                                            </View>
-                                            <View style={styles.tableCol}>
-                                                <Text style={styles.tableCell}>{row.Yangditerima}</Text>
-                                            </View>
-                                        </View>
-                                    </React.Fragment>
-                                ))}
-                                <View style={styles.tableRow}>
-                                    <View style={styles.tableCol}>
-                                        <Text style={styles.tableCell}>Total : {penitip.Harga_Total}</Text>
-                                    </View>
-                                </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Qty</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Harga Jual</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Total</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>20% Komisi</Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Yang Diterima</Text>
                             </View>
                         </View>
-                    </React.Fragment>
-                ))}
+
+                        {dataPenitip.dataTable.map((row, index) => (
+                            <React.Fragment key={index}>
+                                <View style={styles.tableRow}>
+                                    <View style={styles.tableCol}>
+                                        <Text style={styles.tableCell}>{row.Nama_Produk}</Text>
+                                    </View>
+                                    <View style={styles.tableCol}>
+                                        <Text style={styles.tableCell}>{row.Total_Kuantitas}</Text>
+                                    </View>
+                                    <View style={styles.tableCol}>
+                                        <Text style={styles.tableCell}>{row.Harga_Jual}</Text>
+                                    </View>
+                                    <View style={styles.tableCol}>
+                                        <Text style={styles.tableCell}>{row.Total_Perolehan}</Text>
+                                    </View>
+                                    <View style={styles.tableCol}>
+                                        <Text style={styles.tableCell}>{row.Komisi}</Text>
+                                    </View>
+                                    <View style={styles.tableCol}>
+                                        <Text style={styles.tableCell}>{row.Yangditerima}</Text>
+                                    </View>
+                                </View>
+                            </React.Fragment>
+                        ))}
+                        <View style={styles.tableRow}>
+                            <View style={styles.tableCol}>
+                                <Text style={styles.tableCell}>Total : {dataPenitip.Harga_Total}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
             </Page>
         </Document>
     );

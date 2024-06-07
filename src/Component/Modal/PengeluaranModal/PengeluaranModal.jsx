@@ -9,6 +9,8 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
     const [nama, setNama] = useState(initialData ? initialData.Nama : "");
     const [harga, setHarga] = useState(initialData ? initialData.Harga : "");
     const [tanggal, setTanggal] = useState(initialData ? initialData.Tanggal : "");
+    const [isOtherSelected, setIsOtherSelected] = useState(false);
+    const [otherName, setOtherName] = useState('');
 
     const [errors, setErrors] = useState({});
 
@@ -67,6 +69,10 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
         if (event.target.name === 'Nama') {
             setNama(event.target.value);
             setData(prevData => ({ ...prevData, Nama: event.target.value }));
+    
+            setIsOtherSelected(event.target.value === 'Other');
+        } else if (event.target.name === 'OtherNama') {
+            setOtherName(event.target.value);
         }
 
         if (event.target.name === 'Harga') {
@@ -110,6 +116,10 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
         console.log(data);
 
         const errors = handleSubmit(event);
+
+        if(isOtherSelected){
+            data.Nama = otherName;
+        }
 
         if (Object.keys(errors).length > 0) {
             return;
@@ -157,9 +167,22 @@ const PengeluaranModal = ({ show, onClose, onRefresh, initialData, isUpdate }) =
                             <option value="Bahan Baku">Bahan Baku</option>
                             <option value="Iuran RT">Iuran RT</option>
                             <option value="Bensin">Bensin</option>
-                            <option value="Gas">Gas</option>                            
+                            <option value="Gas">Gas</option>
+                            <option value="Other">Other</option>
                         </Form.Select>
                         {errors.Nama && <div style={{ color: 'red' }}>{errors.Nama}</div>}
+
+                        {/* Conditionally render the input field if "Other" is selected */}
+                        {isOtherSelected && (
+                            <Form.Control
+                                style={{ marginTop: '1%', borderColor: '#3C4242' }}
+                                type="text"
+                                name="OtherNama"
+                                placeholder="Enter expenditure name"
+                                onChange={handleChange}
+                                value={otherName}
+                            />
+                        )}
                     </Form.Group>
 
                     <Form.Group className="mb-2">
