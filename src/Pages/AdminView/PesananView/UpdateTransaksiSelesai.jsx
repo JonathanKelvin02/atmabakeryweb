@@ -46,7 +46,7 @@ const UpdateTransaksiSelesai = ({onSuccess, dataTransaksi}) => {
                 <Form onSubmit={updateTransaksi}>
                     <Modal.Body>
                         <span>Apakah anda yakin untuk mengupdate Transaksi dengan ID <b>{transaksi.ID_Transaksi}</b> ? </span> <br/>
-                        {transaksi.Status === 'Siap Dipick-Up' ? (
+                        {transaksi.Status === 'diterima' ? (
                             <span>Status : <b>{transaksi.Status}</b> diubah menjadi <b>Selesai</b></span>
                         ) : (
                             <span>Status : <b>{transaksi.Status}</b> diubah menjadi <b>Dibawa Kurir</b></span>
